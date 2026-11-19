@@ -1,6 +1,7 @@
 from copy import deepcopy
 import datetime as dt
 import io
+import inspect
 import json
 from pathlib import Path
 import sys
@@ -177,6 +178,16 @@ class FunctionBoundaryTests(unittest.TestCase):
         cls.module = function_app
         cls.functions = {f.get_function_name(): f for f in function_app.app.get_functions()}
         cls.real = real_fixture()
+
+    def test_python_parameters_match_all_sdk_input_bindings(self):
+        for name, function in self.functions.items():
+            with self.subTest(function=name):
+                bindings = json.loads(function.get_function_json())["bindings"]
+                inputs = {binding["name"] for binding in bindings
+                          if binding["direction"].casefold() in ("in", "inout")
+                          and binding["name"] != "$return"}
+                parameters = set(inspect.signature(function.get_user_function()).parameters)
+                self.assertEqual(parameters, inputs)
 
     def test_read_endpoint_is_function_authenticated_get_and_never_collects(self):
         import azure.functions as func

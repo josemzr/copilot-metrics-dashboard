@@ -24,7 +24,8 @@ def azure_url(name, suffix):
 
 
 @app.function_name(name="dataset")
-@app.route(route="dataset", methods=["GET"], auth_level=func.AuthLevel.FUNCTION)
+@app.route(route="dataset", methods=["GET"], auth_level=func.AuthLevel.FUNCTION,
+           trigger_arg_name="request")
 def dataset_snapshot(request: func.HttpRequest) -> func.HttpResponse:
     try:
         with ExitStack() as stack:

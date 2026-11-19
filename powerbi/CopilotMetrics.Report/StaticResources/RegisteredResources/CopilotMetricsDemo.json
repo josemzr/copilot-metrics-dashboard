@@ -1,0 +1,26 @@
+{
+  "name": "Copilot Metrics",
+  "dataColors": [
+    "#b11f4b",
+    "#919191",
+    "#9a1a41",
+    "#5c5c5c",
+    "#fd8ea1",
+    "#6f6f6f",
+    "#dedede",
+    "#242424"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#242424",
+  "tableAccent": "#b11f4b",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#9a1a41"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#242424"
+    }
+  }
+}

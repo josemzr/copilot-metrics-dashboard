@@ -1,0 +1,14 @@
+{
+  "name": "copilot-metrics-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Browser checks for the synthetic Copilot Metrics dashboard",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test web/tests/core.test.cjs",
+    "test:browser": "node web/tests/browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

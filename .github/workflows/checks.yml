@@ -1,0 +1,31 @@
+name: Checks
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: pip install -r requirements-dev.txt
+      - run: python -m unittest discover -s tests
+      - run: python scripts/build_powerbi.py && python web/build.py && python scripts/validate_project.py
+      - run: python scripts/validate_schemas.py
+      - run: node --test web/tests/core.test.cjs
+      - run: npm ci && npx playwright install --with-deps chromium
+      - run: docker compose -p metrics-ci up --build --wait
+      - run: docker build --target collector -t metrics-collector-check .
+      - run: node web/tests/browser.cjs
+      - run: python scripts/smoke_http.py http://127.0.0.1:8080
+      - if: always()
+        run: docker compose -p metrics-ci down --volumes

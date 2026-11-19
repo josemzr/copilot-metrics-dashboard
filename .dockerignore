@@ -1,0 +1,17 @@
+**
+!Dockerfile
+!requirements.txt
+!scripts/
+!scripts/collect.py
+!scripts/normalize.py
+!scripts/make_sample.py
+!scripts/snapshot.py
+!scripts/server.py
+!scripts/worker.py
+!web/
+!web/build.py
+!web/src/
+!web/src/index.html
+!web/src/theme.css
+!web/src/core.js
+!web/src/app.js

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "overview",
+    "billing",
+    "adoption",
+    "controls",
+    "quality",
+    "engagement",
+    "code",
+    "users",
+    "models14",
+    "diagnostics"
+  ],
+  "activePageName": "overview"
+}

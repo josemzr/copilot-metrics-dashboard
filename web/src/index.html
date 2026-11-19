@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Copilot Metrics</title>
+  <script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+  </script>
+  <style>/*__STYLES__*/</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <h1 class="product-title">Copilot Metrics</h1>
+    <div class="header-actions">
+      <span class="offline-label">Stored snapshots</span>
+      <button id="theme-toggle" class="icon-button" aria-label="Toggle light or dark theme">◐</button>
+    </div>
+  </header>
+  <div class="workspace">
+    <section class="provenance" aria-label="Dataset source and coverage">
+      <div class="provenance-source">
+        <div class="segmented" role="group" aria-label="Data mode"><button id="sample-mode" aria-pressed="true">SAMPLE</button><button id="real-mode" aria-pressed="false">REAL</button></div>
+        <span id="mode-badge" class="badge">SAMPLE</span><strong id="dataset-label"></strong>
+      </div>
+      <div class="provenance-meta"><span id="asof"></span><span id="coverage"></span></div>
+    </section>
+    <form id="filters" class="filters" aria-label="Analysis filters">
+      <label class="month-filter">Month<select id="month" name="month"></select></label>
+      <label>From<input id="start" type="date" name="start" required></label>
+      <label>To<input id="end" type="date" name="end" required></label>
+      <label>Country / region<select id="country" name="country"></select></label>
+      <label>Cost center<select id="center" name="center"></select></label>
+      <label>Model<select id="model" name="model"></select></label>
+      <button type="button" class="quiet-button reset" id="reset">Reset</button>
+      <div class="filter-actions"><button type="button" id="refresh" class="primary-button">Refresh</button><button type="button" id="import-button" class="secondary-button">Import JSON</button></div>
+    </form>
+    <div class="scope-row"><span id="scope-summary"></span><span id="refresh-status">No GitHub calls from this browser</span></div>
+    <div id="collector-status" class="notice subtle" role="status">Collector: disabled</div>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <div id="source-notice" class="notice subtle" role="status"></div>
+    <div id="model-notice" class="notice subtle" hidden>Licenses, budgets and pools: current snapshot across all models. Model adoption and inactivity: N/D.</div>
+    <nav class="tabs" role="tablist" aria-label="Dashboard views">
+      <button role="tab" id="tab-overview" aria-controls="panel" aria-selected="true" data-tab="overview">Overview</button>
+      <button role="tab" id="tab-users" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="users">Users</button>
+      <button role="tab" id="tab-daily" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="daily">Daily</button>
+      <button role="tab" id="tab-models" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="models">Models</button>
+      <button role="tab" id="tab-quality" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="quality">Data quality</button>
+    </nav>
+    <main id="main" tabindex="-1"><div id="panel" role="tabpanel" aria-labelledby="tab-overview"></div></main>
+  </div>
+  <input id="file-input" type="file" accept=".json,application/json" hidden aria-label="Select a dataset JSON file">
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+  <script id="embedded-dataset" type="application/json">__DATASET_JSON__</script>
+  <script>/*__CORE__*/</script>
+  <script>/*__APP__*/</script>
+</body>
+</html>

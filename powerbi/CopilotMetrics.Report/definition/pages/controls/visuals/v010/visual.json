@@ -1,0 +1,221 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "v010",
+  "position": {
+    "x": 20,
+    "y": 410,
+    "z": 10,
+    "tabOrder": 10,
+    "width": 1400,
+    "height": 210
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Centers"
+                    }
+                  },
+                  "Property": "Center"
+                }
+              },
+              "queryRef": "Centers.Center",
+              "nativeQueryRef": "Center"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Budgets"
+                    }
+                  },
+                  "Property": "BudgetId"
+                }
+              },
+              "queryRef": "Budgets.BudgetId",
+              "nativeQueryRef": "BudgetId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Budgets"
+                    }
+                  },
+                  "Property": "Scope"
+                }
+              },
+              "queryRef": "Budgets.Scope",
+              "nativeQueryRef": "Scope"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Budgets"
+                    }
+                  },
+                  "Property": "ProductSKU"
+                }
+              },
+              "queryRef": "Budgets.ProductSKU",
+              "nativeQueryRef": "ProductSKU"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Budgets"
+                    }
+                  },
+                  "Property": "BudgetType"
+                }
+              },
+              "queryRef": "Budgets.BudgetType",
+              "nativeQueryRef": "BudgetType"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Budgets"
+                    }
+                  },
+                  "Property": "HardStop"
+                }
+              },
+              "queryRef": "Budgets.HardStop",
+              "nativeQueryRef": "HardStop"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Measured budget USD"
+                }
+              },
+              "queryRef": "Info.Measured budget USD",
+              "nativeQueryRef": "Measured budget USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Consumed budget USD"
+                }
+              },
+              "queryRef": "Info.Consumed budget USD",
+              "nativeQueryRef": "Consumed budget USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Budget headroom USD"
+                }
+              },
+              "queryRef": "Info.Budget headroom USD",
+              "nativeQueryRef": "Budget headroom USD"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Current snapshot: measured USD budget headroom, NOT a credit pool'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#9a1a41'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

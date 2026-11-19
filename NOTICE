@@ -6,6 +6,7 @@ owners. This is an independent example, not an official product.
 
 Optional runtime dependency: cryptography (Apache-2.0 OR BSD-3-Clause).
 Optional browser-test dependency: Playwright (Apache-2.0).
+Optional cloud adapter dependencies: Azure SDK for Python packages (MIT).
 Optional semantic-model validator: Microsoft.AnalysisServices, distributed
 under its package license. Docker base image: Docker Official Python image;
 its included components retain their respective licenses.

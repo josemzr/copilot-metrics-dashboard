@@ -18,6 +18,8 @@ docker compose cp web:/data/dataset.json ../copilot-metrics-private/dataset.json
 
 The container **does not run Power BI Desktop or Power BI Service**. A file copied once does not update automatically. For scheduled Service refresh, provide an accessible private data source and the appropriate gateway or deployment; the Service cannot fetch `localhost` from your laptop. These deployment steps are not automated here.
 
+The [optional Azure adapter](azure.md) includes a separate static-URL cloud-model generator. Provisioning, publishing, credentials and scheduled Service refresh still require explicit operator setup; the checked-in SAMPLE model is unchanged.
+
 ## Read the numbers carefully
 
 N/D / blank means missing or unsupported, not zero. License snapshots are not historical rosters. Activity and acceptance are usage signals, not individual productivity or ROI. Fact tables have separate grains: do not add Metrics, ModelFeatures, ClientModels and CLI together. Models join only by their exact identifiers; AI credits use billing quantities, never request counts or proportional allocation.

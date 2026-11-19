@@ -31,6 +31,8 @@ The collector runs at startup and once a day by default. GitHub reports are publ
 
 [GitHub App setup](docs/github-app.md) · [Power BI](docs/power-bi.md) · [API and JSON examples](docs/api-examples.md)
 
+For collection without a laptop, see the [optional Azure adapter](docs/azure.md). It needs separately configured paid infrastructure; Docker SAMPLE does not use Azure.
+
 ## Development
 
 Development checks use Python 3.11+, Node.js 20+ and the declared test dependencies. Use your organization's approved package index if required.

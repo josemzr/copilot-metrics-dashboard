@@ -1,0 +1,13 @@
+{
+  "METRICS_SCHEDULE": "0 0 6 * * *",
+  "GITHUB_APP_ID": "000000",
+  "GITHUB_INSTALLATION_ID": "000000",
+  "GITHUB_ENTERPRISE": "example-enterprise",
+  "KEY_VAULT_URL": "https://example-metrics-vault.vault.azure.net",
+  "GITHUB_KEY_SECRET_NAME": "github-app-private-key",
+  "DATA_BLOB_ACCOUNT_URL": "https://examplemetricsdata.blob.core.windows.net",
+  "DATA_CONTAINER": "metrics",
+  "COLLECT_DAYS": "3",
+  "ALLOW_MISSING_METRICS": "false",
+  "COLLECTOR_CONFIG_JSON": "{\"countries\":{\"example-center\":\"Example region\"}}"
+}

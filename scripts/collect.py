@@ -12,6 +12,7 @@ import urllib.request
 API_BASE = "https://api.github.com"
 API_VERSION = "2026-03-10"
 MAX_BYTES = 16 * 1024 * 1024
+MAX_KEY_BYTES = 64 * 1024
 MAX_RECORDS = 150_000
 MAX_PAGES = 100
 
@@ -249,17 +250,24 @@ def collect(config, client):
                 source_coverage=coverage, license_snapshot=licenses)
 
 
-def app_client(app_id, installation_id, key_path):
+def app_client(app_id, installation_id, key_path=None, *, key_bytes=None):
     from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
     if not str(app_id).isdigit() or not str(installation_id).isdigit():
         raise ContractError("App ID and installation ID must be numeric")
+    if (key_path is None) == (key_bytes is None):
+        raise ContractError("Provide exactly one private key path or byte value")
+    if key_path is not None:
+        with key_path.open("rb") as stream:
+            key_bytes = stream.read(MAX_KEY_BYTES + 1)
+    if not isinstance(key_bytes, bytes) or not 1 <= len(key_bytes) <= MAX_KEY_BYTES:
+        raise ContractError(f"Private key must be 1..{MAX_KEY_BYTES} bytes")
     encode = lambda value: base64.urlsafe_b64encode(value).rstrip(b"=")
     now = int(time.time())
     header = encode(b'{"alg":"RS256","typ":"JWT"}')
     payload = encode(json.dumps(dict(iat=now - 60, exp=now + 540, iss=str(app_id))).encode())
-    key = serialization.load_pem_private_key(key_path.read_bytes(), password=None)
+    key = serialization.load_pem_private_key(key_bytes, password=None)
     if not isinstance(key, rsa.RSAPrivateKey) or key.key_size < 2048:
         raise ContractError("GitHub App requires an RSA private key of at least 2048 bits")
     message = header + b"." + payload

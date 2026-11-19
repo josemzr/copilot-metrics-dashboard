@@ -65,11 +65,6 @@ def account_client(login, runner=subprocess.run, client_factory=AccountClient):
     actual = identity.get("login") if isinstance(identity, dict) else None
     if not isinstance(actual, str) or actual.casefold() != login.casefold():
         raise DownloadError("Authenticated identity does not match the explicitly selected GitHub login")
-    if not isinstance(client.oauth_scopes, str) or not client.oauth_scopes:
-        raise DownloadError("This kit requires visible classic/OAuth scopes; no credential fallback was attempted")
-    scopes = {value.strip() for value in client.oauth_scopes.split(",")}
-    if "admin:enterprise" not in scopes and not {"read:enterprise", "manage_billing:enterprise"} <= scopes:
-        raise DownloadError("The selected account needs read:enterprise and manage_billing:enterprise consent")
     return client
 
 
@@ -93,15 +88,26 @@ def configuration(enterprise, start_day, end_day, now=None):
 
 
 def preflight(client, config):
+    def check(source, path, **params):
+        try:
+            return client.get(path, **params)
+        except ContractError as error:
+            code = re.search(r"\bHTTP (\d{3})\b", str(error))
+            reason = "HTTP " + code.group(1) if code else "request or contract error"
+            raise DownloadError(
+                f"{source} preflight failed ({reason}). Check enterprise role, CLI consent, SSO and policy; "
+                "no report rows were downloaded."
+            ) from None
+
     base = "/enterprises/" + config["enterprise"]
     billing = base + "/settings/billing"
-    client.get(billing + "/cost-centers", page=1, per_page=1)
-    client.get(billing + "/budgets", page=1, per_page=1)
-    client.get(base + "/copilot/billing/seats", page=1, per_page=1)
+    check("Cost centers", billing + "/cost-centers", page=1, per_page=1)
+    check("Budgets", billing + "/budgets", page=1, per_page=1)
+    check("Licenses", base + "/copilot/billing/seats", page=1, per_page=1)
     date = dt.date.fromisoformat(config["end_day"])
-    client.get(billing + "/ai_credit/usage", year=date.year, month=date.month, day=date.day,
-               cost_center_id="none")
-    report = client.get(base + "/copilot/metrics/reports/users-1-day", day=config["end_day"])
+    check("AI credit billing", billing + "/ai_credit/usage", year=date.year, month=date.month, day=date.day,
+          cost_center_id="none")
+    report = check("Metrics", base + "/copilot/metrics/reports/users-1-day", day=config["end_day"])
     if report == "" and config["allow_missing_metrics"]:
         return
     if not isinstance(report, dict) or report.get("report_day") != config["end_day"]:
@@ -141,7 +147,8 @@ def download(output, config, login, *, client_loader=account_client, collector=c
         return data
     except (ContractError, ValueError, KeyError, TypeError, OSError, subprocess.SubprocessError) as error:
         status.update(state="error", stage=stage, errorType=type(error).__name__,
-                      lastError="Manual download failed; the previous dataset is unchanged unless saving completed.")
+                      lastError=str(error) if isinstance(error, DownloadError) else
+                      "Manual download failed; the previous dataset is unchanged unless saving completed.")
         atomic_json(output / "download-status.json", status, file_mode=0o600)
         if isinstance(error, DownloadError):
             raise

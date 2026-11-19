@@ -31,6 +31,8 @@ class FixtureAPI:
         self.data, self.raw, self.mapping = make_sample()
         self.calls, self.reports = [], []
         self.failure = None
+        self.denied_suffix = None
+        self.oauth_scopes = "gist, manage_billing:enterprise, read:org, repo, workflow"
 
     def page(self, rows, params, key):
         size = min(params.get("per_page", 100), 3)
@@ -40,6 +42,10 @@ class FixtureAPI:
 
     def get(self, path, **params):
         self.calls.append((path, params))
+        if path == "/user":
+            return {"login": "example-user"}
+        if self.denied_suffix and path.endswith(self.denied_suffix):
+            raise ContractError("GitHub HTTP 403; response body must not be logged")
         if self.failure == "permission":
             raise ContractError("GitHub HTTP 403; fixture-only")
         if path.endswith("/cost-centers"):
@@ -80,7 +86,7 @@ class ManualDownloadTests(unittest.TestCase):
         self.config = configuration("example-enterprise", "2026-11-14", "2026-11-16",
                                     dt.datetime(2026, 11, 19, tzinfo=dt.timezone.utc))
 
-    def test_selected_identity_and_scopes_are_checked_without_token_arguments_or_auth_mutation(self):
+    def test_selected_identity_is_checked_without_token_arguments_or_auth_mutation(self):
         calls = []
         def runner(args, **kwargs):
             calls.append(args)
@@ -98,7 +104,7 @@ class ManualDownloadTests(unittest.TestCase):
     def test_auth_failures_and_environment_overrides_never_fall_back(self):
         runner = lambda *a, **k: SimpleNamespace(returncode=0, stdout="fixture-only-token", stderr="")
         for login, scopes in (("other-user", "read:enterprise, manage_billing:enterprise"),
-                              ("example-user", "repo"), ("example-user", None)):
+                              (None, "repo")):
             factory = lambda *a, login=login, scopes=scopes: SimpleNamespace(
                 get=lambda path: {"login": login}, oauth_scopes=scopes)
             with patch.dict(os.environ, {}, clear=True), self.assertRaises(DownloadError):
@@ -109,6 +115,35 @@ class ManualDownloadTests(unittest.TestCase):
             account_client("example-user", runner=lambda *a, **k: SimpleNamespace(
                 returncode=1, stdout="fixture-sensitive-output", stderr="fixture-sensitive-output"))
         self.assertNotIn("fixture-sensitive-output", str(failure.exception))
+
+    def test_normalized_enterprise_billing_consent_passes_when_all_five_sources_authorize(self):
+        runner = lambda *a, **k: SimpleNamespace(returncode=0, stdout="fixture-only-token", stderr="")
+        loader = lambda login: account_client(login, runner=runner, client_factory=lambda *a: self.api)
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {}, clear=True):
+            data = download(directory, self.config, "example-user", client_loader=loader)
+        self.assertEqual(self.api.oauth_scopes, "gist, manage_billing:enterprise, read:org, repo, workflow")
+        self.assertEqual(set(data), TABLES)
+        self.assertEqual(data["Info"][0]["Mode"], "REAL")
+        for suffix in ("/cost-centers", "/budgets", "/seats", "/ai_credit/usage", "/users-1-day"):
+            self.assertTrue(any(path.endswith(suffix) for path, _ in self.api.calls))
+        self.assertEqual(len(self.api.reports), 3)
+
+    def test_partial_consent_with_source_403_is_rejected_before_reports_and_preserves_last_good(self):
+        self.api.oauth_scopes = "repo"
+        self.api.denied_suffix = "/budgets"
+        runner = lambda *a, **k: SimpleNamespace(returncode=0, stdout="fixture-only-token", stderr="")
+        loader = lambda login: account_client(login, runner=runner, client_factory=lambda *a: self.api)
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {}, clear=True):
+            path = Path(directory) / "dataset.json"
+            atomic_json(path, self.api.data)
+            before = path.read_bytes()
+            with self.assertRaises(DownloadError) as failure:
+                download(directory, self.config, "example-user", client_loader=loader)
+            self.assertIn("Budgets", str(failure.exception))
+            self.assertIn("HTTP 403", str(failure.exception))
+            self.assertNotIn("response body", str(failure.exception))
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(self.api.reports, [])
 
     def test_oauth_scope_capture_and_account_client_get_only_guard(self):
         capture = ScopeCapture()

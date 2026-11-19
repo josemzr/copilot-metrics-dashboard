@@ -27,7 +27,7 @@ This does not touch any separate Docker setup on port 8080.
 
 For the complete enterprise export, **Enterprise Billing Manager** is a sufficient role; Enterprise Owner also works but is not required. An organization owner only sees their associated scope, not necessarily the whole enterprise. An ordinary enterprise member is not enough. Custom roles can have partial access and may fail, especially on licenses; the downloader will not silently substitute zero rows.
 
-Role, CLI OAuth consent and SSO are separate checks. Consent does not elevate your role. The documented conservative CLI consent is **`read:enterprise` plus `manage_billing:enterprise`**. The billing scope permits billing **read and write** even though **this downloader sends GET requests only**. Do not request `admin:enterprise` as a minimum. GitHub CLI may add its own default scopes.
+Role, CLI OAuth consent and SSO are separate checks. Consent does not elevate your role. The documented conservative CLI consent is **`read:enterprise` plus `manage_billing:enterprise`**. GitHub can normalize/inherit these grants and report only `manage_billing:enterprise` for enterprise access; a missing literal `read:enterprise` in the scope header is **not** a reason to request more permissions. The billing scope permits billing **read and write** even though **this downloader sends GET requests only**. Do not request `admin:enterprise` as a minimum. GitHub CLI may add its own default scopes.
 
 Sign in yourself before downloading:
 
@@ -37,7 +37,7 @@ gh auth login --hostname github.com --web --scopes "read:enterprise,manage_billi
 
 Authorize the CLI/token for SAML/SSO if your enterprise policy requires it. Enterprise **Copilot usage metrics** must be enabled. A personal Copilot Pro account does not grant enterprise reports. No employee-by-employee OAuth or MFA exception is needed.
 
-The script selects the stored `gh` account you name and verifies `/user`, classic/OAuth scopes and all five source endpoints before report downloads. It never switches accounts, changes global auth, uses an admin fallback or accepts a token flag. Token environment overrides are rejected rather than silently used. Fine-grained credentials without a classic/OAuth scopes header are not supported by this kit.
+The script selects the stored `gh` account you name and verifies `/user`, then checks access to all five source endpoints **before downloading report rows**. Those actual GET results are authoritative, not a textual comparison of normalized scope names. A denied source reports its name and HTTP status with role/consent/SSO guidance, without response bodies or tokens, and leaves the previous JSON intact. The script never switches accounts, changes global auth, uses an admin fallback or accepts a token flag. Token environment overrides are rejected rather than silently used.
 
 ## Download REAL data explicitly
 

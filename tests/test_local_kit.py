@@ -25,6 +25,10 @@ from snapshot import TABLES, atomic_json, read_snapshot
 from kit.build_local_kit import build as build_kit
 from server import Handler
 
+NO_TOKEN_OVERRIDES = {name: "" for name in (
+    "GH_TOKEN", "GITHUB_TOKEN", "GH_ENTERPRISE_TOKEN", "GITHUB_ENTERPRISE_TOKEN",
+)}
+
 
 class FixtureAPI:
     def __init__(self):
@@ -119,7 +123,7 @@ class ManualDownloadTests(unittest.TestCase):
     def test_normalized_enterprise_billing_consent_passes_when_all_five_sources_authorize(self):
         runner = lambda *a, **k: SimpleNamespace(returncode=0, stdout="fixture-only-token", stderr="")
         loader = lambda login: account_client(login, runner=runner, client_factory=lambda *a: self.api)
-        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {}, clear=True):
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, NO_TOKEN_OVERRIDES):
             data = download(directory, self.config, "example-user", client_loader=loader)
         self.assertEqual(self.api.oauth_scopes, "gist, manage_billing:enterprise, read:org, repo, workflow")
         self.assertEqual(set(data), TABLES)
@@ -133,7 +137,7 @@ class ManualDownloadTests(unittest.TestCase):
         self.api.denied_suffix = "/budgets"
         runner = lambda *a, **k: SimpleNamespace(returncode=0, stdout="fixture-only-token", stderr="")
         loader = lambda login: account_client(login, runner=runner, client_factory=lambda *a: self.api)
-        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {}, clear=True):
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, NO_TOKEN_OVERRIDES):
             path = Path(directory) / "dataset.json"
             atomic_json(path, self.api.data)
             before = path.read_bytes()

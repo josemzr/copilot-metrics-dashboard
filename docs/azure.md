@@ -3,9 +3,9 @@
 The normal Docker quickstart stays local and costs nothing in Azure. This optional adapter is for running collection when your laptop is off:
 
 ```text
-GitHub App -> timer Function -> private Blob -> authenticated read endpoint -> Power BI
-                    |
-              Key Vault key
+GitHub App -> timer Function -> private Blob -> Function dataset endpoint
+                    |                               |-> Desktop / Excel (Function key)
+              Key Vault key                         |-> Basic gateway -> Power BI Service
 ```
 
 **Included:** a Function runtime, an allowlisted source-package builder, a cloud-model generator and credential-free tests. They reuse the same public collector, normalizer and validation rules as Docker.
@@ -45,17 +45,38 @@ python3 cloud/build_package.py
 
 The ignored `cloud/dist/function-source.zip` contains seven explicit public files. It contains no local settings, sample/REAL data, keys or dependencies. The builder combines the shared signing requirements with optional Azure SDK requirements. An approved Linux Python 3.13 build/deployment step must install those dependencies and produce the actual release; no Azure CLI runs in this repository's CI.
 
-## Connect Power BI without a laptop
+## Choose the Power BI authentication mode
 
-First verify an actual timer run, fresh Blob AsOf, and anonymous rejection / authenticated success on the dataset endpoint. Then plan a separate cloud-connected model:
+Microsoft's [Web connector documentation](https://learn.microsoft.com/en-us/power-query/connectors/web/web) states that Web API authentication **"isn't supported in the Power BI service"**. It is available in Desktop/Excel. Do not publish a direct Function-key model expecting Service scheduled refresh to accept `Key` / Web API credentials.
+
+Both generator modes are offline. By default they print a plan and make **no network calls**. `--execute --output /path/outside/project/Cloud.SemanticModel` writes model files to an empty private folder only; it does not deploy, upload, store credentials or configure a refresh. The checked-in SAMPLE model and Docker deployment stay unchanged.
+
+### Desktop / Excel: direct Function key (default)
 
 ```sh
 python3 cloud/powerbi.py --plan \
   --dataset-url https://example-metrics.azurewebsites.net/api/dataset
 ```
 
-By default this prints a plan and makes **no network calls**. `--execute --output /path/outside/project/Cloud.SemanticModel` writes model files to an empty private folder only; it does not deploy, upload or configure a refresh. The checked-in SAMPLE model and Docker deployment stay unchanged.
+The default `--auth-mode function-key` preserves the full static Function URL and `[ApiKeyName="code"]`. In Desktop/Excel choose **Web API** and store a key scoped to the **dataset Function only**. No key is included in M. This mode is **not a Power BI Service authentication solution**. The [Desktop file workflow](power-bi.md) also remains available.
 
-The generated Power Query uses the **full static dataset URL** with `[ApiKeyName="code"]`. It includes neither a key nor a SAMPLE fallback. In Power BI's data-source credentials choose **Web API** and store a key scoped to the **dataset Function only**. Never use a host/master key, storage key, anonymous access or a copied short-lived OAuth token. [Web.Contents documentation](https://learn.microsoft.com/en-us/powerquery-m/web-contents) explains this credential pattern.
+### Power BI Service: explicit Basic gateway option
 
-Publishing/binding to your own workspace and semantic model is a separate operator step. After a successful refresh matches the Blob's AsOf, configure a daily Service refresh after the timer, for example **07:00 UTC** after 06:00 collection. Check failure notifications and coverage. The Service needs access to the authenticated endpoint; it cannot reach your laptop's localhost or an inaccessible private network. Keep the [Desktop file workflow](power-bi.md) if you do not need cloud refresh.
+```sh
+python3 cloud/powerbi.py --plan --auth-mode basic-gateway \
+  --dataset-url https://example-metrics.azure-api.net/api/dataset
+```
+
+This mode generates plain `Web.Contents("https://example-metrics.azure-api.net/api/dataset")`, with **no `ApiKeyName`, keys or Authorization headers in M**. Only APIM HTTPS dataset URLs are accepted in this mode; it is not Basic authentication directly against a Function.
+
+The intended, separately configured adapter is:
+
+```text
+Service Basic credential store -> APIM GET /api/dataset -> Function (x-functions-key) -> private Blob
+```
+
+In the Service credential store select **Basic**, username **`dataset`**, password **the dataset-only Function key**. An independently deployed APIM gateway must accept only the intended HTTPS GET route and username, use the incoming password transiently as the backend `x-functions-key`, and remove the Basic Authorization header before forwarding. It must not require a separate APIM subscription key or let caller-supplied Function-key headers/query values override that password. The backend remains **Function-authenticated** and reads only the cached Blob. Neither the gateway policy nor M should contain a literal secret. Do not use a host/master key, storage key, anonymous fallback or copied short-lived OAuth token.
+
+**Gateway deployment and Service end-to-end refresh are not verified or automated by this repository.** APIM Consumption is a paid additional resource; this proposed path uses HTTPS to the Function and adds no private-network provisioning here. Keep Authorization, `x-functions-key`, query values and request/response bodies out of gateway diagnostics and tracing. Basic encoding is not encryption: require HTTPS and protect/rotate the credential.
+
+Before enabling scheduled refresh, verify actual function indexing, a successful timer run, fresh Blob AsOf, anonymous rejection, valid gateway credentials and a Service refresh whose AsOf matches the Blob. Publishing/binding and workspace/model selection remain operator steps. Only then schedule Service refresh after collection, for example **07:00 UTC** after 06:00. The Service must reach the gateway; localhost and inaccessible private endpoints do not work.

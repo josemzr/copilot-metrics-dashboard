@@ -163,12 +163,57 @@ class CloudTests(unittest.TestCase):
                         "https://user:pass@example.azurewebsites.net/api/dataset"):
             with self.assertRaises(ValueError):
                 cloud_powerbi.expression(invalid)
-        with tempfile.TemporaryDirectory() as directory, patch("sys.stdout", io.StringIO()):
+        with tempfile.TemporaryDirectory() as directory, patch("sys.stdout", io.StringIO()) as output:
             target = Path(directory) / "generated"
             cloud_powerbi.main(["--dataset-url", url, "--output", str(target)])
             self.assertFalse(target.exists())
+            plan = json.loads(output.getvalue())
+            self.assertEqual(plan["authMode"], "function-key")
+            self.assertIn("Desktop/Excel", plan["credential"])
+            self.assertIsNone(plan["refreshScheduleExampleUTC"])
             cloud_powerbi.main(["--dataset-url", url, "--output", str(target), "--execute"])
             self.assertEqual(set(p.name for p in target.iterdir()), {"model.bim", "definition.pbism"})
+
+    def test_basic_gateway_model_uses_plain_web_contents_and_mode_specific_url(self):
+        url = "https://example-metrics.azure-api.net/api/dataset"
+        database = cloud_powerbi.cloud_model(url, auth_mode="basic-gateway")
+        text = "\n".join(database["model"]["expressions"][0]["expression"])
+        self.assertIn(f'Web.Contents("{url}")', text)
+        for forbidden in ("ApiKeyName", "Headers", "Authorization", "x-functions-key", "Binary.FromText"):
+            self.assertNotIn(forbidden, text)
+        for invalid in (
+            "https://example-metrics.azurewebsites.net/api/dataset",
+            "http://example-metrics.azure-api.net/api/dataset",
+            "https://user:pass@example-metrics.azure-api.net/api/dataset",
+            url + "?code=fixture", url + "#fragment",
+        ):
+            with self.assertRaises(ValueError):
+                cloud_powerbi.expression(invalid, auth_mode="basic-gateway")
+        with self.assertRaises(ValueError):
+            cloud_powerbi.expression(url)
+        with self.assertRaises(ValueError):
+            cloud_powerbi.expression(url, auth_mode="unknown")
+
+    def test_basic_gateway_plan_and_execute_only_generate_private_local_files(self):
+        url = "https://example-metrics.azure-api.net/api/dataset"
+        with tempfile.TemporaryDirectory() as directory, patch(
+                "socket.create_connection", side_effect=AssertionError("Must remain offline")):
+            target = Path(directory) / "generated"
+            args = ["--auth-mode", "basic-gateway", "--dataset-url", url, "--output", str(target)]
+            with patch("sys.stdout", io.StringIO()) as output:
+                cloud_powerbi.main(args)
+            plan = json.loads(output.getvalue())
+            self.assertFalse(target.exists())
+            self.assertFalse(plan["networkCalls"])
+            self.assertEqual(plan["authMode"], "basic-gateway")
+            self.assertIn("Basic", plan["credential"])
+            self.assertEqual(plan["credentialUsername"], "dataset")
+            self.assertIn("dataset-only Function key", plan["credentialPasswordSource"])
+            with patch("sys.stdout", io.StringIO()):
+                cloud_powerbi.main(args + ["--execute"])
+            self.assertEqual(set(p.name for p in target.iterdir()), {"model.bim", "definition.pbism"})
+            generated = json.loads((target / "model.bim").read_text())
+            self.assertEqual(generated, cloud_powerbi.cloud_model(url, auth_mode="basic-gateway"))
 
 
 class FunctionBoundaryTests(unittest.TestCase):

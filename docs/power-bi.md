@@ -18,7 +18,7 @@ docker compose cp web:/data/dataset.json ../copilot-metrics-private/dataset.json
 
 The container **does not run Power BI Desktop or Power BI Service**. A file copied once does not update automatically. For scheduled Service refresh, provide an accessible private data source and the appropriate gateway or deployment; the Service cannot fetch `localhost` from your laptop. These deployment steps are not automated here.
 
-The [optional Azure adapter](azure.md) includes a separate static-URL cloud-model generator. Provisioning, publishing, credentials and scheduled Service refresh still require explicit operator setup; the checked-in SAMPLE model is unchanged.
+The [optional Azure adapter](azure.md#choose-the-power-bi-authentication-mode) includes a separate static-URL model generator. Its default Function-key / Web API mode is for **Desktop/Excel, not Power BI Service**: Microsoft's [Web connector documentation](https://learn.microsoft.com/en-us/power-query/connectors/web/web) excludes Service Web API authentication. Explicit `basic-gateway` mode targets a separately deployed APIM endpoint with Basic credentials in the Service store; gateway deployment and end-to-end refresh are not verified here. Provisioning, publishing and credentials remain operator steps; the checked-in SAMPLE model is unchanged.
 
 ## Read the numbers carefully
 

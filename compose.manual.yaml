@@ -1,0 +1,18 @@
+services:
+  manual:
+    profiles:
+      - manual
+    build:
+      context: .
+      target: web
+    ports:
+      - "127.0.0.1:${MANUAL_PORT:-8081}:8080"
+    environment:
+      DATA_MODE: MANUAL
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

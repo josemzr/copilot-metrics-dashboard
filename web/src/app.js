@@ -6,7 +6,9 @@
   const fmt = value => D.num(value) ? format.format(value) : "N/D";
   const pct = value => D.num(value) ? `${fmt(value * 100)}%` : "N/D";
   const stamp = value => value && Number.isFinite(Date.parse(value)) ? new Date(value).toISOString().replace("T", " ").replace(".000Z", " UTC") : "N/D";
-  const state = { tab: "overview", filters: {}, searches: {}, pages: {}, rank: "Credits", source: "SAMPLE", imported: false };
+  const manualStatusText = "Manual mode: import JSON. No background collection or automatic refresh.";
+  const state = { tab: "overview", filters: {}, searches: {}, pages: {}, rank: "Credits", source: "SAMPLE", imported: false,
+    manual: document.documentElement.dataset.mode === "manual" };
   let initial, data, summary, charts = new Map(), tables = {}, busy = false;
   try { initial = D.parseDataset($("embedded-dataset").textContent); data = initial; }
   catch (error) { $("notice").hidden = false; $("notice").textContent = `Dataset cannot be opened: ${error.message}`; return; }
@@ -209,7 +211,9 @@
   }
   async function collectorStatus() {
     const status = await getJSON("/api/status");
-    $("collector-status").textContent = `Collector: ${status.state} | Last attempt: ${stamp(status.lastAttempt)} | Last success: ${stamp(status.lastSuccess)}${status.lastError ? ` | ${status.lastError}` : ""}`;
+    state.manual = status.state === "manual";
+    $("collector-status").textContent = state.manual ? manualStatusText :
+      `Collector: ${status.state} | Last attempt: ${stamp(status.lastAttempt)} | Last success: ${stamp(status.lastSuccess)}${status.lastError ? ` | ${status.lastError}` : ""}`;
     $("collector-status").className = `notice${status.state === "error" ? " error" : " subtle"}`;
     return status;
   }
@@ -286,8 +290,8 @@
     readFilters();
   });
   $("reset").onclick = () => { populate(); render(); };
-  $("refresh").onclick = () => state.imported ? (populate(false), render(), message("Imported JSON re-read locally. Import a new file to update it.")) : refresh();
-  $("real-mode").onclick = () => refresh("REAL", true);
+  $("refresh").onclick = () => state.imported || state.manual ? (populate(false), render(), message("JSON re-read locally. Import a new file to update it.")) : refresh();
+  $("real-mode").onclick = () => state.manual ? $("import-button").click() : refresh("REAL", true);
   $("sample-mode").onclick = () => { data = initial; state.source = "SAMPLE"; state.imported = false; populate(); render(); $("notice").hidden = true; };
   $("theme-toggle").onclick = () => { document.documentElement.dataset.theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark"; };
   document.querySelector(".tabs").onclick = event => { const tab = event.target.closest("[data-tab]"); if (tab) setTab(tab.dataset.tab); };
@@ -326,12 +330,16 @@
     } catch (error) { message(`Import rejected: ${error.message} The previous snapshot is unchanged.`, true); }
   };
   populate(); render();
-  if (location.protocol !== "file:") {
-    collectorStatus().then(status => { if (status.state !== "disabled") refresh("REAL", true); })
-      .catch(error => message(`Collector status unavailable: ${error.message}`, true));
-    setInterval(() => {
-      collectorStatus().catch(error => message(`Collector status unavailable: ${error.message}`, true));
-      if (state.source === "REAL" && !state.imported) refresh();
-    }, 60000);
+  if (state.manual) $("collector-status").textContent = manualStatusText;
+  if (location.protocol !== "file:" && !state.manual) {
+    const poll = () => setInterval(() => {
+        collectorStatus().catch(error => message(`Collector status unavailable: ${error.message}`, true));
+        if (state.source === "REAL" && !state.imported) refresh();
+      }, 60000);
+    collectorStatus().then(status => {
+      if (state.manual) return;
+      if (status.state !== "disabled") refresh("REAL", true);
+      poll();
+    }).catch(error => { message(`Collector status unavailable: ${error.message}`, true); poll(); });
   }
 })();

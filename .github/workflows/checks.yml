@@ -27,5 +27,20 @@ jobs:
       - run: docker build --target collector -t metrics-collector-check .
       - run: node web/tests/browser.cjs
       - run: python scripts/smoke_http.py http://127.0.0.1:8080
+      - run: docker compose -p metrics-manual-ci -f compose.manual.yaml --profile manual up --build --wait
+      - run: |
+          pwsh -NoLogo -NoProfile -File scripts/download.ps1 -Sample -OutputDirectory "$RUNNER_TEMP/manual sample"
+          BASE_URL=http://127.0.0.1:8081 DATASET_PATH="$RUNNER_TEMP/manual sample/dataset.json" node web/tests/manual.cjs
       - if: always()
-        run: docker compose -p metrics-ci down --volumes
+        run: |
+          docker compose -p metrics-ci down --volumes
+          docker compose -p metrics-manual-ci -f compose.manual.yaml --profile manual down
+
+  manual-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m unittest discover -s tests -p test_local_kit.py

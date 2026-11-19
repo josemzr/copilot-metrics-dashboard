@@ -4,6 +4,7 @@ import json
 import math
 import os
 from pathlib import Path
+import tempfile
 
 from collect import ContractError, MAX_BYTES, MAX_RECORDS
 
@@ -127,15 +128,21 @@ def read_snapshot(path, mode):
     return validate(json.loads(content), mode)
 
 
-def atomic_json(path, data):
+def atomic_json(path, data, *, file_mode=0o640):
     path = Path(path)
     payload = json.dumps(data, ensure_ascii=True, allow_nan=False, separators=(",", ":")).encode()
     if len(payload) > MAX_BYTES:
         raise ContractError("Snapshot exceeds 16 MiB")
-    temporary = path.with_suffix(".tmp")
-    with temporary.open("wb") as stream:
-        os.chmod(temporary, 0o640)
-        stream.write(payload)
-        stream.flush()
-        os.fsync(stream.fileno())
-    temporary.replace(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=path.parent, prefix="." + path.name + ".",
+                                         suffix=".tmp", delete=False) as stream:
+            temporary = Path(stream.name)
+            os.chmod(temporary, file_mode)
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)

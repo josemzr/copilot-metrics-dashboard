@@ -24,3 +24,4 @@ validation/obj/
 *.zip
 *.log
 cloud/dist/
+kit/dist/

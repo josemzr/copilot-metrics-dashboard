@@ -44,10 +44,17 @@ class Handler(BaseHTTPRequestHandler):
             return
         url = urllib.parse.urlsplit(self.path)
         if url.path == "/" and not url.query:
-            self.send_body(200, (ROOT / "web/dist/index.html").read_bytes(), "text/html; charset=utf-8")
+            body = (ROOT / "web/dist/index.html").read_bytes()
+            if os.environ.get("DATA_MODE") == "MANUAL":
+                body = body.replace(b'<html lang="en">', b'<html lang="en" data-mode="manual">', 1)
+            self.send_body(200, body, "text/html; charset=utf-8")
         elif url.path == "/healthz" and not url.query:
             self.json_body(200, dict(status="alive"))
         elif url.path == "/api/status" and not url.query:
+            if os.environ.get("DATA_MODE") == "MANUAL":
+                self.json_body(200, dict(state="manual", lastAttempt=None,
+                                         lastSuccess=None, lastError=None))
+                return
             path = Path(os.environ.get("DATA_DIR", "/data")) / "status.json"
             try:
                 with path.open("rb") as stream:
@@ -70,6 +77,9 @@ class Handler(BaseHTTPRequestHandler):
                 self.json_body(400, dict(error="Select mode=SAMPLE or mode=REAL"))
                 return
             mode = params["mode"][0]
+            if mode == "REAL" and os.environ.get("DATA_MODE") == "MANUAL":
+                self.json_body(503, dict(error="Manual mode: import your local dataset.json in the browser"))
+                return
             path = (ROOT / "data/sample/dataset.json" if mode == "SAMPLE"
                     else Path(os.environ.get("DATA_DIR", "/data")) / "dataset.json")
             try:

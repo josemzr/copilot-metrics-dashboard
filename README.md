@@ -18,7 +18,9 @@ Filter by region, cost center, model and dates. Explore **Overview, Users, Daily
 
 ## Your own data
 
-**REAL** is opt-in. A [GitHub App](docs/github-app.md) collects read-only reports into a private Docker volume. The browser reads that stored snapshot, not GitHub or the App key. Failed collection keeps the last valid snapshot and shows an error.
+Prefer manual downloads with your own GitHub account and one JSON for both viewers? Use the **[manual local kit](docs/local-kit.md)**: no Azure, App or PEM, isolated Docker on port 8081, and Power BI Desktop Refresh on Windows. Only the downloader needs GitHub permissions, not people opening the JSON.
+
+**Scheduled REAL collection** is also opt-in. A [GitHub App](docs/github-app.md) collects read-only reports into a private Docker volume. The browser reads that stored snapshot, not GitHub or the App key. Failed collection keeps the last valid snapshot and shows an error.
 
 ```text
 GitHub -> collector -> stored JSON -> web dashboard

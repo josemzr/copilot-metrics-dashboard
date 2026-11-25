@@ -99,10 +99,10 @@ for name, source in (
 CARD_DISPLAY_MEASURES = {
     "Acceptances", "Active code review users", "Activity acceptance rate", "Budget headroom USD",
     "CLI users", "Complete ISO weeks", "Consumed budget USD", "Copilot app users", "Edited lines",
-    "Generations", "Gross AI credits", "IDE agent users", "IDE chat users", "Inline accepted lines",
+    "Generations", "IDE agent users", "IDE chat users", "Inline accepted lines",
     "Inline line acceptance rate", "Inline suggested lines", "Interactions", "Known telemetry coverage",
     "License snapshot", "Lines added", "Lines deleted", "Mean active days per active user",
-    "Mean observed DAU", "Measured budget USD", "Net cost USD", "Net lines", "Observed active users",
+    "Mean observed DAU", "Measured budget USD", "Net lines", "Observed active users",
     "Observed inactive users", "Observed users", "Passive code review users", "Peak observed DAU",
     "Period adoption", "Recurring share of eligible active users", "Recurring users three days",
     "Suggested lines to delete", "Telemetry absent rows", "Telemetry present rows", "Unattributed user credits",

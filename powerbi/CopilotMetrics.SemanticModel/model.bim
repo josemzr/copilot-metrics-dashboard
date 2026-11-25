@@ -660,11 +660,6 @@
             "isHidden": true
           },
           {
-            "name": "Display Gross AI credits",
-            "expression": "VAR Value = [Gross AI credits] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.00\", \"en-US\"))",
-            "isHidden": true
-          },
-          {
             "name": "Display IDE agent users",
             "expression": "VAR Value = [IDE agent users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
             "isHidden": true
@@ -727,11 +722,6 @@
           {
             "name": "Display Measured budget USD",
             "expression": "VAR Value = [Measured budget USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
-            "isHidden": true
-          },
-          {
-            "name": "Display Net cost USD",
-            "expression": "VAR Value = [Net cost USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
             "isHidden": true
           },
           {

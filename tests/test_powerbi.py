@@ -93,6 +93,16 @@ class PowerBIReportTests(unittest.TestCase):
                 self.assertIn('ISBLANK(Value), "N/D"', display["expression"])
         self.assertIn("NOT ISBLANK([Consumed budget USD])", self.measures["Budget headroom USD"]["expression"])
 
+    def test_overview_financial_cards_remain_numeric_for_classic_dashboard_alerts(self):
+        cards = [visual for visual in self.visuals("overview") if visual["visualType"] == "card"]
+        references = {visual["query"]["queryState"]["Values"]["projections"][0]["queryRef"]
+                      for visual in cards}
+        for name in ("Gross AI credits", "Net cost USD"):
+            with self.subTest(measure=name):
+                self.assertIn("Info." + name, references)
+                self.assertNotIn("Display " + name, self.measures)
+                self.assertNotIn("FORMAT(", self.measures[name]["expression"])
+
     def test_only_numeric_cards_use_hidden_displays_and_all_other_visuals_keep_base_measures(self):
         used = set()
         for path in (self.report / "definition/pages").glob("*/visuals/*/visual.json"):

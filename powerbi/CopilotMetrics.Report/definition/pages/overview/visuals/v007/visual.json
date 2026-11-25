@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Display Net cost USD"
+                  "Property": "Net cost USD"
                 }
               },
-              "queryRef": "Info.Display Net cost USD",
-              "nativeQueryRef": "Display Net cost USD"
+              "queryRef": "Info.Net cost USD",
+              "nativeQueryRef": "Net cost USD"
             }
           ]
         }

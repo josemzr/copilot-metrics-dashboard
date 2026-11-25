@@ -28,4 +28,6 @@ The overview shows each billed model's **gross USD, discounts USD and net USD** 
 
 An empty diagnostic count or residual is **0 only when its source covers the complete selection**; missing coverage stays blank/N/D. A ratio with no denominator and a missing budget-consumed amount remain N/D. Numeric card displays render N/D without changing the numeric measures used by tables and charts. **Client telemetry present rate (known-status user-day rows)** means TRUE / (TRUE + FALSE): one present and twenty absent rows is 4.8%, not a percentage of users. Unknown status is excluded; zero known rows gives N/D.
 
+For classic Power BI dashboard alerts, pin the overview **Gross AI credits** or **Net cost USD** card: both keep their numeric base measure, including a valid zero. Cards using N/D text displays are not numeric and do not support classic numeric alerts.
+
 Rebuild the neutral project with `python3 scripts/build_powerbi.py`. This regenerates SAMPLE only. Structural and TOM validation cannot replace opening Desktop and checking queries, visuals and refresh with your actual environment.

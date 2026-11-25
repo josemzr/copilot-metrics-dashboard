@@ -1,5 +1,15 @@
 """Analytical measures: explicit coverage, observed activity and independent fact grains."""
 
+
+def zero_when_covered(expression, source="Metrics"):
+    coverage = ("[Complete metrics coverage] = 1" if source == "Metrics" else
+                "COUNTROWS(VALUES('Dates'[Day])) > 0 && "
+                "COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), "
+                "KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE()))")
+    return (f"VAR Value = {expression} "
+            f"RETURN IF(NOT ISBLANK(Value), Value, IF({coverage}, 0))")
+
+
 TABLE_EXTENSIONS = {
     "Info": ("SchemaVersion:s LicenseSnapshotAsOf:s LicenseRosterStatus:s "
              "HistoricalLicenseCoverage:s MetricsStartDay:d MetricsEndDay:d "
@@ -35,10 +45,9 @@ MEASURES = {
         "COALESCE(DISTINCTCOUNT('Licenses'[User]), 0))", "#,0"),
     "License snapshot date": ("SELECTEDVALUE(Info[LicenseSnapshotAsOf])", None),
     "Observed active users": (
-        "IF(CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE())) > 0, "
-        "COALESCE(CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE()), 0))", "#,0"),
+        "CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE())", "#,0"),
     "Active user days": (
-        "COALESCE(CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE()), 0)", "#,0"),
+        "CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE())", "#,0"),
     "Mean observed DAU": (
         "IF([Complete metrics coverage] = 1, "
         "AVERAGEX(VALUES('Dates'[Day]), [Observed active users]))", "#,0.0"),
@@ -101,10 +110,10 @@ MEASURES = {
         "#,0"),
     "Complete weeks missing metrics": (
         "VAR SelectedDays = ALLSELECTED('Dates') "
-        "RETURN COALESCE(COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), "
+        "RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), "
         "VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 "
         "&& CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), "
-        "KEEPFILTERS('Dates'[WeekStart] = W)) < 7)), 0)", "#,0"),
+        "KEEPFILTERS('Dates'[WeekStart] = W)) < 7))", "#,0"),
     "Recurring users three days": (
         "VAR SelectedDays = ALLSELECTED('Dates') "
         "VAR CompleteWeeks = FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), "
@@ -112,11 +121,11 @@ MEASURES = {
         "&& CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), "
         "KEEPFILTERS('Dates'[WeekStart] = W)) = 7) "
         "RETURN IF(COUNTROWS(CompleteWeeks) > 0 && [Complete weeks missing metrics] = 0, "
-        "COUNTROWS(FILTER(VALUES('Users'[User]), "
+        "COALESCE(COUNTROWS(FILTER(VALUES('Users'[User]), "
         "MAXX(CompleteWeeks, "
         "VAR W = 'Dates'[WeekStart] "
         "RETURN CALCULATE(DISTINCTCOUNT(Metrics[Day]), Metrics[ActivityObserved] = TRUE(), "
-        "KEEPFILTERS('Dates'[WeekStart] = W))) >= 3)))", "#,0"),
+        "KEEPFILTERS('Dates'[WeekStart] = W))) >= 3)), 0))", "#,0"),
     "Recurring share of eligible active users": (
         "VAR SelectedDays = ALLSELECTED('Dates') "
         "VAR CompleteWeeks = FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), "
@@ -180,6 +189,15 @@ MEASURES = {
         "CALCULATE([Gross AI credits], KEEPFILTERS('Dates'[Day] >= StartDay), "
         "KEEPFILTERS('Dates'[Day] <= EndDay)))", "#,0.00"),
 }
+
+for name in (
+    "Observed active users", "Active user days", "Unknown activity rows", "Complete ISO weeks",
+    "Complete weeks missing metrics", "Feature users", "Telemetry present rows",
+    "Telemetry absent rows", "Unknown telemetry rows", "Unmet requirements rows",
+    "Unknown requirements rows",
+):
+    expression, format_string = MEASURES[name]
+    MEASURES[name] = (zero_when_covered(expression), format_string)
 
 for label, column in (
     ("IDE chat users", "UsedChat"), ("IDE agent users", "UsedAgent"),

@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Complete ISO weeks"
+                  "Property": "Display Complete ISO weeks"
                 }
               },
-              "queryRef": "Info.Complete ISO weeks",
-              "nativeQueryRef": "Complete ISO weeks"
+              "queryRef": "Info.Display Complete ISO weeks",
+              "nativeQueryRef": "Display Complete ISO weeks"
             }
           ]
         }

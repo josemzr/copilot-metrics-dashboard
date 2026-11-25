@@ -55,6 +55,8 @@ The selected dates are printed and recorded in the JSON and dashboard. Metrics a
 
 In Power BI Desktop, open `powerbi/CopilotMetrics.pbip`, then **Transform data → Manage parameters**: set **DataMode = REAL** and **DataRootPath** to the private folder containing that **same `dataset.json`**. Click **Refresh**. In Docker, import that file. Download again and repeat those manual viewer steps when you want new data. No Power BI Service automation is configured.
 
+In Power BI, model costs show gross USD, discounts USD and net USD together, including fully discounted usage with net cost zero. Covered empty diagnostic counts display 0; unknown values, zero-denominator ratios and missing budget consumption display N/D. Client telemetry present rate is the share of **known-status user-day rows** marked present, not the share of users.
+
 Permission references: [billing usage](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/usage?apiVersion=2026-03-10), [cost centers](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/cost-centers), [budgets](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/budgets), [Copilot licenses](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-user-management), [Copilot metrics](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-usage-metrics?apiVersion=2026-03-10).
 
 ## Build a portable ZIP (maintainers)

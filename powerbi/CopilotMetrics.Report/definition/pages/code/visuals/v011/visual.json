@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Inline line acceptance rate"
+                  "Property": "Display Inline line acceptance rate"
                 }
               },
-              "queryRef": "Info.Inline line acceptance rate",
-              "nativeQueryRef": "Inline line acceptance rate"
+              "queryRef": "Info.Display Inline line acceptance rate",
+              "nativeQueryRef": "Display Inline line acceptance rate"
             }
           ]
         }

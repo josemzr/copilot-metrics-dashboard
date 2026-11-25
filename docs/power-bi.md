@@ -24,4 +24,8 @@ The [optional Azure adapter](azure.md#choose-the-power-bi-authentication-mode) i
 
 N/D / blank means missing or unsupported, not zero. License snapshots are not historical rosters. Activity and acceptance are usage signals, not individual productivity or ROI. Fact tables have separate grains: do not add Metrics, ModelFeatures, ClientModels and CLI together. Models join only by their exact identifiers; AI credits use billing quantities, never request counts or proportional allocation.
 
+The overview shows each billed model's **gross USD, discounts USD and net USD** together, so fully discounted usage remains visible even when net cost is zero. These are the API's monetary amounts, not a conversion from credits. The 14-day model chart uses the built-in stacked-column visual.
+
+An empty diagnostic count or residual is **0 only when its source covers the complete selection**; missing coverage stays blank/N/D. A ratio with no denominator and a missing budget-consumed amount remain N/D. Numeric card displays render N/D without changing the numeric measures used by tables and charts. **Client telemetry present rate (known-status user-day rows)** means TRUE / (TRUE + FALSE): one present and twenty absent rows is 4.8%, not a percentage of users. Unknown status is excluded; zero known rows gives N/D.
+
 Rebuild the neutral project with `python3 scripts/build_powerbi.py`. This regenerates SAMPLE only. Structural and TOM validation cannot replace opening Desktop and checking queries, visuals and refresh with your actual environment.

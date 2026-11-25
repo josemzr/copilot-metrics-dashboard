@@ -47,4 +47,4 @@ python3 -m unittest discover -s tests
 node --test web/tests/core.test.cjs
 ```
 
-The generated Power BI project includes 10 pages, 21 tables, 37 relationships and 90 measures. [Validation](validation/README.md) checks its file structure; Power BI Desktop is needed to verify rendering and DAX execution.
+The generated Power BI project includes 10 pages, 21 tables, 37 relationships and 90 analytical measures, plus hidden numeric-card displays for N/D. [Validation](validation/README.md) checks its file structure; Power BI Desktop is needed to verify rendering and DAX execution.

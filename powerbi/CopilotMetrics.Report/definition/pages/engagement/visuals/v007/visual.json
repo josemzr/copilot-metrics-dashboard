@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Period adoption"
+                  "Property": "Display Period adoption"
                 }
               },
-              "queryRef": "Info.Period adoption",
-              "nativeQueryRef": "Period adoption"
+              "queryRef": "Info.Display Period adoption",
+              "nativeQueryRef": "Display Period adoption"
             }
           ]
         }

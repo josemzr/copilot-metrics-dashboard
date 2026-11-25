@@ -201,17 +201,17 @@
           },
           {
             "name": "Users with billing detail",
-            "expression": "CALCULATE(DISTINCTCOUNT(Billing[User]), Billing[User] <> \"(no user detail)\")",
+            "expression": "VAR Value = CALCULATE(DISTINCTCOUNT(Billing[User]), Billing[User] <> \"(no user detail)\") RETURN IF(NOT ISBLANK(Value), Value, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unattributed user credits",
-            "expression": "CALCULATE([Gross AI credits], Billing[User] = \"(no user detail)\")",
+            "expression": "VAR Value = CALCULATE([Gross AI credits], Billing[User] = \"(no user detail)\") RETURN IF(NOT ISBLANK(Value), Value, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
             "formatString": "#,0.00"
           },
           {
             "name": "Observed users",
-            "expression": "DISTINCTCOUNT(Metrics[User])",
+            "expression": "VAR Value = DISTINCTCOUNT(Metrics[User]) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -276,12 +276,12 @@
           },
           {
             "name": "Users without center history",
-            "expression": "CALCULATE([Observed users], Centers[CenterId] = \"unattributed-history\")",
+            "expression": "VAR Value = CALCULATE([Observed users], Centers[CenterId] = \"unattributed-history\") RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Users without client telemetry",
-            "expression": "CALCULATE([Observed users], Metrics[TelemetryPresent] = FALSE())",
+            "expression": "VAR Value = CALCULATE([Observed users], NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -338,12 +338,12 @@
           },
           {
             "name": "Observed active users",
-            "expression": "IF(CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE())) > 0, COALESCE(CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE()), 0))",
+            "expression": "VAR Value = CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Active user days",
-            "expression": "COALESCE(CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE()), 0)",
+            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -377,7 +377,7 @@
           },
           {
             "name": "Unknown activity rows",
-            "expression": "COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[ActivityObserved])))",
+            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[ActivityObserved]))) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -416,17 +416,17 @@
           },
           {
             "name": "Complete ISO weeks",
-            "expression": "VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7))",
+            "expression": "VAR Value = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Complete weeks missing metrics",
-            "expression": "VAR SelectedDays = ALLSELECTED('Dates') RETURN COALESCE(COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) < 7)), 0)",
+            "expression": "VAR Value = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) < 7)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Recurring users three days",
-            "expression": "VAR SelectedDays = ALLSELECTED('Dates') VAR CompleteWeeks = FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7) RETURN IF(COUNTROWS(CompleteWeeks) > 0 && [Complete weeks missing metrics] = 0, COUNTROWS(FILTER(VALUES('Users'[User]), MAXX(CompleteWeeks, VAR W = 'Dates'[WeekStart] RETURN CALCULATE(DISTINCTCOUNT(Metrics[Day]), Metrics[ActivityObserved] = TRUE(), KEEPFILTERS('Dates'[WeekStart] = W))) >= 3)))",
+            "expression": "VAR SelectedDays = ALLSELECTED('Dates') VAR CompleteWeeks = FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7) RETURN IF(COUNTROWS(CompleteWeeks) > 0 && [Complete weeks missing metrics] = 0, COALESCE(COUNTROWS(FILTER(VALUES('Users'[User]), MAXX(CompleteWeeks, VAR W = 'Dates'[WeekStart] RETURN CALCULATE(DISTINCTCOUNT(Metrics[Day]), Metrics[ActivityObserved] = TRUE(), KEEPFILTERS('Dates'[WeekStart] = W))) >= 3)), 0))",
             "formatString": "#,0"
           },
           {
@@ -491,7 +491,7 @@
           },
           {
             "name": "Feature users",
-            "expression": "DISTINCTCOUNT(Features[User])",
+            "expression": "VAR Value = DISTINCTCOUNT(Features[User]) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -511,32 +511,33 @@
           },
           {
             "name": "Telemetry present rows",
-            "expression": "CALCULATE(COUNTROWS(Metrics), Metrics[TelemetryPresent] = TRUE())",
+            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), Metrics[TelemetryPresent] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Telemetry absent rows",
-            "expression": "CALCULATE(COUNTROWS(Metrics), NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE())",
+            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unknown telemetry rows",
-            "expression": "COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[TelemetryPresent])))",
+            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[TelemetryPresent]))) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Known telemetry coverage",
             "expression": "DIVIDE([Telemetry present rows], [Telemetry present rows] + [Telemetry absent rows])",
-            "formatString": "0.0%"
+            "formatString": "0.0%",
+            "description": "Client telemetry present rate among known-status user-day rows: TRUE / (TRUE + FALSE). Unknown status is excluded; zero known rows returns blank, not zero. Not a percentage of users."
           },
           {
             "name": "Unmet requirements rows",
-            "expression": "COUNTROWS(FILTER(Metrics, Metrics[RequirementsUnmet] > 0))",
+            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, Metrics[RequirementsUnmet] > 0)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unknown requirements rows",
-            "expression": "COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[RequirementsUnknown]) || Metrics[RequirementsUnknown] > 0))",
+            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[RequirementsUnknown]) || Metrics[RequirementsUnknown] > 0)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -607,6 +608,231 @@
             "name": "Top15 lines added",
             "expression": "VAR Candidates = FILTER(ALLSELECTED('Users'[User]), 'Users'[User] <> \"(no user detail)\" && NOT ISBLANK(CALCULATE([Lines added]))) VAR TopUsers = TOPN(15, Candidates, [Lines added], DESC, 'Users'[User], ASC) RETURN IF(CONTAINS(TopUsers, 'Users'[User], SELECTEDVALUE('Users'[User])), [Lines added])",
             "formatString": "#,0"
+          },
+          {
+            "name": "Display Acceptances",
+            "expression": "VAR Value = [Acceptances] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Active code review users",
+            "expression": "VAR Value = [Active code review users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Activity acceptance rate",
+            "expression": "VAR Value = [Activity acceptance rate] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Budget headroom USD",
+            "expression": "VAR Value = [Budget headroom USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display CLI users",
+            "expression": "VAR Value = [CLI users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Complete ISO weeks",
+            "expression": "VAR Value = [Complete ISO weeks] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Consumed budget USD",
+            "expression": "VAR Value = [Consumed budget USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Copilot app users",
+            "expression": "VAR Value = [Copilot app users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Edited lines",
+            "expression": "VAR Value = [Edited lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Generations",
+            "expression": "VAR Value = [Generations] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Gross AI credits",
+            "expression": "VAR Value = [Gross AI credits] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display IDE agent users",
+            "expression": "VAR Value = [IDE agent users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display IDE chat users",
+            "expression": "VAR Value = [IDE chat users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Inline accepted lines",
+            "expression": "VAR Value = [Inline accepted lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Inline line acceptance rate",
+            "expression": "VAR Value = [Inline line acceptance rate] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Inline suggested lines",
+            "expression": "VAR Value = [Inline suggested lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Interactions",
+            "expression": "VAR Value = [Interactions] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Known telemetry coverage",
+            "expression": "VAR Value = [Known telemetry coverage] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display License snapshot",
+            "expression": "VAR Value = [License snapshot] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Lines added",
+            "expression": "VAR Value = [Lines added] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Lines deleted",
+            "expression": "VAR Value = [Lines deleted] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Mean active days per active user",
+            "expression": "VAR Value = [Mean active days per active user] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Mean observed DAU",
+            "expression": "VAR Value = [Mean observed DAU] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Measured budget USD",
+            "expression": "VAR Value = [Measured budget USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Net cost USD",
+            "expression": "VAR Value = [Net cost USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Net lines",
+            "expression": "VAR Value = [Net lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Observed active users",
+            "expression": "VAR Value = [Observed active users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Observed inactive users",
+            "expression": "VAR Value = [Observed inactive users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Observed users",
+            "expression": "VAR Value = [Observed users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Passive code review users",
+            "expression": "VAR Value = [Passive code review users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Peak observed DAU",
+            "expression": "VAR Value = [Peak observed DAU] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Period adoption",
+            "expression": "VAR Value = [Period adoption] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Recurring share of eligible active users",
+            "expression": "VAR Value = [Recurring share of eligible active users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Recurring users three days",
+            "expression": "VAR Value = [Recurring users three days] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Suggested lines to delete",
+            "expression": "VAR Value = [Suggested lines to delete] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Telemetry absent rows",
+            "expression": "VAR Value = [Telemetry absent rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Telemetry present rows",
+            "expression": "VAR Value = [Telemetry present rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Unattributed user credits",
+            "expression": "VAR Value = [Unattributed user credits] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.00\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Unknown activity rows",
+            "expression": "VAR Value = [Unknown activity rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Unknown requirements rows",
+            "expression": "VAR Value = [Unknown requirements rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Unknown telemetry rows",
+            "expression": "VAR Value = [Unknown telemetry rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Unmet requirements rows",
+            "expression": "VAR Value = [Unmet requirements rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Users with billing detail",
+            "expression": "VAR Value = [Users with billing detail] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Users without center history",
+            "expression": "VAR Value = [Users without center history] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Display Users without client telemetry",
+            "expression": "VAR Value = [Users without client telemetry] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
           }
         ]
       },

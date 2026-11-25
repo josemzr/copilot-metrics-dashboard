@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Inline suggested lines"
+                  "Property": "Display Inline suggested lines"
                 }
               },
-              "queryRef": "Info.Inline suggested lines",
-              "nativeQueryRef": "Inline suggested lines"
+              "queryRef": "Info.Display Inline suggested lines",
+              "nativeQueryRef": "Display Inline suggested lines"
             }
           ]
         }

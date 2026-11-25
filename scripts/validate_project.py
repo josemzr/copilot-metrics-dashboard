@@ -14,8 +14,11 @@ def main():
     model = json.loads((ROOT / "powerbi/CopilotMetrics.SemanticModel/model.bim").read_text())["model"]
     tables = model["tables"]
     names = {t["name"] for t in tables}
-    measures = {m["name"] for t in tables for m in t.get("measures", [])}
-    assert len(tables) == 21 and len(model["relationships"]) == 37 and len(measures) == 90
+    definitions = {m["name"]: m for t in tables for m in t.get("measures", [])}
+    measures = set(definitions)
+    displays = {name for name in measures if name.startswith("Display ")}
+    assert len(tables) == 21 and len(model["relationships"]) == 37 and len(measures - displays) == 90
+    assert all(definitions[name].get("isHidden") for name in displays)
     fields = {t["name"]: {c["name"] for c in t["columns"]} for t in tables}
     for relation in model["relationships"]:
         for side in ("from", "to"):
@@ -31,6 +34,7 @@ def main():
     pages = json.loads((report / "definition/pages/pages.json").read_text())["pageOrder"]
     assert len(pages) == 10 and len(set(pages)) == 10
     visuals = 0
+    used_displays = set()
     for page in pages:
         assert json.loads((report / f"definition/pages/{page}/page.json").read_text())["name"] == page
         for path in (report / f"definition/pages/{page}/visuals").glob("*/visual.json"):
@@ -42,13 +46,18 @@ def main():
                     entry = field[kind]
                     table = entry["Expression"]["SourceRef"]["Entity"]
                     assert entry["Property"] in (measures if kind == "Measure" else fields[table])
+                    if entry["Property"] in displays:
+                        assert visual["visualType"] == "card"
+                        used_displays.add(entry["Property"])
             visuals += 1
+    assert used_displays == displays
     dataset_m = "\n".join(next(e["expression"] for e in model["expressions"] if e["name"] == "Dataset"))
     embedded = dataset_m.split('Binary.FromText("', 1)[1].split('"', 1)[0]
     sample = validate(json.loads(base64.b64decode(embedded)), "SAMPLE")
     assert sample == make_sample()[0]
     assert json.loads((ROOT / "data/sample/dataset.json").read_text()) == sample
-    print(f"PASS: 21 tables, 37 relationships, 90 measures, 10 pages, {visuals} visuals; embedded SAMPLE matches generator")
+    print(f"PASS: 21 tables, 37 relationships, 90 base + {len(displays)} card-display measures, "
+          f"10 pages, {visuals} visuals; embedded SAMPLE matches generator")
 
 
 if __name__ == "__main__":

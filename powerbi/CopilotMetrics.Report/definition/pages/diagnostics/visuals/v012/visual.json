@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Passive code review users"
+                  "Property": "Display Passive code review users"
                 }
               },
-              "queryRef": "Info.Passive code review users",
-              "nativeQueryRef": "Passive code review users"
+              "queryRef": "Info.Display Passive code review users",
+              "nativeQueryRef": "Display Passive code review users"
             }
           ]
         }

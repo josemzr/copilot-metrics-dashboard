@@ -6,7 +6,7 @@ from pathlib import Path
 
 from make_sample import make_sample
 from normalize import write_json
-from analytics import MEASURES as ANALYTIC_MEASURES, NEW_TABLES, TABLE_EXTENSIONS
+from analytics import MEASURES as ANALYTIC_MEASURES, NEW_TABLES, TABLE_EXTENSIONS, zero_when_covered
 
 ROOT = Path(__file__).resolve().parents[1]
 PBI = ROOT / "powerbi"
@@ -65,7 +65,8 @@ MEASURES = {
     "Users without center history": (
         f'CALCULATE([Observed users], Centers[CenterId] = "unattributed-history")', "#,0"),
     "Users without client telemetry": (
-        "CALCULATE([Observed users], Metrics[TelemetryPresent] = FALSE())", "#,0"),
+        "CALCULATE([Observed users], NOT ISBLANK(Metrics[TelemetryPresent]), "
+        "Metrics[TelemetryPresent] = FALSE())", "#,0"),
     "Measured budget USD": (
         'IF(HASONEVALUE(Budgets[BudgetId]) && SELECTEDVALUE(Budgets[Scope]) = "cost_center" '
         '&& SELECTEDVALUE(Budgets[ProductSKU]) = "ai_credits" '
@@ -87,6 +88,37 @@ for table_name, extension in TABLE_EXTENSIONS.items():
     TABLES[table_name] += " " + extension
 TABLES.update(NEW_TABLES)
 MEASURES.update(ANALYTIC_MEASURES)
+for name, source in (
+    ("Users with billing detail", "Billing"), ("Unattributed user credits", "Billing"),
+    ("Observed users", "Metrics"), ("Users without center history", "Metrics"),
+    ("Users without client telemetry", "Metrics"),
+):
+    expression, format_string = MEASURES[name]
+    MEASURES[name] = (zero_when_covered(expression, source), format_string)
+
+CARD_DISPLAY_MEASURES = {
+    "Acceptances", "Active code review users", "Activity acceptance rate", "Budget headroom USD",
+    "CLI users", "Complete ISO weeks", "Consumed budget USD", "Copilot app users", "Edited lines",
+    "Generations", "Gross AI credits", "IDE agent users", "IDE chat users", "Inline accepted lines",
+    "Inline line acceptance rate", "Inline suggested lines", "Interactions", "Known telemetry coverage",
+    "License snapshot", "Lines added", "Lines deleted", "Mean active days per active user",
+    "Mean observed DAU", "Measured budget USD", "Net cost USD", "Net lines", "Observed active users",
+    "Observed inactive users", "Observed users", "Passive code review users", "Peak observed DAU",
+    "Period adoption", "Recurring share of eligible active users", "Recurring users three days",
+    "Suggested lines to delete", "Telemetry absent rows", "Telemetry present rows", "Unattributed user credits",
+    "Unknown activity rows", "Unknown requirements rows", "Unknown telemetry rows", "Unmet requirements rows",
+    "Users with billing detail", "Users without center history", "Users without client telemetry",
+}
+CARD_TITLES = {
+    "Known telemetry coverage": "Client telemetry present rate (known-status user-day rows)",
+}
+
+
+def card_display(name):
+    format_string = MEASURES[name][1].replace('"', '""')
+    return dict(name="Display " + name,
+                expression=f'VAR Value = [{name}] RETURN IF(ISBLANK(Value), "N/D", FORMAT(Value, "{format_string}", "en-US"))',
+                isHidden=True)
 
 
 def specs(name):
@@ -148,6 +180,11 @@ def model(dataset):
                 dict(name=n, expression=e, **(dict(formatString=f) if f else {}))
                 for n, (e, f) in MEASURES.items()
             ]
+            table["measures"].extend(card_display(n) for n in sorted(CARD_DISPLAY_MEASURES))
+            next(m for m in table["measures"] if m["name"] == "Known telemetry coverage")["description"] = (
+                "Client telemetry present rate among known-status user-day rows: TRUE / (TRUE + FALSE). "
+                "Unknown status is excluded; zero known rows returns blank, not zero. Not a percentage of users."
+            )
         if name == "Centers":
             table["hierarchies"] = [dict(name="Country and center", levels=[
                 dict(name="Country", ordinal=0, column="Country"),
@@ -265,8 +302,9 @@ def build_report():
                                           width=w, height=h), "visual": body})
 
     def card(folder, measure, x, y, w=270, h=100):
-        visual(folder, "card", {"Values": {"projections": [projection("Info", measure, True)]}},
-               measure, x, y, w, h, {
+        display = "Display " + measure if measure in CARD_DISPLAY_MEASURES else measure
+        visual(folder, "card", {"Values": {"projections": [projection("Info", display, True)]}},
+               CARD_TITLES.get(measure, measure), x, y, w, h, {
                    "labels": [{"properties": {
                        "fontSize": literal(13 if measure in (
                            "Balance status", "Center notice", "Adoption status",
@@ -316,8 +354,9 @@ def build_report():
     chart(overview, "clusteredColumnChart",
           [("Centers", "Country"), ("Centers", "Center"), ("Models", "Model"), ("Users", "User")],
           ["Gross AI credits"], "Drill-down: country > center > model > user", 20, 310, 880, 310)
-    chart(overview, "clusteredBarChart", [("Models", "Model")],
-          ["Net cost USD"], "Net cost by model (API amount)", 920, 310, 500, 310)
+    table(overview, [("Models", "Model")],
+          ["Gross amount USD", "Discounts USD", "Net cost USD"],
+          "Model costs USD: gross / discounts / net (API amounts)", 920, 310, 500, 310)
     chart(overview, "lineChart", [("Dates", "Day")],
           ["Gross AI credits"], "Daily AI credit usage", 20, 640, 880, 230)
     card(overview, "Balance status", 920, 660, 500, 150)
@@ -446,7 +485,7 @@ def build_report():
     slicer(models14, "Models", "Model", 600, 90)
     card(models14, "Selection start", 900, 90, 245, 100)
     card(models14, "Selection end", 1160, 90, 245, 100)
-    chart(models14, "stackedColumnChart", [("Periods14", "BlockLabel")], ["Block14 credits"],
+    chart(models14, "columnChart", [("Periods14", "BlockLabel")], ["Block14 credits"],
           "B01 starts at the selected minimum date; consecutive 14-day blocks",
           20, 210, 1400, 360, series=("Models", "Model"),
           tooltips=["Block14 start", "Block14 end"])

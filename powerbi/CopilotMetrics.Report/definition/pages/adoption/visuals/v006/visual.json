@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Interactions"
+                  "Property": "Display Interactions"
                 }
               },
-              "queryRef": "Info.Interactions",
-              "nativeQueryRef": "Interactions"
+              "queryRef": "Info.Display Interactions",
+              "nativeQueryRef": "Display Interactions"
             }
           ]
         }

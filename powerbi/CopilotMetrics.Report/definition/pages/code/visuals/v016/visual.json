@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Suggested lines to delete"
+                  "Property": "Display Suggested lines to delete"
                 }
               },
-              "queryRef": "Info.Suggested lines to delete",
-              "nativeQueryRef": "Suggested lines to delete"
+              "queryRef": "Info.Display Suggested lines to delete",
+              "nativeQueryRef": "Display Suggested lines to delete"
             }
           ]
         }

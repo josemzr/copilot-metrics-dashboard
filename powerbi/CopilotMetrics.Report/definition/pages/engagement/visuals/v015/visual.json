@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Recurring share of eligible active users"
+                  "Property": "Display Recurring share of eligible active users"
                 }
               },
-              "queryRef": "Info.Recurring share of eligible active users",
-              "nativeQueryRef": "Recurring share of eligible active users"
+              "queryRef": "Info.Display Recurring share of eligible active users",
+              "nativeQueryRef": "Display Recurring share of eligible active users"
             }
           ]
         }

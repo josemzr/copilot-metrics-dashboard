@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Inline accepted lines"
+                  "Property": "Display Inline accepted lines"
                 }
               },
-              "queryRef": "Info.Inline accepted lines",
-              "nativeQueryRef": "Inline accepted lines"
+              "queryRef": "Info.Display Inline accepted lines",
+              "nativeQueryRef": "Display Inline accepted lines"
             }
           ]
         }

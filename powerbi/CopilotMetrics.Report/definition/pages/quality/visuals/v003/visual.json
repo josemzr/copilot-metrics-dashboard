@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Users without client telemetry"
+                  "Property": "Display Users without client telemetry"
                 }
               },
-              "queryRef": "Info.Users without client telemetry",
-              "nativeQueryRef": "Users without client telemetry"
+              "queryRef": "Info.Display Users without client telemetry",
+              "nativeQueryRef": "Display Users without client telemetry"
             }
           ]
         }

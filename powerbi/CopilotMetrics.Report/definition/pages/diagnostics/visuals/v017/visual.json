@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Unknown activity rows"
+                  "Property": "Display Unknown activity rows"
                 }
               },
-              "queryRef": "Info.Unknown activity rows",
-              "nativeQueryRef": "Unknown activity rows"
+              "queryRef": "Info.Display Unknown activity rows",
+              "nativeQueryRef": "Display Unknown activity rows"
             }
           ]
         }

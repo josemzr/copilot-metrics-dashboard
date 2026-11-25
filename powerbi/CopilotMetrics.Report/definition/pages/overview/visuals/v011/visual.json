@@ -10,10 +10,10 @@
     "height": 310
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "tableEx",
     "query": {
       "queryState": {
-        "Category": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -27,13 +27,36 @@
                 }
               },
               "queryRef": "Models.Model",
-              "nativeQueryRef": "Model",
-              "active": true
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
+              "nativeQueryRef": "Model"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Gross amount USD"
+                }
+              },
+              "queryRef": "Info.Gross amount USD",
+              "nativeQueryRef": "Gross amount USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Discounts USD"
+                }
+              },
+              "queryRef": "Info.Discounts USD",
+              "nativeQueryRef": "Discounts USD"
+            },
             {
               "field": {
                 "Measure": {
@@ -50,24 +73,6 @@
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Measure": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "Info"
-                  }
-                },
-                "Property": "Net cost USD"
-              }
-            },
-            "direction": "Descending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true,
@@ -85,7 +90,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Net cost by model (API amount)'"
+                  "Value": "'Model costs USD: gross / discounts / net (API amounts)'"
                 }
               }
             },

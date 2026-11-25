@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "IDE agent users"
+                  "Property": "Display IDE agent users"
                 }
               },
-              "queryRef": "Info.IDE agent users",
-              "nativeQueryRef": "IDE agent users"
+              "queryRef": "Info.Display IDE agent users",
+              "nativeQueryRef": "Display IDE agent users"
             }
           ]
         }

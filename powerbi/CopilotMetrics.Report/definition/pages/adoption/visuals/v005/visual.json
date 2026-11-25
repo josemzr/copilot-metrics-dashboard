@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Observed users"
+                  "Property": "Display Observed users"
                 }
               },
-              "queryRef": "Info.Observed users",
-              "nativeQueryRef": "Observed users"
+              "queryRef": "Info.Display Observed users",
+              "nativeQueryRef": "Display Observed users"
             }
           ]
         }

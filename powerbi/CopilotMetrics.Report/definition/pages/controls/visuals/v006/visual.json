@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Measured budget USD"
+                  "Property": "Display Measured budget USD"
                 }
               },
-              "queryRef": "Info.Measured budget USD",
-              "nativeQueryRef": "Measured budget USD"
+              "queryRef": "Info.Display Measured budget USD",
+              "nativeQueryRef": "Display Measured budget USD"
             }
           ]
         }

@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Edited lines"
+                  "Property": "Display Edited lines"
                 }
               },
-              "queryRef": "Info.Edited lines",
-              "nativeQueryRef": "Edited lines"
+              "queryRef": "Info.Display Edited lines",
+              "nativeQueryRef": "Display Edited lines"
             }
           ]
         }

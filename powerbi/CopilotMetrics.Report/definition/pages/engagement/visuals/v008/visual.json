@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Observed inactive users"
+                  "Property": "Display Observed inactive users"
                 }
               },
-              "queryRef": "Info.Observed inactive users",
-              "nativeQueryRef": "Observed inactive users"
+              "queryRef": "Info.Display Observed inactive users",
+              "nativeQueryRef": "Display Observed inactive users"
             }
           ]
         }

@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Mean observed DAU"
+                  "Property": "Display Mean observed DAU"
                 }
               },
-              "queryRef": "Info.Mean observed DAU",
-              "nativeQueryRef": "Mean observed DAU"
+              "queryRef": "Info.Display Mean observed DAU",
+              "nativeQueryRef": "Display Mean observed DAU"
             }
           ]
         }

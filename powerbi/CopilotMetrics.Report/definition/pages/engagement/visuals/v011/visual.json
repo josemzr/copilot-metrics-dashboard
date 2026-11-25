@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Mean active days per active user"
+                  "Property": "Display Mean active days per active user"
                 }
               },
-              "queryRef": "Info.Mean active days per active user",
-              "nativeQueryRef": "Mean active days per active user"
+              "queryRef": "Info.Display Mean active days per active user",
+              "nativeQueryRef": "Display Mean active days per active user"
             }
           ]
         }

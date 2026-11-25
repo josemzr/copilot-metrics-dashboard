@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Lines added"
+                  "Property": "Display Lines added"
                 }
               },
-              "queryRef": "Info.Lines added",
-              "nativeQueryRef": "Lines added"
+              "queryRef": "Info.Display Lines added",
+              "nativeQueryRef": "Display Lines added"
             }
           ]
         }

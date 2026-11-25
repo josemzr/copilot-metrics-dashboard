@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Generations"
+                  "Property": "Display Generations"
                 }
               },
-              "queryRef": "Info.Generations",
-              "nativeQueryRef": "Generations"
+              "queryRef": "Info.Display Generations",
+              "nativeQueryRef": "Display Generations"
             }
           ]
         }

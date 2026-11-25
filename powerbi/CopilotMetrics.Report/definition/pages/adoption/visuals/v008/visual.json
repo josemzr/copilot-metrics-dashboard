@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Users without center history"
+                  "Property": "Display Users without center history"
                 }
               },
-              "queryRef": "Info.Users without center history",
-              "nativeQueryRef": "Users without center history"
+              "queryRef": "Info.Display Users without center history",
+              "nativeQueryRef": "Display Users without center history"
             }
           ]
         }

@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "IDE chat users"
+                  "Property": "Display IDE chat users"
                 }
               },
-              "queryRef": "Info.IDE chat users",
-              "nativeQueryRef": "IDE chat users"
+              "queryRef": "Info.Display IDE chat users",
+              "nativeQueryRef": "Display IDE chat users"
             }
           ]
         }

@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Unknown telemetry rows"
+                  "Property": "Display Unknown telemetry rows"
                 }
               },
-              "queryRef": "Info.Unknown telemetry rows",
-              "nativeQueryRef": "Unknown telemetry rows"
+              "queryRef": "Info.Display Unknown telemetry rows",
+              "nativeQueryRef": "Display Unknown telemetry rows"
             }
           ]
         }

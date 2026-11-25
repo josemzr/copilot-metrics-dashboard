@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Budget headroom USD"
+                  "Property": "Display Budget headroom USD"
                 }
               },
-              "queryRef": "Info.Budget headroom USD",
-              "nativeQueryRef": "Budget headroom USD"
+              "queryRef": "Info.Display Budget headroom USD",
+              "nativeQueryRef": "Display Budget headroom USD"
             }
           ]
         }

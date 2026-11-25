@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Unmet requirements rows"
+                  "Property": "Display Unmet requirements rows"
                 }
               },
-              "queryRef": "Info.Unmet requirements rows",
-              "nativeQueryRef": "Unmet requirements rows"
+              "queryRef": "Info.Display Unmet requirements rows",
+              "nativeQueryRef": "Display Unmet requirements rows"
             }
           ]
         }

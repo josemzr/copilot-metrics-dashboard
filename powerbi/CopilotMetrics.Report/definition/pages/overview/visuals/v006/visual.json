@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Gross AI credits"
+                  "Property": "Display Gross AI credits"
                 }
               },
-              "queryRef": "Info.Gross AI credits",
-              "nativeQueryRef": "Gross AI credits"
+              "queryRef": "Info.Display Gross AI credits",
+              "nativeQueryRef": "Display Gross AI credits"
             }
           ]
         }

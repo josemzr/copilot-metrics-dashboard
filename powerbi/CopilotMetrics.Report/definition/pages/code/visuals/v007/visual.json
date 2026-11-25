@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Acceptances"
+                  "Property": "Display Acceptances"
                 }
               },
-              "queryRef": "Info.Acceptances",
-              "nativeQueryRef": "Acceptances"
+              "queryRef": "Info.Display Acceptances",
+              "nativeQueryRef": "Display Acceptances"
             }
           ]
         }

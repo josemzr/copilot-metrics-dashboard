@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Telemetry present rows"
+                  "Property": "Display Telemetry present rows"
                 }
               },
-              "queryRef": "Info.Telemetry present rows",
-              "nativeQueryRef": "Telemetry present rows"
+              "queryRef": "Info.Display Telemetry present rows",
+              "nativeQueryRef": "Display Telemetry present rows"
             }
           ]
         }

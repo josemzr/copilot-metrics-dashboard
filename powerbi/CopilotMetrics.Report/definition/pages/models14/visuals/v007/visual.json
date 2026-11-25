@@ -10,7 +10,7 @@
     "height": 360
   },
   "visual": {
-    "visualType": "stackedColumnChart",
+    "visualType": "columnChart",
     "query": {
       "queryState": {
         "Category": {

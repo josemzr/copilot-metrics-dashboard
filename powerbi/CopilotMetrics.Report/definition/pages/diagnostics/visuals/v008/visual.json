@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Known telemetry coverage"
+                  "Property": "Display Known telemetry coverage"
                 }
               },
-              "queryRef": "Info.Known telemetry coverage",
-              "nativeQueryRef": "Known telemetry coverage"
+              "queryRef": "Info.Display Known telemetry coverage",
+              "nativeQueryRef": "Display Known telemetry coverage"
             }
           ]
         }
@@ -48,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Known telemetry coverage'"
+                  "Value": "'Client telemetry present rate (known-status user-day rows)'"
                 }
               }
             },

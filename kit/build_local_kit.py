@@ -16,7 +16,7 @@ SOURCES = (
     "scripts/download.ps1", "scripts/download_local.py", "scripts/collect.py",
     "scripts/normalize.py", "scripts/snapshot.py", "scripts/make_sample.py",
     "scripts/server.py", "scripts/worker.py", "web/build.py",
-    "scripts/pricing.py", "projections/contract.json",
+    "scripts/pricing.py", "projections/contract.json", "projections/mixes.json",
     "web/src/index.html", "web/src/theme.css", "web/src/core.js", "web/src/app.js", "web/src/projections.js",
 )
 
@@ -32,6 +32,10 @@ def build(output):
     current = json.loads((ROOT / "powerbi/CopilotMetrics.SemanticModel/model.bim").read_text())
     if current != model(make_sample()[0]):
         raise ValueError("The kit requires the unchanged generated SAMPLE model; REAL data is never packaged")
+    mixes = json.loads((ROOT / "projections/mixes.json").read_text())
+    contract = json.loads((ROOT / "projections/contract.json").read_text())
+    if mixes != contract["mixes"]:
+        raise ValueError("The kit requires the default example mixes matching the public contract")
     entries = {"README.md": ROOT / "docs/local-kit.md", "projections.md": ROOT / "docs/projections.md"}
     entries.update({name: ROOT / name for name in [*SOURCES, *pbi]})
     for path in entries.values():

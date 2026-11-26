@@ -245,6 +245,9 @@ class PortableKitTests(unittest.TestCase):
                 self.assertIn("powerbi/CopilotMetrics.pbip", names)
                 self.assertIn("scripts/download.ps1", names)
                 self.assertIn("compose.manual.yaml", names)
+                bundled_mix = json.loads(archive.read("projections/mixes.json"))
+                contract = json.loads(archive.read("projections/contract.json"))
+                self.assertEqual(bundled_mix, contract["mixes"])
                 self.assertFalse(any(n.startswith((".git/", "cloud/", "data/real/")) or n.endswith(".pem") for n in names))
                 folder = Path(directory) / "unpacked kit with spaces"
                 archive.extractall(folder)

@@ -321,17 +321,24 @@ def literal_table(name, column, values):
     return f"Table.FromRecords(Json.Document(Binary.FromText(\"{base64.b64encode(json.dumps([{column: v} for v in values]).encode()).decode()}\",BinaryEncoding.Base64)))"
 
 
-def augment_model(database):
+def augment_model(database, *, mix_file_parameter=False):
     model = database["model"]
     if any(table["name"].startswith("Projection") for table in model["tables"]):
         raise ValueError("Projection tables already exist; do not apply the adapter twice")
     encoded = base64.b64encode(json.dumps(CONTRACT, separators=(",", ":")).encode()).decode()
     mixes = base64.b64encode(json.dumps(CONTRACT["mixes"]).encode()).decode()
+    mix_json = 'Text.FromBinary(Binary.FromText("' + mixes + '",BinaryEncoding.Base64))'
+    if mix_file_parameter:
+        model["expressions"].append(dict(name="ProjectionMixFile", kind="m", expression=(
+            '"" meta [IsParameterQuery=true,Type="Text",IsParameterQueryRequired=false]')))
+        mix_json = (
+            'if ProjectionMixFile = null or Text.Trim(ProjectionMixFile) = "" then ' + mix_json +
+            ' else Text.FromBinary(File.Contents(ProjectionMixFile),TextEncoding.Utf8)')
+    else:
+        mix_json += ' meta [IsParameterQuery=true,Type="Text",IsParameterQueryRequired=true]'
     model["expressions"].extend([
         dict(name="ProjectionsContract", kind="m", expression=f'Json.Document(Binary.FromText("{encoded}",BinaryEncoding.Base64))'),
-        dict(name="ProjectionMixJSON", kind="m", expression=(
-            'Text.FromBinary(Binary.FromText("' + mixes + '",BinaryEncoding.Base64)) '
-            'meta [IsParameterQuery=true,Type="Text",IsParameterQueryRequired=true]')),
+        dict(name="ProjectionMixJSON", kind="m", expression=mix_json),
         dict(name="ProjectionPricing", kind="m", expression=(ROOT / "projections/pricing.pq").read_text().splitlines()),
         dict(name="ProjectionDerived", kind="m", expression=(ROOT / "projections/usage.pq").read_text().splitlines()),
     ])
@@ -383,6 +390,7 @@ def augment_model(database):
 def patch_model(database):
     """Replace Projection objects only, preserving an existing private Dataset/source."""
     model = database["model"]
+    mix_file_parameter = any(expr["name"] == "ProjectionMixFile" for expr in model["expressions"])
     model["tables"] = [table for table in model["tables"] if not table["name"].startswith("Projection")]
     model["expressions"] = [expr for expr in model["expressions"]
                             if not expr["name"].startswith(("Projection", "Projections"))]
@@ -391,7 +399,7 @@ def patch_model(database):
     for table in model["tables"]:
         if "measures" in table:
             table["measures"] = [measure for measure in table["measures"] if not measure["name"].startswith("Projection ")]
-    return augment_model(database)
+    return augment_model(database, mix_file_parameter=mix_file_parameter)
 
 
 def build_projection_page(page, slicer, card, chart, table):

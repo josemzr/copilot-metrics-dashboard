@@ -18,6 +18,8 @@ docker compose cp web:/data/dataset.json ../copilot-metrics-private/dataset.json
 
 3. In Desktop, open **Transform data → Manage parameters / Edit parameters**. Change `DataMode` from `SAMPLE` to `REAL`. Set `DataRootPath` to the **absolute folder containing `dataset.json`**, not the filename or a URL. Choose **Apply / Close & Apply**, then **Refresh** and confirm REAL and the coverage dates. The model rejects a mode mismatch.
 
+Leave **ProjectionMixFile** blank for embedded example mixtures, or set it to an absolute path to **`projections/mixes.json`** or your edited copy. This optional parameter takes a **file path**, not JSON text; Refresh reloads the file. A nonblank missing or invalid file fails explicitly. [File setup and upgrade instructions](local-kit.md#optional-example-mixtures-from-a-json-file).
+
 Refresh also checks the two fixed official Copilot pricing sources anonymously. Allow the public source when prompted; no private dataset values are used in a pricing URL. Pricing query failures load an explicit Projections error/N/D status, not a silently current snapshot. This is Import refresh, not a real-time push. The [manual local guide](local-kit.md) includes the one-line PowerShell download steps; [projection rules](projections.md) explain assumptions and exclusions.
 
 The container **does not run Power BI Desktop or Power BI Service**. A file copied once does not update automatically. For scheduled Service refresh, provide an accessible private data source and the appropriate gateway or deployment; the Service cannot fetch `localhost` from your laptop. These deployment steps are not automated here.

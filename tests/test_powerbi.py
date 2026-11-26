@@ -1,5 +1,7 @@
 import json
 from pathlib import Path
+import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -90,8 +92,49 @@ class PowerBIReportTests(unittest.TestCase):
                 display = self.measures["Display " + name]
                 self.assertTrue(display["isHidden"])
                 self.assertIn(f"[{name}]", display["expression"])
-                self.assertIn('ISBLANK(Value), "N/D"', display["expression"])
+                self.assertIn('ISBLANK(CardValue), "N/D"', display["expression"])
         self.assertIn("NOT ISBLANK([Consumed budget USD])", self.measures["Budget headroom USD"]["expression"])
+
+    def test_full_public_model_avoids_reserved_value_and_rows_variable_names(self):
+        for name, measure in self.measures.items():
+            with self.subTest(measure=name):
+                variables = re.findall(r"\bVAR\s+([A-Za-z_][A-Za-z0-9_]*)",
+                                       measure["expression"], re.I)
+                self.assertFalse({"value", "rows"} & {v.casefold() for v in variables})
+        display = self.measures["Display Users with billing detail"]
+        self.assertEqual(display["expression"],
+                         'VAR CardValue = [Users with billing detail] RETURN '
+                         'IF(ISBLANK(CardValue), "N/D", FORMAT(CardValue, "#,0", "en-US"))')
+
+    def test_local_variable_fix_preserves_existing_calculations_formats_and_hidden_flags(self):
+        root = Path(__file__).resolve().parents[1]
+        original = json.loads(subprocess.check_output(
+            ["git", "show", "HEAD:powerbi/CopilotMetrics.SemanticModel/model.bim"], cwd=root))
+        for table in original["model"]["tables"]:
+            for measure in table.get("measures", []):
+                with self.subTest(measure=measure["name"]):
+                    expected = dict(measure)
+                    if expected["expression"].startswith("VAR Value = "):
+                        variable = "CardValue" if measure["name"].startswith("Display ") else "CoveredValue"
+                        expected["expression"] = re.sub(r"\bValue\b", variable, expected["expression"])
+                    self.assertEqual(self.measures[measure["name"]], expected)
+
+    def test_desktop_mix_file_is_optional_and_cloud_opt_out_keeps_embedded_mixes(self):
+        expressions = {e["name"]: e["expression"] for e in self.database["expressions"]}
+        self.assertTrue(expressions["ProjectionMixFile"].startswith('"" meta '))
+        self.assertIn("IsParameterQueryRequired=false", expressions["ProjectionMixFile"])
+        query = expressions["ProjectionMixJSON"]
+        self.assertTrue(query.startswith(
+            'if ProjectionMixFile = null or Text.Trim(ProjectionMixFile) = "" then '))
+        self.assertIn("else Text.FromBinary(File.Contents(ProjectionMixFile),TextEncoding.Utf8)", query)
+        self.assertNotIn("IsParameterQuery", query)
+        self.assertNotIn("otherwise", query)
+        cloud = pbi.model(make_sample()[0], mix_file_parameter=False)["model"]
+        embedded = next(e["expression"] for e in cloud["expressions"] if e["name"] == "ProjectionMixJSON")
+        self.assertNotIn("ProjectionMixFile", {e["name"] for e in cloud["expressions"]})
+        self.assertIn(embedded.split(" meta ", 1)[0], query)
+        self.assertIn("IsParameterQuery=true", embedded)
+        self.assertNotIn("File.Contents", embedded)
 
     def test_overview_financial_cards_remain_numeric_for_classic_dashboard_alerts(self):
         cards = [visual for visual in self.visuals("overview") if visual["visualType"] == "card"]

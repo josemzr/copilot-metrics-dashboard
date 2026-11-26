@@ -36,6 +36,11 @@
         ]
       },
       {
+        "name": "ProjectionMixFile",
+        "kind": "m",
+        "expression": "\"\" meta [IsParameterQuery=true,Type=\"Text\",IsParameterQueryRequired=false]"
+      },
+      {
         "name": "ProjectionsContract",
         "kind": "m",
         "expression": "Json.Document(Binary.FromText(\"eyJ2ZXJzaW9uIjoiY29waWxvdC1wcm9qZWN0aW9ucy12MSIsImFsaWFzZXNWZXJzaW9uIjoiMjAyNi0xMS0yNi4xIiwicHJpY2luZ1BhcnNlclZlcnNpb24iOiJjb3BpbG90LW1hcmtkb3duLXYxIiwiY2FsaWJyYXRpb25WZXJzaW9uIjoiYmlsbGluZy1idWNrZXQtdjEiLCJjYWxpYnJhdGlvbiI6eyJiYXNlbGluZSI6IlJlcG9ydGVkIENvcGlsb3QgQmlsbGluZyBncm9zc1F1YW50aXR5IGFuZCBncm9zc0Ftb3VudCwgc3VtbWVkIGluZGVwZW5kZW50bHkiLCJidWNrZXQiOlsiRGF5IiwiVXNlciIsIlNvdXJjZUtleSIsIkNlbnRlcklkIl0sInNvdXJjZUtleSI6Iks6IG9yIFU6IHBsdXMgdXBwZXJjYXNlIFVURjggaGV4IG9mIGtub3duIGNhbm9uaWNhbCBvciBleGFjdCB1bmtub3duIHJhdyBtb2RlbDsgbmV2ZXIgZnV6enkgbWF0Y2hlZCBieSBQb3dlciBCSSBjb2xsYXRpb24iLCJyYXRpbyI6IlN1bSBtb2RlbGVkIHNjZW5hcmlvIFVTRCAvIHN1bSBtb2RlbGVkIHNvdXJjZSBVU0QgZm9yIHRoZSBjb21wbGV0ZSB2ZXJpZmllZCB0b2tlbiBidWNrZXQiLCJtaXNzaW5nQ2hhbmdlZEJ1Y2tldCI6Ik4vRCB0b3RhbDsgZXhwb3NlIHBhcnRpYWwgZXN0aW1hdGUgYW5kIHVucHJvamVjdGVkIHJlcG9ydGVkIGFtb3VudCwgbmV2ZXIgZHJvcCBvciBzaWxlbnRseSByZXRhaW4gaXQiLCJpZGVudGl0eSI6Ik5vIGNoYW5nZXMsIHplcm8gcmVwbGFjZW1lbnQgb3IgdW5jaGFuZ2VkIHRhcmdldCB3aXRoIHZvbHVtZSBmYWN0b3IgMSByZXR1cm5zIHJlcG9ydGVkIGFtb3VudHMgd2l0aG91dCBwcmljaW5nIiwicmVwbGFjZW1lbnRTY29wZSI6InJlcGxhY2VTb3VyY2VNb2RlbCBpcyBzZXBhcmF0ZSBmcm9tIHRoZSBzb3VyY2UtbW9kZWwgZmlsdGVyOyBlbXB0eSBtZWFucyBhbGwgc291cmNlIG1vZGVscyBpbiBzY29wZSJ9LCJzb3VyY2VzIjpbImh0dHBzOi8vZG9jcy5naXRodWIuY29tL2VuL2NvcGlsb3QvcmVmZXJlbmNlL2NvcGlsb3QtYmlsbGluZy9tb2RlbHMtYW5kLXByaWNpbmcubWQiLCJodHRwczovL2RvY3MuZ2l0aHViLmNvbS9lbi9jb3BpbG90L2NvbmNlcHRzL21vZGVscy9jb3BpbG90LWZ1c2lvbi5tZCJdLCJtYXhBZ2VIb3VycyI6MjQsIm1vZGVscyI6W3sibW9kZWwiOiJHUFQtNS4zLUNvZGV4IiwiYWxpYXNlcyI6WyJncHQtNS4zLWNvZGV4Il19LHsibW9kZWwiOiJHUFQtNS40IG5hbm8iLCJhbGlhc2VzIjpbImdwdC01LjQtbmFubyJdfSx7Im1vZGVsIjoiR1BULTUuNiBMdW5hIiwiYWxpYXNlcyI6WyJncHQtNS42LWx1bmEiXX0seyJtb2RlbCI6IkdQVC01LjYgU29sIiwiYWxpYXNlcyI6WyJncHQtNS42LXNvbCJdfSx7Im1vZGVsIjoiR1BULTYgQXN0cmEiLCJhbGlhc2VzIjpbImdwdC02LWFzdHJhIl19LHsibW9kZWwiOiJHUFQtNiBMdW5hIiwiYWxpYXNlcyI6WyJncHQtNi1sdW5hIl19LHsibW9kZWwiOiJHUFQtNiBTb2wiLCJhbGlhc2VzIjpbImdwdC02LXNvbCJdfSx7Im1vZGVsIjoiR1BULTYuMSBTb2wiLCJhbGlhc2VzIjpbImdwdC02LjEtc29sIl19LHsibW9kZWwiOiJHUFQtNi4xIFRlcnJhIiwiYWxpYXNlcyI6WyJncHQtNi4xLXRlcnJhIl19LHsibW9kZWwiOiJHUFQtNi4yIEFzdHJhIiwiYWxpYXNlcyI6WyJncHQtNi4yLWFzdHJhIl19LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsImFsaWFzZXMiOlsiZ3B0LTYuMi1zb2wiXX0seyJtb2RlbCI6IkNsYXVkZSBIYWlrdSA0LjUiLCJhbGlhc2VzIjpbImNsYXVkZS1oYWlrdS00LjUiLCJjbGF1ZGUtNC41LWhhaWt1Il19LHsibW9kZWwiOiJDbGF1ZGUgSGFpa3UgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtaGFpa3UtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDQiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNCJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA0LjYiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNC42Il19LHsibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDUiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgT3B1cyA0LjgiLCJhbGlhc2VzIjpbImNsYXVkZS1vcHVzLTQuOCJdfSx7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtb3B1cy01LjUiXX0seyJtb2RlbCI6IkNsYXVkZSBPcHVzIDQuOCAoZmFzdCBtb2RlKSAocHJldmlldykiLCJhbGlhc2VzIjpbXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1IiwiYWxpYXNlcyI6WyJjbGF1ZGUtZmFibGUtNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEZhYmxlIDUuMSIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUuMSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEZhYmxlIDUuMiIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUuMiJdfSx7Im1vZGVsIjoiR2VtaW5pIDMuOCBGbGFzaCIsImFsaWFzZXMiOlsiZ2VtaW5pLTMuOC1mbGFzaCJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgQXJnb24iLCJhbGlhc2VzIjpbImdlbWluaS00LWFyZ29uIl19LHsibW9kZWwiOiJHZW1pbmkgNCBDYXJib24iLCJhbGlhc2VzIjpbImdlbWluaS00LWNhcmJvbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgSHlkcm9nZW4iLCJhbGlhc2VzIjpbImdlbWluaS00LWh5ZHJvZ2VuIl19LHsibW9kZWwiOiJHZW1pbmkgNCBOZW9uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1uZW9uIl19LHsibW9kZWwiOiJNQUktQ29kZS0xLjEtRmxhc2giLCJhbGlhc2VzIjpbIm1haS1jb2RlLTEuMS1mbGFzaCJdfSx7Im1vZGVsIjoiTUFJIENvZGUgMiIsImFsaWFzZXMiOlsibWFpLWNvZGUtMiJdfSx7Im1vZGVsIjoiTUFJIENvZGUgMiBGbGFzaCIsImFsaWFzZXMiOlsibWFpLWNvZGUtMi1mbGFzaCJdfSx7Im1vZGVsIjoiR3JvayA0LjUiLCJhbGlhc2VzIjpbImdyb2stNC41Il19LHsibW9kZWwiOiJHcm9rIDQuNiIsImFsaWFzZXMiOlsiZ3Jvay00LjYiXX0seyJtb2RlbCI6Ikdyb2sgNC43IiwiYWxpYXNlcyI6WyJncm9rLTQuNyJdfSx7Im1vZGVsIjoiS2ltaSBLMyIsImFsaWFzZXMiOlsia2ltaS1rMyJdfV0sInNhbXBsZUFsaWFzZXMiOnsiTW9kZWwgQWxwaGEiOiJHUFQtNiBMdW5hIiwiTW9kZWwgQmV0YSI6IkNsYXVkZSBTb25uZXQgNS41IiwiTW9kZWwgR2FtbWEiOiJHUFQtNi4yIFNvbCJ9LCJiaWxsaW5nQWxpYXNlcyI6eyJGdXNpb24gKFN0YW5kYXJkKTogR1BULTYgTHVuYSI6IkdQVC02IEx1bmEifSwibWl4ZXMiOnsicmVjb21tZW5kZWQiOnsibGFiZWwiOiJSZWNvbW1lbmRlZC1zZXQgRVhBTVBMRSAoZWRpdGFibGUsIG5vdCBhZHZpY2UpIiwib3ZlcmhlYWQiOjEsIndlaWdodHMiOlt7Im1vZGVsIjoiR1BULTYgTHVuYSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLXN0YW5kYXJkIjp7ImxhYmVsIjoiRnVzaW9uIFN0YW5kYXJkIEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MSwid2VpZ2h0cyI6W3sibW9kZWwiOiJHUFQtNiBMdW5hIiwid2VpZ2h0IjowLjV9LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsIndlaWdodCI6MC41fV19LCJmdXNpb24taGlnaCI6eyJsYWJlbCI6IkZ1c2lvbiBIaWdoIEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MS4yNSwid2VpZ2h0cyI6W3sibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDUuNSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLW1heCI6eyJsYWJlbCI6IkZ1c2lvbiBNYXggSFlQT1RIRVNJUyIsIm92ZXJoZWFkIjoxLjUsIndlaWdodHMiOlt7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNS41Iiwid2VpZ2h0IjowLjV9LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsIndlaWdodCI6MC41fV19fSwiZGVmYXVsdHMiOnsibW9kZSI6InVuY2hhbmdlZCIsInJlcGxhY2VTb3VyY2VNb2RlbCI6IiIsInJlcGxhY2VtZW50IjoxLCJjYWNoZVJlYWQiOjAsImNhY2hlV3JpdGUiOjAsInRpZXIiOiJEZWZhdWx0IiwidGFyZ2V0Vm9sdW1lRmFjdG9yIjoxLCJmdXNpb25FeHRyYUZhY3RvciI6MSwiZnVzaW9uUHJvbW90aW9uRWxpZ2libGUiOmZhbHNlfX0=\",BinaryEncoding.Base64))"
@@ -43,7 +48,7 @@
       {
         "name": "ProjectionMixJSON",
         "kind": "m",
-        "expression": "Text.FromBinary(Binary.FromText(\"eyJyZWNvbW1lbmRlZCI6IHsibGFiZWwiOiAiUmVjb21tZW5kZWQtc2V0IEVYQU1QTEUgKGVkaXRhYmxlLCBub3QgYWR2aWNlKSIsICJvdmVyaGVhZCI6IDEsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiR1BULTYgTHVuYSIsICJ3ZWlnaHQiOiAwLjV9LCB7Im1vZGVsIjogIkNsYXVkZSBTb25uZXQgNS41IiwgIndlaWdodCI6IDAuNX1dfSwgImZ1c2lvbi1zdGFuZGFyZCI6IHsibGFiZWwiOiAiRnVzaW9uIFN0YW5kYXJkIEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLCAid2VpZ2h0cyI6IFt7Im1vZGVsIjogIkdQVC02IEx1bmEiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24taGlnaCI6IHsibGFiZWwiOiAiRnVzaW9uIEhpZ2ggSFlQT1RIRVNJUyIsICJvdmVyaGVhZCI6IDEuMjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIFNvbm5ldCA1LjUiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24tbWF4IjogeyJsYWJlbCI6ICJGdXNpb24gTWF4IEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIE9wdXMgNS41IiwgIndlaWdodCI6IDAuNX0sIHsibW9kZWwiOiAiR1BULTYuMiBTb2wiLCAid2VpZ2h0IjogMC41fV19fQ==\",BinaryEncoding.Base64)) meta [IsParameterQuery=true,Type=\"Text\",IsParameterQueryRequired=true]"
+        "expression": "if ProjectionMixFile = null or Text.Trim(ProjectionMixFile) = \"\" then Text.FromBinary(Binary.FromText(\"eyJyZWNvbW1lbmRlZCI6IHsibGFiZWwiOiAiUmVjb21tZW5kZWQtc2V0IEVYQU1QTEUgKGVkaXRhYmxlLCBub3QgYWR2aWNlKSIsICJvdmVyaGVhZCI6IDEsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiR1BULTYgTHVuYSIsICJ3ZWlnaHQiOiAwLjV9LCB7Im1vZGVsIjogIkNsYXVkZSBTb25uZXQgNS41IiwgIndlaWdodCI6IDAuNX1dfSwgImZ1c2lvbi1zdGFuZGFyZCI6IHsibGFiZWwiOiAiRnVzaW9uIFN0YW5kYXJkIEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLCAid2VpZ2h0cyI6IFt7Im1vZGVsIjogIkdQVC02IEx1bmEiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24taGlnaCI6IHsibGFiZWwiOiAiRnVzaW9uIEhpZ2ggSFlQT1RIRVNJUyIsICJvdmVyaGVhZCI6IDEuMjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIFNvbm5ldCA1LjUiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24tbWF4IjogeyJsYWJlbCI6ICJGdXNpb24gTWF4IEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIE9wdXMgNS41IiwgIndlaWdodCI6IDAuNX0sIHsibW9kZWwiOiAiR1BULTYuMiBTb2wiLCAid2VpZ2h0IjogMC41fV19fQ==\",BinaryEncoding.Base64)) else Text.FromBinary(File.Contents(ProjectionMixFile),TextEncoding.Utf8)"
       },
       {
         "name": "ProjectionPricing",
@@ -386,17 +391,17 @@
           },
           {
             "name": "Users with billing detail",
-            "expression": "VAR Value = CALCULATE(DISTINCTCOUNT(Billing[User]), Billing[User] <> \"(no user detail)\") RETURN IF(NOT ISBLANK(Value), Value, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
+            "expression": "VAR CoveredValue = CALCULATE(DISTINCTCOUNT(Billing[User]), Billing[User] <> \"(no user detail)\") RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unattributed user credits",
-            "expression": "VAR Value = CALCULATE([Gross AI credits], Billing[User] = \"(no user detail)\") RETURN IF(NOT ISBLANK(Value), Value, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
+            "expression": "VAR CoveredValue = CALCULATE([Gross AI credits], Billing[User] = \"(no user detail)\") RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF(COUNTROWS(VALUES('Dates'[Day])) > 0 && COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE())), 0))",
             "formatString": "#,0.00"
           },
           {
             "name": "Observed users",
-            "expression": "VAR Value = DISTINCTCOUNT(Metrics[User]) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = DISTINCTCOUNT(Metrics[User]) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -461,12 +466,12 @@
           },
           {
             "name": "Users without center history",
-            "expression": "VAR Value = CALCULATE([Observed users], Centers[CenterId] = \"unattributed-history\") RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE([Observed users], Centers[CenterId] = \"unattributed-history\") RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Users without client telemetry",
-            "expression": "VAR Value = CALCULATE([Observed users], NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE([Observed users], NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -523,12 +528,12 @@
           },
           {
             "name": "Observed active users",
-            "expression": "VAR Value = CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE(DISTINCTCOUNT(Metrics[User]), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Active user days",
-            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE(COUNTROWS(Metrics), Metrics[ActivityObserved] = TRUE()) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -562,7 +567,7 @@
           },
           {
             "name": "Unknown activity rows",
-            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[ActivityObserved]))) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[ActivityObserved]))) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -601,12 +606,12 @@
           },
           {
             "name": "Complete ISO weeks",
-            "expression": "VAR Value = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) = 7)) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Complete weeks missing metrics",
-            "expression": "VAR Value = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) < 7)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = VAR SelectedDays = ALLSELECTED('Dates') RETURN COUNTROWS(FILTER(SUMMARIZE(SelectedDays, 'Dates'[WeekStart]), VAR W = 'Dates'[WeekStart] RETURN COUNTROWS(FILTER(SelectedDays, 'Dates'[WeekStart] = W)) = 7 && CALCULATE(COUNTROWS(SourceCoverage), KEEPFILTERS(SourceCoverage[MetricsAvailable] = TRUE()), KEEPFILTERS('Dates'[WeekStart] = W)) < 7)) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -676,7 +681,7 @@
           },
           {
             "name": "Feature users",
-            "expression": "VAR Value = DISTINCTCOUNT(Features[User]) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = DISTINCTCOUNT(Features[User]) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -696,17 +701,17 @@
           },
           {
             "name": "Telemetry present rows",
-            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), Metrics[TelemetryPresent] = TRUE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE(COUNTROWS(Metrics), Metrics[TelemetryPresent] = TRUE()) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Telemetry absent rows",
-            "expression": "VAR Value = CALCULATE(COUNTROWS(Metrics), NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = CALCULATE(COUNTROWS(Metrics), NOT ISBLANK(Metrics[TelemetryPresent]), Metrics[TelemetryPresent] = FALSE()) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unknown telemetry rows",
-            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[TelemetryPresent]))) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[TelemetryPresent]))) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -717,12 +722,12 @@
           },
           {
             "name": "Unmet requirements rows",
-            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, Metrics[RequirementsUnmet] > 0)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = COUNTROWS(FILTER(Metrics, Metrics[RequirementsUnmet] > 0)) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
             "name": "Unknown requirements rows",
-            "expression": "VAR Value = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[RequirementsUnknown]) || Metrics[RequirementsUnknown] > 0)) RETURN IF(NOT ISBLANK(Value), Value, IF([Complete metrics coverage] = 1, 0))",
+            "expression": "VAR CoveredValue = COUNTROWS(FILTER(Metrics, ISBLANK(Metrics[RequirementsUnknown]) || Metrics[RequirementsUnknown] > 0)) RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF([Complete metrics coverage] = 1, 0))",
             "formatString": "#,0"
           },
           {
@@ -796,217 +801,217 @@
           },
           {
             "name": "Display Acceptances",
-            "expression": "VAR Value = [Acceptances] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Acceptances] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Active code review users",
-            "expression": "VAR Value = [Active code review users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Active code review users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Activity acceptance rate",
-            "expression": "VAR Value = [Activity acceptance rate] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "expression": "VAR CardValue = [Activity acceptance rate] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"0.0%\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Budget headroom USD",
-            "expression": "VAR Value = [Budget headroom USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "expression": "VAR CardValue = [Budget headroom USD] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"\"\"$\"\"#,0.00\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display CLI users",
-            "expression": "VAR Value = [CLI users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [CLI users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Complete ISO weeks",
-            "expression": "VAR Value = [Complete ISO weeks] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Complete ISO weeks] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Consumed budget USD",
-            "expression": "VAR Value = [Consumed budget USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "expression": "VAR CardValue = [Consumed budget USD] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"\"\"$\"\"#,0.00\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Copilot app users",
-            "expression": "VAR Value = [Copilot app users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Copilot app users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Edited lines",
-            "expression": "VAR Value = [Edited lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Edited lines] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Generations",
-            "expression": "VAR Value = [Generations] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Generations] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display IDE agent users",
-            "expression": "VAR Value = [IDE agent users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [IDE agent users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display IDE chat users",
-            "expression": "VAR Value = [IDE chat users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [IDE chat users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Inline accepted lines",
-            "expression": "VAR Value = [Inline accepted lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Inline accepted lines] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Inline line acceptance rate",
-            "expression": "VAR Value = [Inline line acceptance rate] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "expression": "VAR CardValue = [Inline line acceptance rate] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"0.0%\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Inline suggested lines",
-            "expression": "VAR Value = [Inline suggested lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Inline suggested lines] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Interactions",
-            "expression": "VAR Value = [Interactions] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Interactions] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Known telemetry coverage",
-            "expression": "VAR Value = [Known telemetry coverage] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "expression": "VAR CardValue = [Known telemetry coverage] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"0.0%\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display License snapshot",
-            "expression": "VAR Value = [License snapshot] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [License snapshot] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Lines added",
-            "expression": "VAR Value = [Lines added] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Lines added] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Lines deleted",
-            "expression": "VAR Value = [Lines deleted] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Lines deleted] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Mean active days per active user",
-            "expression": "VAR Value = [Mean active days per active user] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Mean active days per active user] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0.0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Mean observed DAU",
-            "expression": "VAR Value = [Mean observed DAU] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Mean observed DAU] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0.0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Measured budget USD",
-            "expression": "VAR Value = [Measured budget USD] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"\"\"$\"\"#,0.00\", \"en-US\"))",
+            "expression": "VAR CardValue = [Measured budget USD] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"\"\"$\"\"#,0.00\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Net lines",
-            "expression": "VAR Value = [Net lines] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Net lines] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Observed active users",
-            "expression": "VAR Value = [Observed active users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Observed active users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Observed inactive users",
-            "expression": "VAR Value = [Observed inactive users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Observed inactive users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Observed users",
-            "expression": "VAR Value = [Observed users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Observed users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Passive code review users",
-            "expression": "VAR Value = [Passive code review users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Passive code review users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Peak observed DAU",
-            "expression": "VAR Value = [Peak observed DAU] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Peak observed DAU] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Period adoption",
-            "expression": "VAR Value = [Period adoption] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "expression": "VAR CardValue = [Period adoption] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"0.0%\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Recurring share of eligible active users",
-            "expression": "VAR Value = [Recurring share of eligible active users] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"0.0%\", \"en-US\"))",
+            "expression": "VAR CardValue = [Recurring share of eligible active users] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"0.0%\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Recurring users three days",
-            "expression": "VAR Value = [Recurring users three days] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Recurring users three days] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Suggested lines to delete",
-            "expression": "VAR Value = [Suggested lines to delete] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Suggested lines to delete] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Telemetry absent rows",
-            "expression": "VAR Value = [Telemetry absent rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Telemetry absent rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Telemetry present rows",
-            "expression": "VAR Value = [Telemetry present rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Telemetry present rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Unattributed user credits",
-            "expression": "VAR Value = [Unattributed user credits] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0.00\", \"en-US\"))",
+            "expression": "VAR CardValue = [Unattributed user credits] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0.00\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Unknown activity rows",
-            "expression": "VAR Value = [Unknown activity rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Unknown activity rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Unknown requirements rows",
-            "expression": "VAR Value = [Unknown requirements rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Unknown requirements rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Unknown telemetry rows",
-            "expression": "VAR Value = [Unknown telemetry rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Unknown telemetry rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Unmet requirements rows",
-            "expression": "VAR Value = [Unmet requirements rows] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Unmet requirements rows] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Users with billing detail",
-            "expression": "VAR Value = [Users with billing detail] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Users with billing detail] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Users without center history",
-            "expression": "VAR Value = [Users without center history] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Users without center history] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {
             "name": "Display Users without client telemetry",
-            "expression": "VAR Value = [Users without client telemetry] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "expression": "VAR CardValue = [Users without client telemetry] RETURN IF(ISBLANK(CardValue), \"N/D\", FORMAT(CardValue, \"#,0\", \"en-US\"))",
             "isHidden": true
           },
           {

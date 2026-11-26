@@ -157,6 +157,11 @@ class CloudTests(unittest.TestCase):
         expressions = database["model"]["expressions"]
         self.assertNotIn("DataMode", [e["name"] for e in expressions])
         self.assertNotIn("DataRootPath", [e["name"] for e in expressions])
+        self.assertNotIn("ProjectionMixFile", [e["name"] for e in expressions])
+        mix = next(e["expression"] for e in expressions if e["name"] == "ProjectionMixJSON")
+        self.assertIn("Binary.FromText", mix)
+        self.assertNotIn("File.Contents", mix)
+        self.assertIn("IsParameterQuery=true", mix)
         self.assertIn("ProjectionPricing", [e["name"] for e in expressions])
         text = "\n".join(expressions[0]["expression"])
         self.assertIn(f'Web.Contents("{url}", [ApiKeyName="code"])', text)

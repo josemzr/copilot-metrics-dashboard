@@ -126,7 +126,7 @@ CARD_TITLES = {
 def card_display(name):
     format_string = MEASURES[name][1].replace('"', '""')
     return dict(name="Display " + name,
-                expression=f'VAR Value = [{name}] RETURN IF(ISBLANK(Value), "N/D", FORMAT(Value, "{format_string}", "en-US"))',
+                expression=f'VAR CardValue = [{name}] RETURN IF(ISBLANK(CardValue), "N/D", FORMAT(CardValue, "{format_string}", "en-US"))',
                 isHidden=True)
 
 
@@ -134,7 +134,7 @@ def specs(name):
     return [tuple(field.split(":")) for field in TABLES[name].split()]
 
 
-def model(dataset):
+def model(dataset, *, mix_file_parameter=True):
     encoded = base64.b64encode(json.dumps(dataset, separators=(",", ":")).encode()).decode()
     dataset_m = (
         'let\n'
@@ -213,7 +213,8 @@ def model(dataset):
     return augment_model(dict(name="Copilot Metrics", compatibilityLevel=1600, model=dict(
         culture="en-US", sourceQueryCulture="en-US", defaultPowerBIDataSourceVersion="powerBI_V3",
         annotations=[dict(name="__PBI_TimeIntelligenceEnabled", value="0")],
-        expressions=expressions, tables=tables, relationships=relationships)))
+        expressions=expressions, tables=tables, relationships=relationships)),
+        mix_file_parameter=mix_file_parameter)
 
 
 def literal(value):

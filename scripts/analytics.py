@@ -6,8 +6,8 @@ def zero_when_covered(expression, source="Metrics"):
                 "COUNTROWS(VALUES('Dates'[Day])) > 0 && "
                 "COUNTROWS(VALUES('Dates'[Day])) = CALCULATE(COUNTROWS(SourceCoverage), "
                 "KEEPFILTERS(SourceCoverage[BillingAvailable] = TRUE()))")
-    return (f"VAR Value = {expression} "
-            f"RETURN IF(NOT ISBLANK(Value), Value, IF({coverage}, 0))")
+    return (f"VAR CoveredValue = {expression} "
+            f"RETURN IF(NOT ISBLANK(CoveredValue), CoveredValue, IF({coverage}, 0))")
 
 
 TABLE_EXTENSIONS = {

@@ -24,10 +24,32 @@ pwsh -NoProfile -File ./scripts/download.ps1 -GitHubUser your-login -Enterprise 
 pwsh -NoProfile -Command "(Resolve-Path '../private real data').Path"
 ```
 
-4. On **Windows**, open `powerbi/CopilotMetrics.pbip`. Go to **Transform data → Manage parameters / Edit parameters**. Change **DataMode** from **SAMPLE** to **REAL**. Copy the **exact printed folder path** into **DataRootPath**, for example `C:/CopilotMetrics/private real data`. It is the **ABSOLUTE FOLDER containing `dataset.json`**, **not** the JSON filename, a relative path, or a URL. Do not copy the command's quotation marks into the parameter dialog.
+4. On **Windows**, open `powerbi/CopilotMetrics.pbip`. Go to **Transform data → Manage parameters / Edit parameters**. Change **DataMode** from **SAMPLE** to **REAL**. Copy the **exact printed folder path** into **DataRootPath**, for example `C:/CopilotMetrics/private real data`. It is the **ABSOLUTE FOLDER containing `dataset.json`**, **not** the JSON filename, a relative path, or a URL. Do not copy the command's quotation marks into the parameter dialog. **Leave the optional ProjectionMixFile blank** to use the embedded example mixtures, or set the absolute JSON **file** path described below.
 5. Choose **Apply / Close & Apply**, then **Refresh**. Confirm the report's **REAL** source label and selected coverage dates. Leave the JSON private and outside the kit folder.
 
 These are single-line commands usable from Bash or PowerShell. Power BI refresh reads your local JSON; it does **not** run the downloader. Projections imports current public Copilot pricing at Refresh, not continuously. If prompted for either of the two official public documentation sources, select **Anonymous → Connect** (internet required). Do **not** supply a GitHub token, business OAuth credential or private JSON URL for the pricing sources. No private report values are sent to the pricing site.
+
+## Optional example mixtures from a JSON file
+
+**ProjectionMixFile can be blank:** that explicitly selects the example mixtures embedded in the model. Nothing needs to be pasted into a large JSON field.
+
+To customize them, use the included **`projections/mixes.json`**, which contains only the four example mixtures, not tariffs or the entire contract:
+
+1. Open that file in a text editor and save your changes as **UTF-8 JSON**. Keep the `recommended`, `fusion-standard`, `fusion-high` and `fusion-max` example entries; each has `overhead` and a `weights` list of `model` / `weight` pairs.
+2. From the unpacked kit folder, print its absolute **file path**:
+
+```powershell
+pwsh -NoProfile -Command "(Resolve-Path './projections/mixes.json').Path"
+```
+
+3. Copy the printed path into **ProjectionMixFile → Current Value** in **Manage parameters**, for example `C:/CopilotMetrics/projections/mixes.json`. Enter the **absolute file path**, not the folder, JSON contents, a URL, a Power Query expression or extra enclosing quotes.
+4. Choose **Close & Apply → Refresh**. After editing the file again, choose **Refresh** to reload it. If you use a copy elsewhere, resolve and enter that copy's absolute path instead.
+
+**DataRootPath is a folder; ProjectionMixFile is a file.** `ProjectionMixJSON` is now an internal query, not a parameter you fill in. This file option is for Desktop; the separate cloud model generator keeps embedded mixtures and does not read a laptop file.
+
+Only a blank parameter selects embedded defaults. A missing file, an empty file or invalid JSON produces an explicit Refresh error, **not** a fallback to defaults. Weights must be non-negative and sum to one; overhead must be between 0 and 10. These mixtures are editable examples, not recommendations or measured Fusion routing.
+
+For a clean check after upgrading to **1.2.1**, unpack it into a **new folder** and open its PBIP with **DataMode = SAMPLE**, the default **DataRootPath**, and **ProjectionMixFile blank**. After a successful **Close & Apply → Refresh**, repeat REAL steps 4–5 with your existing private data folder; optionally point ProjectionMixFile at your saved custom mixture file. Keep private JSON and customized files; do not overwrite your old kit or data folder. Older kits use the JSON-text parameter and do not support this blank/file-path option.
 
 ## Try it offline
 

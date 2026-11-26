@@ -31,7 +31,7 @@ def expression(url, auth_mode="function-key"):
 
 def cloud_model(url, auth_mode="function-key"):
     query = expression(url, auth_mode)
-    database = model(make_sample()[0])
+    database = model(make_sample()[0], mix_file_parameter=False)
     expressions = database["model"]["expressions"]
     database["model"]["expressions"] = [item for item in expressions if item["name"] not in ("DataMode", "DataRootPath")]
     next(item for item in database["model"]["expressions"] if item["name"] == "Dataset")["expression"] = query

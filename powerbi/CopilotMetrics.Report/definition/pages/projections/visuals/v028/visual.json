@@ -1,0 +1,151 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "v028",
+  "position": {
+    "x": 20,
+    "y": 1535,
+    "z": 28,
+    "tabOrder": 28,
+    "width": 1400,
+    "height": 180
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPriceStatus"
+                    }
+                  },
+                  "Property": "LastChecked"
+                }
+              },
+              "queryRef": "ProjectionPriceStatus.LastChecked",
+              "nativeQueryRef": "LastChecked"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPriceStatus"
+                    }
+                  },
+                  "Property": "ContentHash"
+                }
+              },
+              "queryRef": "ProjectionPriceStatus.ContentHash",
+              "nativeQueryRef": "ContentHash"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPriceStatus"
+                    }
+                  },
+                  "Property": "SourceURLs"
+                }
+              },
+              "queryRef": "ProjectionPriceStatus.SourceURLs",
+              "nativeQueryRef": "SourceURLs"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPriceStatus"
+                    }
+                  },
+                  "Property": "Error"
+                }
+              },
+              "queryRef": "ProjectionPriceStatus.Error",
+              "nativeQueryRef": "Error"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Pricing provenance (refreshed on Import Refresh; not pushed live)'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#9a1a41'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

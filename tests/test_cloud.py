@@ -155,7 +155,9 @@ class CloudTests(unittest.TestCase):
         url = "https://example-metrics.azurewebsites.net/api/dataset"
         database = cloud_powerbi.cloud_model(url)
         expressions = database["model"]["expressions"]
-        self.assertEqual([e["name"] for e in expressions], ["Dataset"])
+        self.assertNotIn("DataMode", [e["name"] for e in expressions])
+        self.assertNotIn("DataRootPath", [e["name"] for e in expressions])
+        self.assertIn("ProjectionPricing", [e["name"] for e in expressions])
         text = "\n".join(expressions[0]["expression"])
         self.assertIn(f'Web.Contents("{url}", [ApiKeyName="code"])', text)
         self.assertNotIn("Binary.FromText", text)

@@ -1,0 +1,45 @@
+let
+  Contract=ProjectionsContract,
+  Sample=Dataset[Info]{0}[Mode]="SAMPLE",
+  Named=List.Combine(List.Transform(Contract[models],(r)=>List.Transform({r[model]}&r[aliases],each [Alias=_,Model=r[model]]))),
+  SampleNames=if Sample then List.Transform(Record.FieldNames(Contract[sampleAliases]),each [Alias=_,Model=Record.Field(Contract[sampleAliases],_)]) else {},
+  AliasRows=Named&SampleNames,
+  SourceMap=Record.FromList(List.Transform(AliasRows,each [Model]),List.Transform(AliasRows,each [Alias])),
+  BillingRows=AliasRows&List.Transform(Record.FieldNames(Contract[billingAliases]),each [Alias=_,Model=Record.Field(Contract[billingAliases],_)]),
+  BillingMap=Record.FromList(List.Transform(BillingRows,each [Model]),List.Transform(BillingRows,each [Alias])),
+  Canonical=(name as any,billing as logical) as nullable text=>if not Value.Is(name,type text) then null else Record.FieldOrDefault(if billing then BillingMap else SourceMap,name,null),
+  CenterRows=Dataset[Centers],
+  CenterMap=Record.FromList(CenterRows,List.Transform(CenterRows,each [CenterId])),
+  Available=Record.FromList(List.Transform(Dataset[SourceCoverage],each [MetricsAvailable]=true),List.Transform(Dataset[SourceCoverage],each [Day])),
+  Billing=Table.FromRecords(Dataset[Billing],{"Day","User","Model","CenterId","Attribution","UnitType","grossAmount","discountAmount","netAmount"},MissingField.UseNull),
+  BModel=Table.AddColumn(Billing,"CanonicalModel",each Canonical([Model],true),type nullable text),
+  Evidence=Table.SelectRows(BModel,each [Attribution]="API user filter" and [UnitType]="ai-credits" and [CanonicalModel]<>null
+    and not List.Contains({"unattributed-history","unattributed-snapshot"},[CenterId]) and Record.HasFields(CenterMap,[CenterId])),
+  Bridge=Table.Buffer(Table.Group(Evidence,{"Day","User","CanonicalModel"},{{"Centers",each List.Distinct([CenterId]),type list}})),
+  Rows=Table.FromRecords(Dataset[ClientModels],{"Day","User","Model","CenterId","Client","CustomModel","PromptTokens","OutputTokens","Requests"},MissingField.UseNull),
+  Renamed=Table.RenameColumns(Rows,{{"Model","RawModel"},{"CenterId","RawCenterId"}}),
+  Source=Table.AddColumn(Renamed,"Model",each Canonical([RawModel],false),type nullable text),
+  Joined=Table.NestedJoin(Source,{"Day","User","Model"},Bridge,{"Day","User","CanonicalModel"},"Bridge",JoinKind.LeftOuter),
+  Number=(v as any) as logical=>Value.Is(v,type number) and v>=0,
+  Resolved=Table.AddColumn(Joined,"Resolution",each
+    let direct=Record.FieldOrDefault(CenterMap,[RawCenterId],null),
+      verified=direct<>null and direct[State]<>"virtual",
+      matches=if Table.IsEmpty([Bridge]) then {} else [Bridge]{0}[Centers],
+      cid=if verified then [RawCenterId] else if List.Count(matches)=1 then matches{0} else "unattributed-history",
+      center=Record.FieldOrDefault(CenterMap,cid,null),
+      reason=if [CustomModel]<>false or [CustomModel]=null then "Custom/BYOK or unknown hosting" else if [Model]=null then "Unknown exact model alias"
+        else if not Number([PromptTokens]) or not Number([OutputTokens]) then "Missing/invalid token counters"
+        else if Record.FieldOrDefault(Available,[Day],false)<>true then "Metrics source unavailable" else ""
+    in [CenterId=cid,Country=if center=null then null else center[Country],
+      Attribution=if verified then "verified-client-center" else if List.Count(matches)=1 then "unique-api-user-billing" else if List.Count(matches)>1 then "ambiguous-billing-centers" else "unverified-center",
+      Reason=reason,SampleAlias=Sample and Record.HasFields(Contract[sampleAliases],[RawModel])]),
+  Expanded=Table.ExpandRecordColumn(Resolved,"Resolution",{"CenterId","Country","Attribution","Reason","SampleAlias"}),
+  WithId=Table.AddIndexColumn(Expanded,"RowId",0,1,Int64.Type),
+  Selected=Table.SelectColumns(WithId,{"RowId","Day","User","RawModel","Model","CenterId","Country","Attribution","PromptTokens","OutputTokens","Requests","Reason","SampleAlias"}),
+  Dates=Table.TransformColumns(Selected,{{"Day",each Date.FromText(_),type date}}),
+  Usage=Table.AddColumn(Dates,"SourceModel",each if [Model]=null then [RawModel] else [Model],type text),
+  BSource=Table.AddColumn(BModel,"SourceModel",each if [CanonicalModel]=null then [Model] else [CanonicalModel],type text),
+  BSelected=Table.SelectColumns(BSource,{"Day","User","CenterId","SourceModel","UnitType","grossAmount","discountAmount","netAmount"}),
+  BDates=Table.TransformColumns(BSelected,{{"Day",each Date.FromText(_),type date}}),
+  Sources=Table.FromColumns({List.Distinct(Usage[SourceModel]&BDates[SourceModel])},{"Model"})
+in [Usage=Usage,Billing=BDates,Sources=Sources]

@@ -34,6 +34,152 @@
           "    else error \"Dataset provenance does not match DataMode\"",
           "in Checked"
         ]
+      },
+      {
+        "name": "ProjectionsContract",
+        "kind": "m",
+        "expression": "Json.Document(Binary.FromText(\"eyJ2ZXJzaW9uIjoiY29waWxvdC1wcm9qZWN0aW9ucy12MSIsImFsaWFzZXNWZXJzaW9uIjoiMjAyNi0xMS0yNi4xIiwicHJpY2luZ1BhcnNlclZlcnNpb24iOiJjb3BpbG90LW1hcmtkb3duLXYxIiwic291cmNlcyI6WyJodHRwczovL2RvY3MuZ2l0aHViLmNvbS9lbi9jb3BpbG90L3JlZmVyZW5jZS9jb3BpbG90LWJpbGxpbmcvbW9kZWxzLWFuZC1wcmljaW5nLm1kIiwiaHR0cHM6Ly9kb2NzLmdpdGh1Yi5jb20vZW4vY29waWxvdC9jb25jZXB0cy9tb2RlbHMvY29waWxvdC1mdXNpb24ubWQiXSwibWF4QWdlSG91cnMiOjI0LCJtb2RlbHMiOlt7Im1vZGVsIjoiR1BULTUuMy1Db2RleCIsImFsaWFzZXMiOlsiZ3B0LTUuMy1jb2RleCJdfSx7Im1vZGVsIjoiR1BULTUuNCBuYW5vIiwiYWxpYXNlcyI6WyJncHQtNS40LW5hbm8iXX0seyJtb2RlbCI6IkdQVC01LjYgTHVuYSIsImFsaWFzZXMiOlsiZ3B0LTUuNi1sdW5hIl19LHsibW9kZWwiOiJHUFQtNS42IFNvbCIsImFsaWFzZXMiOlsiZ3B0LTUuNi1zb2wiXX0seyJtb2RlbCI6IkdQVC02IEFzdHJhIiwiYWxpYXNlcyI6WyJncHQtNi1hc3RyYSJdfSx7Im1vZGVsIjoiR1BULTYgTHVuYSIsImFsaWFzZXMiOlsiZ3B0LTYtbHVuYSJdfSx7Im1vZGVsIjoiR1BULTYgU29sIiwiYWxpYXNlcyI6WyJncHQtNi1zb2wiXX0seyJtb2RlbCI6IkdQVC02LjEgU29sIiwiYWxpYXNlcyI6WyJncHQtNi4xLXNvbCJdfSx7Im1vZGVsIjoiR1BULTYuMSBUZXJyYSIsImFsaWFzZXMiOlsiZ3B0LTYuMS10ZXJyYSJdfSx7Im1vZGVsIjoiR1BULTYuMiBBc3RyYSIsImFsaWFzZXMiOlsiZ3B0LTYuMi1hc3RyYSJdfSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJhbGlhc2VzIjpbImdwdC02LjItc29sIl19LHsibW9kZWwiOiJDbGF1ZGUgSGFpa3UgNC41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtaGFpa3UtNC41IiwiY2xhdWRlLTQuNS1oYWlrdSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEhhaWt1IDUuNSIsImFsaWFzZXMiOlsiY2xhdWRlLWhhaWt1LTUuNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA0IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTQiXX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNC42IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTQuNiJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTUiXX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTUuNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNC44IiwiYWxpYXNlcyI6WyJjbGF1ZGUtb3B1cy00LjgiXX0seyJtb2RlbCI6IkNsYXVkZSBPcHVzIDUuNSIsImFsaWFzZXMiOlsiY2xhdWRlLW9wdXMtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgT3B1cyA0LjggKGZhc3QgbW9kZSkgKHByZXZpZXcpIiwiYWxpYXNlcyI6W119LHsibW9kZWwiOiJDbGF1ZGUgRmFibGUgNSIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUiXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1LjEiLCJhbGlhc2VzIjpbImNsYXVkZS1mYWJsZS01LjEiXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1LjIiLCJhbGlhc2VzIjpbImNsYXVkZS1mYWJsZS01LjIiXX0seyJtb2RlbCI6IkdlbWluaSAzLjggRmxhc2giLCJhbGlhc2VzIjpbImdlbWluaS0zLjgtZmxhc2giXX0seyJtb2RlbCI6IkdlbWluaSA0IEFyZ29uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1hcmdvbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgQ2FyYm9uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1jYXJib24iXX0seyJtb2RlbCI6IkdlbWluaSA0IEh5ZHJvZ2VuIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1oeWRyb2dlbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgTmVvbiIsImFsaWFzZXMiOlsiZ2VtaW5pLTQtbmVvbiJdfSx7Im1vZGVsIjoiTUFJLUNvZGUtMS4xLUZsYXNoIiwiYWxpYXNlcyI6WyJtYWktY29kZS0xLjEtZmxhc2giXX0seyJtb2RlbCI6Ik1BSSBDb2RlIDIiLCJhbGlhc2VzIjpbIm1haS1jb2RlLTIiXX0seyJtb2RlbCI6Ik1BSSBDb2RlIDIgRmxhc2giLCJhbGlhc2VzIjpbIm1haS1jb2RlLTItZmxhc2giXX0seyJtb2RlbCI6Ikdyb2sgNC41IiwiYWxpYXNlcyI6WyJncm9rLTQuNSJdfSx7Im1vZGVsIjoiR3JvayA0LjYiLCJhbGlhc2VzIjpbImdyb2stNC42Il19LHsibW9kZWwiOiJHcm9rIDQuNyIsImFsaWFzZXMiOlsiZ3Jvay00LjciXX0seyJtb2RlbCI6IktpbWkgSzMiLCJhbGlhc2VzIjpbImtpbWktazMiXX1dLCJzYW1wbGVBbGlhc2VzIjp7Ik1vZGVsIEFscGhhIjoiR1BULTYgTHVuYSIsIk1vZGVsIEJldGEiOiJDbGF1ZGUgU29ubmV0IDUuNSIsIk1vZGVsIEdhbW1hIjoiR1BULTYuMiBTb2wifSwiYmlsbGluZ0FsaWFzZXMiOnsiRnVzaW9uIChTdGFuZGFyZCk6IEdQVC02IEx1bmEiOiJHUFQtNiBMdW5hIn0sIm1peGVzIjp7InJlY29tbWVuZGVkIjp7ImxhYmVsIjoiUmVjb21tZW5kZWQtc2V0IEVYQU1QTEUgKGVkaXRhYmxlLCBub3QgYWR2aWNlKSIsIm92ZXJoZWFkIjoxLCJ3ZWlnaHRzIjpbeyJtb2RlbCI6IkdQVC02IEx1bmEiLCJ3ZWlnaHQiOjAuNX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNS41Iiwid2VpZ2h0IjowLjV9XX0sImZ1c2lvbi1zdGFuZGFyZCI6eyJsYWJlbCI6IkZ1c2lvbiBTdGFuZGFyZCBIWVBPVEhFU0lTIiwib3ZlcmhlYWQiOjEsIndlaWdodHMiOlt7Im1vZGVsIjoiR1BULTYgTHVuYSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLWhpZ2giOnsibGFiZWwiOiJGdXNpb24gSGlnaCBIWVBPVEhFU0lTIiwib3ZlcmhlYWQiOjEuMjUsIndlaWdodHMiOlt7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJ3ZWlnaHQiOjAuNX0seyJtb2RlbCI6IkdQVC02LjIgU29sIiwid2VpZ2h0IjowLjV9XX0sImZ1c2lvbi1tYXgiOnsibGFiZWwiOiJGdXNpb24gTWF4IEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MS41LCJ3ZWlnaHRzIjpbeyJtb2RlbCI6IkNsYXVkZSBPcHVzIDUuNSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfX0sImRlZmF1bHRzIjp7Im1vZGUiOiJ1bmNoYW5nZWQiLCJyZXBsYWNlbWVudCI6MSwiY2FjaGVSZWFkIjowLCJjYWNoZVdyaXRlIjowLCJ0aWVyIjoiRGVmYXVsdCIsInRhcmdldFZvbHVtZUZhY3RvciI6MSwiZnVzaW9uRXh0cmFGYWN0b3IiOjEsImZ1c2lvblByb21vdGlvbkVsaWdpYmxlIjpmYWxzZX19\",BinaryEncoding.Base64))"
+      },
+      {
+        "name": "ProjectionMixJSON",
+        "kind": "m",
+        "expression": "Text.FromBinary(Binary.FromText(\"eyJyZWNvbW1lbmRlZCI6IHsibGFiZWwiOiAiUmVjb21tZW5kZWQtc2V0IEVYQU1QTEUgKGVkaXRhYmxlLCBub3QgYWR2aWNlKSIsICJvdmVyaGVhZCI6IDEsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiR1BULTYgTHVuYSIsICJ3ZWlnaHQiOiAwLjV9LCB7Im1vZGVsIjogIkNsYXVkZSBTb25uZXQgNS41IiwgIndlaWdodCI6IDAuNX1dfSwgImZ1c2lvbi1zdGFuZGFyZCI6IHsibGFiZWwiOiAiRnVzaW9uIFN0YW5kYXJkIEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLCAid2VpZ2h0cyI6IFt7Im1vZGVsIjogIkdQVC02IEx1bmEiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24taGlnaCI6IHsibGFiZWwiOiAiRnVzaW9uIEhpZ2ggSFlQT1RIRVNJUyIsICJvdmVyaGVhZCI6IDEuMjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIFNvbm5ldCA1LjUiLCAid2VpZ2h0IjogMC41fSwgeyJtb2RlbCI6ICJHUFQtNi4yIFNvbCIsICJ3ZWlnaHQiOiAwLjV9XX0sICJmdXNpb24tbWF4IjogeyJsYWJlbCI6ICJGdXNpb24gTWF4IEhZUE9USEVTSVMiLCAib3ZlcmhlYWQiOiAxLjUsICJ3ZWlnaHRzIjogW3sibW9kZWwiOiAiQ2xhdWRlIE9wdXMgNS41IiwgIndlaWdodCI6IDAuNX0sIHsibW9kZWwiOiAiR1BULTYuMiBTb2wiLCAid2VpZ2h0IjogMC41fV19fQ==\",BinaryEncoding.Base64)) meta [IsParameterQuery=true,Type=\"Text\",IsParameterQueryRequired=true]"
+      },
+      {
+        "name": "ProjectionPricing",
+        "kind": "m",
+        "expression": [
+          "let",
+          "  Checked = DateTimeZone.FixedUtcNow(),",
+          "  Stamp = DateTimeZone.ToText(Checked, \"yyyy-MM-ddTHH:mm:sszzz\", \"en-US\"),",
+          "  Contract = ProjectionsContract,",
+          "  RateType = type table [Model=text, Tier=text, Threshold=text, InputUSD=number, CachedInputUSD=number, CacheWriteUSD=nullable number, CacheWriteStatus=text, OutputUSD=number, EffectiveFrom=nullable date, EffectiveTo=nullable date, Profile=text],",
+          "  DateValue = (s as text) as date => Date.FromText(Text.Trim(s), [Culture=\"en-US\"]),",
+          "  Money = (s as text) as number => if not Text.StartsWith(s, \"$\") then error \"Expected a published USD price\" else",
+          "    let n=Number.FromText(Text.Range(s,1),\"en-US\") in if n < 0 then error \"Negative tariff\" else n,",
+          "  Fetch = () as record =>",
+          "    let",
+          "      PriceResponse = Web.Contents(\"https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing.md\",",
+          "        [IsRetry=true,Timeout=#duration(0,0,0,20),ManualStatusHandling={408,429,503,504,509}]),",
+          "      FusionResponse = Web.Contents(\"https://docs.github.com/en/copilot/concepts/models/copilot-fusion.md\",",
+          "        [IsRetry=true,Timeout=#duration(0,0,0,20),ManualStatusHandling={408,429,503,504,509}]),",
+          "      PriceBinary = if Record.FieldOrDefault(Value.Metadata(PriceResponse),\"Response.Status\",200)<>200",
+          "        then error \"Official pricing HTTP error\" else Binary.Buffer(PriceResponse),",
+          "      FusionBinary = if Record.FieldOrDefault(Value.Metadata(FusionResponse),\"Response.Status\",200)<>200",
+          "        then error \"Official Fusion HTTP error\" else Binary.Buffer(FusionResponse),",
+          "      Prices = if Binary.Length(PriceBinary) > 1048576 then error \"Pricing source too large\" else Text.FromBinary(PriceBinary,TextEncoding.Utf8),",
+          "      Fusion = if Binary.Length(FusionBinary) > 1048576 then error \"Fusion source too large\" else Text.FromBinary(FusionBinary,TextEncoding.Utf8),",
+          "      CheckedText = if not Text.Contains(Prices,\"1 AI credit = $0.01 USD\") or not Text.Contains(Prices,\"per 1 million tokens\") then error \"Pricing units changed\" else Prices,",
+          "      Lines = Lines.FromText(CheckedText),",
+          "      Notes = List.Select(Lines, each Text.StartsWith(_,\"[^\") and Text.Contains(_,\"]: \")),",
+          "      Tables = List.Accumulate(Lines,[Header={},Rows={}],(s,line) =>",
+          "        if not Text.StartsWith(line,\"|\") then s else",
+          "        let cells=List.Transform(Text.Split(Text.Trim(line,\"|\"),\"|\"),each Text.Trim(_)), first=cells{0} in",
+          "        if first=\"Model\" then [Header=cells,Rows=s[Rows]] else",
+          "        if first=\"\" or Text.StartsWith(first,\"---\") or not List.ContainsAll(s[Header],{\"Model\",\"Input\",\"Cached input\",\"Output\"}) then s else",
+          "        if List.Count(cells)<>List.Count(s[Header]) then error \"Token table shape changed\" else",
+          "        [Header=s[Header],Rows=s[Rows]&{Record.FromList(cells,s[Header])}]),",
+          "      Parse = (r as record) as list =>",
+          "        let",
+          "          HasNote=Text.Contains(r[Model],\"[^\"),",
+          "          Model=if HasNote then Text.Trim(Text.BeforeDelimiter(r[Model],\"[^\")) else r[Model],",
+          "          Ref=if HasNote then Text.BetweenDelimiters(r[Model],\"[^\",\"]\") else null,",
+          "          Found=if HasNote then List.Select(Notes,each Text.StartsWith(_,\"[^\"&Ref&\"]: \")) else {},",
+          "          Note=if HasNote then (if List.Count(Found)<>1 then error \"Missing promotion note\" else Text.AfterDelimiter(Found{0},\"]: \")) else \"\",",
+          "          Through=Text.Contains(Note,\"through \"),",
+          "          HasExpiry=Through or Text.Contains(Note,\"until \"),",
+          "          ExpiryText=if not HasNote then null else if not HasExpiry then error \"Unknown promotion expiry\" else Text.BeforeDelimiter(Text.AfterDelimiter(Note,if Through then \"through \" else \"until \"),\".\"),",
+          "          Until=if ExpiryText=null then null else Date.AddDays(DateValue(ExpiryText),if Through then 1 else 0),",
+          "          Tier=Record.FieldOrDefault(r,\"Tier\",\"Default\"),",
+          "          Write=Record.FieldOrDefault(r,\"Cache write\",\"Not applicable\"),",
+          "          Base=[Model=Model,Tier=if List.Contains({\"Default\",\"Long context\"},Tier) then Tier else error \"Unknown tier\",",
+          "            Threshold=Record.FieldOrDefault(r,\"Threshold (input tokens)\",\"Not applicable\"),",
+          "            InputUSD=Money(r[Input]),CachedInputUSD=Money(Record.Field(r,\"Cached input\")),",
+          "            CacheWriteUSD=if Write=\"Not applicable\" then null else Money(Write),",
+          "            CacheWriteStatus=if Write=\"Not applicable\" then \"not-applicable\" else \"priced\",OutputUSD=Money(r[Output]),",
+          "            EffectiveFrom=null,EffectiveTo=Until,Profile=if HasNote then \"promotional\" else \"published\"],",
+          "          Future=if not Text.Contains(Note,\"Starting \") then {} else",
+          "            let next=Text.AfterDelimiter(Note,\"Starting \"), start=DateValue(Text.BeforeDelimiter(next,\", pricing is \")),",
+          "              parts=List.Skip(Text.Split(Text.AfterDelimiter(next,\"pricing is \"),\"$\")),",
+          "              amounts=List.Transform(parts,each Number.FromText(Text.BeforeDelimiter(_,\" \"),\"en-US\"))",
+          "            in if List.Count(amounts)<>3 or Base[CacheWriteUSD]<>null or start<>Until then error \"Unsupported successor tariff\"",
+          "              else {Record.TransformFields(Base,{{\"InputUSD\",each amounts{0}},{\"CachedInputUSD\",each amounts{1}},{\"OutputUSD\",each amounts{2}},{\"EffectiveFrom\",each start},{\"EffectiveTo\",each null},{\"Profile\",each \"announced\"}})}",
+          "        in {Base}&Future,",
+          "      Rates=Table.Buffer(Table.FromRecords(List.Combine(List.Transform(Tables[Rows],Parse)),RateType,MissingField.Error)),",
+          "      Unique=Table.Distinct(Table.SelectColumns(Rates,{\"Model\",\"Tier\",\"EffectiveFrom\",\"EffectiveTo\"})),",
+          "      Valid=if Table.RowCount(Rates)=0 or Table.RowCount(Unique)<>Table.RowCount(Rates) then error \"Empty or ambiguous tariffs\" else Rates,",
+          "      Promo=Text.BeforeDelimiter(Text.AfterDelimiter(Fusion,\"Through \"),\", users on paid Copilot plans receive a \"),",
+          "      DiscountText=Text.BeforeDelimiter(Text.AfterDelimiter(Fusion,\", users on paid Copilot plans receive a \"),\"% discount on model costs when using Copilot Fusion\"),",
+          "      Discount=Number.FromText(DiscountText,\"en-US\")/100,",
+          "      End=Date.AddDays(DateValue(Promo),1),",
+          "      Fingerprint=List.Accumulate(Binary.ToList(Text.ToBinary(Prices&\"#(lf)\"&Fusion,TextEncoding.Utf8)),[A=1,B=0],",
+          "        (s,b)=>let a=Number.Mod(s[A]+b,65521), b2=Number.Mod(s[B]+a,65521)",
+          "          in if a>=0 and b2>=0 then [A=a,B=b2] else error \"Invalid pricing fingerprint state\"),",
+          "      Hash=\"adler32:\"&Number.ToText(Fingerprint[B]*65536+Fingerprint[A],\"0\",\"en-US\")",
+          "    in if Table.RowCount(Valid)>0 and Text.Length(Hash)>0 and Discount>=0 and Discount<=1 and End>=#date(2000,1,1)",
+          "      then [Rates=Valid,ContentHash=Hash,FusionDiscount=Discount,FusionUntil=End]",
+          "      else error \"Invalid official pricing or promotion\",",
+          "  Attempt=try Fetch(),",
+          "  Result=if Attempt[HasError] then",
+          "    [Rates=#table(RateType,{}),State=\"error\",AsOf=null,LastChecked=Stamp,ContentHash=null,FusionDiscount=null,FusionUntil=null,",
+          "      Error=\"Official Copilot prices unavailable or changed; projections are N/D. Other report pages remain usable.\"]",
+          "    else [Rates=Attempt[Value][Rates],State=\"ready\",AsOf=Stamp,LastChecked=Stamp,",
+          "      ContentHash=Attempt[Value][ContentHash],FusionDiscount=Attempt[Value][FusionDiscount],FusionUntil=Attempt[Value][FusionUntil],Error=null],",
+          "  Output=Record.Combine({Result,[ValuationDay=Date.From(Checked),SourceURLs=Text.Combine(Contract[sources],\" | \"),",
+          "    ParserVersion=Contract[pricingParserVersion],AliasesVersion=Contract[aliasesVersion],CreditsPerUSD=100]})",
+          "in Output"
+        ]
+      },
+      {
+        "name": "ProjectionDerived",
+        "kind": "m",
+        "expression": [
+          "let",
+          "  Contract=ProjectionsContract,",
+          "  Sample=Dataset[Info]{0}[Mode]=\"SAMPLE\",",
+          "  Named=List.Combine(List.Transform(Contract[models],(r)=>List.Transform({r[model]}&r[aliases],each [Alias=_,Model=r[model]]))),",
+          "  SampleNames=if Sample then List.Transform(Record.FieldNames(Contract[sampleAliases]),each [Alias=_,Model=Record.Field(Contract[sampleAliases],_)]) else {},",
+          "  AliasRows=Named&SampleNames,",
+          "  SourceMap=Record.FromList(List.Transform(AliasRows,each [Model]),List.Transform(AliasRows,each [Alias])),",
+          "  BillingRows=AliasRows&List.Transform(Record.FieldNames(Contract[billingAliases]),each [Alias=_,Model=Record.Field(Contract[billingAliases],_)]),",
+          "  BillingMap=Record.FromList(List.Transform(BillingRows,each [Model]),List.Transform(BillingRows,each [Alias])),",
+          "  Canonical=(name as any,billing as logical) as nullable text=>if not Value.Is(name,type text) then null else Record.FieldOrDefault(if billing then BillingMap else SourceMap,name,null),",
+          "  CenterRows=Dataset[Centers],",
+          "  CenterMap=Record.FromList(CenterRows,List.Transform(CenterRows,each [CenterId])),",
+          "  Available=Record.FromList(List.Transform(Dataset[SourceCoverage],each [MetricsAvailable]=true),List.Transform(Dataset[SourceCoverage],each [Day])),",
+          "  Billing=Table.FromRecords(Dataset[Billing],{\"Day\",\"User\",\"Model\",\"CenterId\",\"Attribution\",\"UnitType\",\"grossAmount\",\"discountAmount\",\"netAmount\"},MissingField.UseNull),",
+          "  BModel=Table.AddColumn(Billing,\"CanonicalModel\",each Canonical([Model],true),type nullable text),",
+          "  Evidence=Table.SelectRows(BModel,each [Attribution]=\"API user filter\" and [UnitType]=\"ai-credits\" and [CanonicalModel]<>null",
+          "    and not List.Contains({\"unattributed-history\",\"unattributed-snapshot\"},[CenterId]) and Record.HasFields(CenterMap,[CenterId])),",
+          "  Bridge=Table.Buffer(Table.Group(Evidence,{\"Day\",\"User\",\"CanonicalModel\"},{{\"Centers\",each List.Distinct([CenterId]),type list}})),",
+          "  Rows=Table.FromRecords(Dataset[ClientModels],{\"Day\",\"User\",\"Model\",\"CenterId\",\"Client\",\"CustomModel\",\"PromptTokens\",\"OutputTokens\",\"Requests\"},MissingField.UseNull),",
+          "  Renamed=Table.RenameColumns(Rows,{{\"Model\",\"RawModel\"},{\"CenterId\",\"RawCenterId\"}}),",
+          "  Source=Table.AddColumn(Renamed,\"Model\",each Canonical([RawModel],false),type nullable text),",
+          "  Joined=Table.NestedJoin(Source,{\"Day\",\"User\",\"Model\"},Bridge,{\"Day\",\"User\",\"CanonicalModel\"},\"Bridge\",JoinKind.LeftOuter),",
+          "  Number=(v as any) as logical=>Value.Is(v,type number) and v>=0,",
+          "  Resolved=Table.AddColumn(Joined,\"Resolution\",each",
+          "    let direct=Record.FieldOrDefault(CenterMap,[RawCenterId],null),",
+          "      verified=direct<>null and direct[State]<>\"virtual\",",
+          "      matches=if Table.IsEmpty([Bridge]) then {} else [Bridge]{0}[Centers],",
+          "      cid=if verified then [RawCenterId] else if List.Count(matches)=1 then matches{0} else \"unattributed-history\",",
+          "      center=Record.FieldOrDefault(CenterMap,cid,null),",
+          "      reason=if [CustomModel]<>false or [CustomModel]=null then \"Custom/BYOK or unknown hosting\" else if [Model]=null then \"Unknown exact model alias\"",
+          "        else if not Number([PromptTokens]) or not Number([OutputTokens]) then \"Missing/invalid token counters\"",
+          "        else if Record.FieldOrDefault(Available,[Day],false)<>true then \"Metrics source unavailable\" else \"\"",
+          "    in [CenterId=cid,Country=if center=null then null else center[Country],",
+          "      Attribution=if verified then \"verified-client-center\" else if List.Count(matches)=1 then \"unique-api-user-billing\" else if List.Count(matches)>1 then \"ambiguous-billing-centers\" else \"unverified-center\",",
+          "      Reason=reason,SampleAlias=Sample and Record.HasFields(Contract[sampleAliases],[RawModel])]),",
+          "  Expanded=Table.ExpandRecordColumn(Resolved,\"Resolution\",{\"CenterId\",\"Country\",\"Attribution\",\"Reason\",\"SampleAlias\"}),",
+          "  WithId=Table.AddIndexColumn(Expanded,\"RowId\",0,1,Int64.Type),",
+          "  Selected=Table.SelectColumns(WithId,{\"RowId\",\"Day\",\"User\",\"RawModel\",\"Model\",\"CenterId\",\"Country\",\"Attribution\",\"PromptTokens\",\"OutputTokens\",\"Requests\",\"Reason\",\"SampleAlias\"}),",
+          "  Dates=Table.TransformColumns(Selected,{{\"Day\",each Date.FromText(_),type date}}),",
+          "  Usage=Table.AddColumn(Dates,\"SourceModel\",each if [Model]=null then [RawModel] else [Model],type text),",
+          "  BSource=Table.AddColumn(BModel,\"SourceModel\",each if [CanonicalModel]=null then [Model] else [CanonicalModel],type text),",
+          "  BSelected=Table.SelectColumns(BSource,{\"Day\",\"User\",\"CenterId\",\"SourceModel\",\"UnitType\",\"grossAmount\",\"discountAmount\",\"netAmount\"}),",
+          "  BDates=Table.TransformColumns(BSelected,{{\"Day\",each Date.FromText(_),type date}}),",
+          "  Sources=Table.FromColumns({List.Distinct(Usage[SourceModel]&BDates[SourceModel])},{\"Model\"})",
+          "in [Usage=Usage,Billing=BDates,Sources=Sources]"
+        ]
       }
     ],
     "tables": [
@@ -822,6 +968,179 @@
           {
             "name": "Display Users without client telemetry",
             "expression": "VAR Value = [Users without client telemetry] RETURN IF(ISBLANK(Value), \"N/D\", FORMAT(Value, \"#,0\", \"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Option Error",
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR Identity=Mode=\"unchanged\" || P=0 VAR InvalidTargets=COUNTROWS(FILTER(Targets,ISBLANK([_Weight]) || ISBLANK([_Overhead]) || [_Weight]<0 || [_Weight]>1 || [_Overhead]<0 || [_Overhead]>10))>0 RETURN IF(ISBLANK(Mode) || ISBLANK(Tier) || ISBLANK(P) || ISBLANK(R) || ISBLANK(W) || ISBLANK(Volume) || ISBLANK(Extra) || ISBLANK(Promo) || P<0 || P>1 || R<0 || W<0 || R+W>1 || Volume<0 || Volume>10 || Extra<0 || Extra>10 || (ISFILTERED(ProjectionValuation[Day]) && NOT HASONEVALUE(ProjectionValuation[Day])), \"Invalid/multiple scenario assumptions\",IF(NOT Identity && (COUNTROWS(Targets)=0 || InvalidTargets || ABS(SUMX(Targets,[_Weight])-1)>0.000000001 || MINX(Targets,[_Weight])<0 || MINX(Targets,[_Overhead])<0 || MAXX(Targets,[_Overhead])>10),\"Example mix weights must sum to 1; overhead must be 0..10\",\"\"))"
+          },
+          {
+            "name": "Projection Ready",
+            "expression": "VAR Age=(UTCNOW()-MAX(ProjectionPriceStatus[AsOf]))*24 RETURN IF(SELECTEDVALUE(ProjectionPriceStatus[State])=\"ready\" && Age>=0 && Age<=24 && [Projection Option Error]=\"\",1,0)",
+            "formatString": "0"
+          },
+          {
+            "name": "Projection Row Baseline USD",
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR PriceDay=IF(NOT ISFILTERED(ProjectionValuation[Day]),MAX(ProjectionPriceStatus[ValuationDay]),SELECTEDVALUE(ProjectionValuation[Day])) VAR I=SELECTEDVALUE(ProjectionUsage[PromptTokens]) VAR O=SELECTEDVALUE(ProjectionUsage[OutputTokens]) VAR SourceModel=SELECTEDVALUE(ProjectionUsage[Model]) VAR Identity=Mode=\"unchanged\" || P=0 VAR Fusion=LEFT(Mode,7)=\"fusion-\" VAR SourceRates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=SourceModel && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) VAR SourceCost=IF(COUNTROWS(SourceRates)=1, SUMX(SourceRates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000))) VAR Destination=ADDCOLUMNS(FILTER(Targets,[_Weight]>0),\"_Cost\",VAR TM=[_Model] VAR Rates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=TM && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) RETURN IF(COUNTROWS(Rates)=1, SUMX(Rates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000)))) VAR Discount=IF(Fusion && Promo=1 && PriceDay<MAX(ProjectionPriceStatus[FusionUntil]),MAX(ProjectionPriceStatus[FusionDiscount]),0) VAR PromotionOK=Identity || NOT(Fusion && Promo=1) || (NOT ISBLANK(MAX(ProjectionPriceStatus[FusionUntil])) && NOT ISBLANK(MAX(ProjectionPriceStatus[FusionDiscount])) && MAX(ProjectionPriceStatus[FusionDiscount])>=0 && MAX(ProjectionPriceStatus[FusionDiscount])<=1) VAR Valid=[Projection Ready]=1 && SELECTEDVALUE(ProjectionUsage[Reason])=\"\" && NOT ISBLANK(SourceCost) && PromotionOK && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) RETURN IF(Valid,SourceCost)",
+            "formatString": "\"$\"#,0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Row Scenario USD",
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR PriceDay=IF(NOT ISFILTERED(ProjectionValuation[Day]),MAX(ProjectionPriceStatus[ValuationDay]),SELECTEDVALUE(ProjectionValuation[Day])) VAR I=SELECTEDVALUE(ProjectionUsage[PromptTokens]) VAR O=SELECTEDVALUE(ProjectionUsage[OutputTokens]) VAR SourceModel=SELECTEDVALUE(ProjectionUsage[Model]) VAR Identity=Mode=\"unchanged\" || P=0 VAR Fusion=LEFT(Mode,7)=\"fusion-\" VAR SourceRates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=SourceModel && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) VAR SourceCost=IF(COUNTROWS(SourceRates)=1, SUMX(SourceRates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000))) VAR Destination=ADDCOLUMNS(FILTER(Targets,[_Weight]>0),\"_Cost\",VAR TM=[_Model] VAR Rates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=TM && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) RETURN IF(COUNTROWS(Rates)=1, SUMX(Rates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000)))) VAR Discount=IF(Fusion && Promo=1 && PriceDay<MAX(ProjectionPriceStatus[FusionUntil]),MAX(ProjectionPriceStatus[FusionDiscount]),0) VAR PromotionOK=Identity || NOT(Fusion && Promo=1) || (NOT ISBLANK(MAX(ProjectionPriceStatus[FusionUntil])) && NOT ISBLANK(MAX(ProjectionPriceStatus[FusionDiscount])) && MAX(ProjectionPriceStatus[FusionDiscount])>=0 && MAX(ProjectionPriceStatus[FusionDiscount])<=1) VAR Valid=[Projection Ready]=1 && SELECTEDVALUE(ProjectionUsage[Reason])=\"\" && NOT ISBLANK(SourceCost) && PromotionOK && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) RETURN IF(Valid,IF(Identity,SourceCost,SourceCost*(1-P)+SUMX(Destination,[_Cost]*[_Weight]*[_Overhead])*P*Volume*IF(Fusion,Extra,1)*(1-Discount)))",
+            "formatString": "\"$\"#,0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Selected Rows",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(ProjectionUsage),REMOVEFILTERS(Centers)),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Eligible Rows",
+            "expression": "IF([Projection Ready]=1,COALESCE(SUMX(ProjectionUsage,IF(NOT ISBLANK([Projection Row Baseline USD]),1,0)),0))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Excluded Rows",
+            "expression": "IF(NOT ISBLANK([Projection Eligible Rows]),[Projection Selected Rows]-[Projection Eligible Rows])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Verified Center Rows",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(ProjectionUsage),ProjectionUsage[Attribution] IN {\"verified-client-center\",\"unique-api-user-billing\"}),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Missing Token Rows",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(ProjectionUsage),ProjectionUsage[Reason]=\"Missing/invalid token counters\"),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Unknown Model Rows",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(ProjectionUsage),ProjectionUsage[Reason]=\"Unknown exact model alias\"),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Unverified Center Rows",
+            "expression": "COALESCE(CALCULATE(COUNTROWS(ProjectionUsage),REMOVEFILTERS(Centers),ProjectionUsage[Attribution] IN {\"unverified-center\",\"ambiguous-billing-centers\"}),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Tariff Excluded Rows",
+            "expression": "IF([Projection Ready]=1,COALESCE(SUMX(ProjectionUsage,IF(ProjectionUsage[Reason]=\"\" && ISBLANK([Projection Row Baseline USD]),1,0)),0))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Known Input Tokens",
+            "expression": "CALCULATE(SUM(ProjectionUsage[PromptTokens]),REMOVEFILTERS(Centers))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Known Output Tokens",
+            "expression": "CALCULATE(SUM(ProjectionUsage[OutputTokens]),REMOVEFILTERS(Centers))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Known Requests",
+            "expression": "CALCULATE(SUM(ProjectionUsage[Requests]),REMOVEFILTERS(Centers))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Eligible Input Tokens",
+            "expression": "IF([Projection Eligible Rows]>0,SUMX(ProjectionUsage,IF(NOT ISBLANK([Projection Row Baseline USD]),ProjectionUsage[PromptTokens])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Eligible Output Tokens",
+            "expression": "IF([Projection Eligible Rows]>0,SUMX(ProjectionUsage,IF(NOT ISBLANK([Projection Row Baseline USD]),ProjectionUsage[OutputTokens])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Eligible Requests",
+            "expression": "IF([Projection Eligible Rows]>0,SUMX(ProjectionUsage,IF(NOT ISBLANK([Projection Row Baseline USD]),ProjectionUsage[Requests])))",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Baseline USD",
+            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Baseline USD]))",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Scenario USD",
+            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Scenario USD]))",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Delta Cost USD",
+            "expression": "IF(NOT ISBLANK([Projection Baseline USD]) && NOT ISBLANK([Projection Scenario USD]),[Projection Scenario USD]-[Projection Baseline USD])",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Delta Cost Pct",
+            "expression": "DIVIDE([Projection Delta Cost USD],[Projection Baseline USD])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Projection Baseline Credits",
+            "expression": "IF(NOT ISBLANK([Projection Baseline USD]),[Projection Baseline USD]*100)",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Scenario Credits",
+            "expression": "IF(NOT ISBLANK([Projection Scenario USD]),[Projection Scenario USD]*100)",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Chart USD",
+            "expression": "SWITCH(SELECTEDVALUE(ProjectionSide[Side]),\"Baseline modeled\",[Projection Baseline USD],\"Scenario modeled\",[Projection Scenario USD])",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Actual Gross USD",
+            "expression": "CALCULATE(SUM(ProjectionBilling[grossAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "formatString": "\"$\"#,0.00"
+          },
+          {
+            "name": "Projection Actual Discount USD",
+            "expression": "CALCULATE(SUM(ProjectionBilling[discountAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "formatString": "\"$\"#,0.00"
+          },
+          {
+            "name": "Projection Actual Net USD",
+            "expression": "CALCULATE(SUM(ProjectionBilling[netAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "formatString": "\"$\"#,0.00"
+          },
+          {
+            "name": "Projection Pricing State",
+            "expression": "VAR Ready=[Projection Ready] RETURN IF(Ready=1,\"LIVE OFFICIAL PRICES checked at refresh: \",\"N/D - PRICES/OPTIONS UNAVAILABLE: \") & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[LastChecked]),\"not checked\") & \" | \" & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[ContentHash]),\"no verified fingerprint\") & \" | \" & [Projection Option Error] & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[Error]),\"\")"
+          },
+          {
+            "name": "Projection Assumptions",
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) RETURN \"HYPOTHETICAL. \"&Mode&\" | replace \"&FORMAT(P,\"0%\")&\" | cache read/write \"&FORMAT(R,\"0%\")&\"/\"&FORMAT(W,\"0%\")&\" (disjoint input) | tier \"&Tier&\" selected, not inferred | target volume x\"&FORMAT(Volume,\"0.##\")&\" | Fusion extra x\"&FORMAT(Extra,\"0.##\")&\" | promo eligible \"&FORMAT(Promo,\"0\")&\" | Mix/overhead EXAMPLES, not actual routing or advice. Delta=Scenario-Baseline; not invoice savings.\""
+          },
+          {
+            "name": "Projection Coverage Note",
+            "expression": "\"Same priced rows on both modeled sides: \"&FORMAT([Projection Eligible Rows],\"0\")&\"/\"&FORMAT([Projection Selected Rows],\"0\")&\" source rows BEFORE the center filter (not a center-specific coverage percentage). Unknown/custom/image/missing tokens/tariff/tier/ambiguous center excluded. Known enterprise-only center is not a country. No task quality, ROI, retained code or guaranteed savings claim.\""
+          },
+          {
+            "name": "Projection Display Baseline USD",
+            "expression": "VAR V=[Projection Baseline USD] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"\"\"$\"\"#,0.0000\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Scenario USD",
+            "expression": "VAR V=[Projection Scenario USD] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"\"\"$\"\"#,0.0000\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Delta Cost USD",
+            "expression": "VAR V=[Projection Delta Cost USD] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"\"\"$\"\"#,0.0000\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Delta Cost Pct",
+            "expression": "VAR V=[Projection Delta Cost Pct] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"0.0%\",\"en-US\"))",
             "isHidden": true
           }
         ]
@@ -2284,6 +2603,669 @@
             }
           }
         ]
+      },
+      {
+        "name": "ProjectionPrices",
+        "columns": [
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Tier",
+            "dataType": "string",
+            "sourceColumn": "Tier",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Threshold",
+            "dataType": "string",
+            "sourceColumn": "Threshold",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "InputUSD",
+            "dataType": "double",
+            "sourceColumn": "InputUSD",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CachedInputUSD",
+            "dataType": "double",
+            "sourceColumn": "CachedInputUSD",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CacheWriteUSD",
+            "dataType": "double",
+            "sourceColumn": "CacheWriteUSD",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CacheWriteStatus",
+            "dataType": "string",
+            "sourceColumn": "CacheWriteStatus",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OutputUSD",
+            "dataType": "double",
+            "sourceColumn": "OutputUSD",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EffectiveFrom",
+            "dataType": "dateTime",
+            "sourceColumn": "EffectiveFrom",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "EffectiveTo",
+            "dataType": "dateTime",
+            "sourceColumn": "EffectiveTo",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Profile",
+            "dataType": "string",
+            "sourceColumn": "Profile",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionPrices",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "ProjectionPricing[Rates]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionPriceStatus",
+        "columns": [
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AsOf",
+            "dataType": "dateTime",
+            "sourceColumn": "AsOf",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "LastChecked",
+            "dataType": "string",
+            "sourceColumn": "LastChecked",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ContentHash",
+            "dataType": "string",
+            "sourceColumn": "ContentHash",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "FusionDiscount",
+            "dataType": "double",
+            "sourceColumn": "FusionDiscount",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "FusionUntil",
+            "dataType": "dateTime",
+            "sourceColumn": "FusionUntil",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "Error",
+            "dataType": "string",
+            "sourceColumn": "Error",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ValuationDay",
+            "dataType": "dateTime",
+            "sourceColumn": "ValuationDay",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "SourceURLs",
+            "dataType": "string",
+            "sourceColumn": "SourceURLs",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ParserVersion",
+            "dataType": "string",
+            "sourceColumn": "ParserVersion",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "AliasesVersion",
+            "dataType": "string",
+            "sourceColumn": "AliasesVersion",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CreditsPerUSD",
+            "dataType": "double",
+            "sourceColumn": "CreditsPerUSD",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionPriceStatus",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let R=Record.RemoveFields(ProjectionPricing,{\"Rates\"}), T=Table.FromRecords({R}), D=Table.TransformColumns(T,{{\"AsOf\",each if _=null then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(_)),type nullable datetime}}) in D"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionUsage",
+        "columns": [
+          {
+            "name": "RowId",
+            "dataType": "double",
+            "sourceColumn": "RowId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Day",
+            "dataType": "dateTime",
+            "sourceColumn": "Day",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "User",
+            "dataType": "string",
+            "sourceColumn": "User",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "RawModel",
+            "dataType": "string",
+            "sourceColumn": "RawModel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CenterId",
+            "dataType": "string",
+            "sourceColumn": "CenterId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Country",
+            "dataType": "string",
+            "sourceColumn": "Country",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Attribution",
+            "dataType": "string",
+            "sourceColumn": "Attribution",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PromptTokens",
+            "dataType": "double",
+            "sourceColumn": "PromptTokens",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OutputTokens",
+            "dataType": "double",
+            "sourceColumn": "OutputTokens",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Requests",
+            "dataType": "double",
+            "sourceColumn": "Requests",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reason",
+            "dataType": "string",
+            "sourceColumn": "Reason",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SampleAlias",
+            "dataType": "boolean",
+            "sourceColumn": "SampleAlias",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SourceModel",
+            "dataType": "string",
+            "sourceColumn": "SourceModel",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionUsage",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "ProjectionDerived[Usage]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionBilling",
+        "columns": [
+          {
+            "name": "Day",
+            "dataType": "dateTime",
+            "sourceColumn": "Day",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "User",
+            "dataType": "string",
+            "sourceColumn": "User",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CenterId",
+            "dataType": "string",
+            "sourceColumn": "CenterId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SourceModel",
+            "dataType": "string",
+            "sourceColumn": "SourceModel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "UnitType",
+            "dataType": "string",
+            "sourceColumn": "UnitType",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "grossAmount",
+            "dataType": "double",
+            "sourceColumn": "grossAmount",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "discountAmount",
+            "dataType": "double",
+            "sourceColumn": "discountAmount",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "netAmount",
+            "dataType": "double",
+            "sourceColumn": "netAmount",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionBilling",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "ProjectionDerived[Billing]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionSource",
+        "columns": [
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionSource",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "ProjectionDerived[Sources]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionTarget",
+        "columns": [
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionTarget",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.Distinct(Table.SelectColumns(ProjectionPricing[Rates],{\"Model\"}))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionTier",
+        "columns": [
+          {
+            "name": "Tier",
+            "dataType": "string",
+            "sourceColumn": "Tier",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionTier",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVGllciI6ICJEZWZhdWx0In0sIHsiVGllciI6ICJMb25nIGNvbnRleHQifV0=\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionValuation",
+        "columns": [
+          {
+            "name": "Day",
+            "dataType": "dateTime",
+            "sourceColumn": "Day",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionValuation",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromColumns({List.Dates(Date.From(DateTimeZone.FixedUtcNow()),366,#duration(1,0,0,0))},{\"Day\"})"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionScenario",
+        "columns": [
+          {
+            "name": "Mode",
+            "dataType": "string",
+            "sourceColumn": "Mode",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionScenario",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siTW9kZSI6ICJ1bmNoYW5nZWQifSwgeyJNb2RlIjogInRhcmdldCJ9LCB7Ik1vZGUiOiAicmVjb21tZW5kZWQifSwgeyJNb2RlIjogImZ1c2lvbi1zdGFuZGFyZCJ9LCB7Ik1vZGUiOiAiZnVzaW9uLWhpZ2gifSwgeyJNb2RlIjogImZ1c2lvbi1tYXgifV0=\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionMigration",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionMigration",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNzV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionCacheRead",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionCacheRead",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNn0sIHsiVmFsdWUiOiAwLjc1fSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionCacheWrite",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionCacheWrite",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMX0sIHsiVmFsdWUiOiAwLjJ9LCB7IlZhbHVlIjogMC4yNX0sIHsiVmFsdWUiOiAwLjV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionVolume",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionVolume",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuNX0sIHsiVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMjV9LCB7IlZhbHVlIjogMS41fSwgeyJWYWx1ZSI6IDJ9XQ==\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionFusionExtra",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionFusionExtra",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMn0sIHsiVmFsdWUiOiAxLjI1fSwgeyJWYWx1ZSI6IDEuNX0sIHsiVmFsdWUiOiAyfSwgeyJWYWx1ZSI6IDN9XQ==\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionPromotion",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "double",
+            "sourceColumn": "Value",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionPromotion",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionSide",
+        "columns": [
+          {
+            "name": "Side",
+            "dataType": "string",
+            "sourceColumn": "Side",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionSide",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siU2lkZSI6ICJCYXNlbGluZSBtb2RlbGVkIn0sIHsiU2lkZSI6ICJTY2VuYXJpbyBtb2RlbGVkIn1d\",BinaryEncoding.Base64)))"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionMix",
+        "columns": [
+          {
+            "name": "Mode",
+            "dataType": "string",
+            "sourceColumn": "Mode",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Weight",
+            "dataType": "double",
+            "sourceColumn": "Weight",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Overhead",
+            "dataType": "double",
+            "sourceColumn": "Overhead",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionMix",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let C=Json.Document(Text.ToBinary(ProjectionMixJSON)), Rows=List.Combine(List.Transform(Record.FieldNames(C),(mode)=>List.Transform(Record.Field(C,mode)[weights],(r)=>[Mode=mode,Model=r[model],Weight=r[weight],Overhead=Record.Field(C,mode)[overhead]]))) in Table.FromRecords(Rows,type table[Mode=text,Model=text,Weight=number,Overhead=number])"
+              ]
+            }
+          }
+        ]
       }
     ],
     "relationships": [
@@ -2581,6 +3563,70 @@
         "fromColumn": "Day",
         "toTable": "Dates",
         "toColumn": "Day",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionUsage_Dates",
+        "fromTable": "ProjectionUsage",
+        "fromColumn": "Day",
+        "toTable": "Dates",
+        "toColumn": "Day",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionUsage_Users",
+        "fromTable": "ProjectionUsage",
+        "fromColumn": "User",
+        "toTable": "Users",
+        "toColumn": "User",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionUsage_Centers",
+        "fromTable": "ProjectionUsage",
+        "fromColumn": "CenterId",
+        "toTable": "Centers",
+        "toColumn": "CenterId",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionUsage_ProjectionSource",
+        "fromTable": "ProjectionUsage",
+        "fromColumn": "SourceModel",
+        "toTable": "ProjectionSource",
+        "toColumn": "Model",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBilling_Dates",
+        "fromTable": "ProjectionBilling",
+        "fromColumn": "Day",
+        "toTable": "Dates",
+        "toColumn": "Day",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBilling_Users",
+        "fromTable": "ProjectionBilling",
+        "fromColumn": "User",
+        "toTable": "Users",
+        "toColumn": "User",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBilling_Centers",
+        "fromTable": "ProjectionBilling",
+        "fromColumn": "CenterId",
+        "toTable": "Centers",
+        "toColumn": "CenterId",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBilling_ProjectionSource",
+        "fromTable": "ProjectionBilling",
+        "fromColumn": "SourceModel",
+        "toTable": "ProjectionSource",
+        "toColumn": "Model",
         "crossFilteringBehavior": "oneDirection"
       }
     ]

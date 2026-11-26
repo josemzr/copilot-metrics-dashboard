@@ -5,7 +5,7 @@
   "description": "Browser checks for the synthetic Copilot Metrics dashboard",
   "license": "MIT",
   "scripts": {
-    "test": "node --test web/tests/core.test.cjs",
+    "test": "node --test web/tests/core.test.cjs web/tests/projections.test.cjs",
     "test:browser": "node web/tests/browser.cjs"
   },
   "devDependencies": {

@@ -16,19 +16,23 @@ SOURCES = (
     "scripts/download.ps1", "scripts/download_local.py", "scripts/collect.py",
     "scripts/normalize.py", "scripts/snapshot.py", "scripts/make_sample.py",
     "scripts/server.py", "scripts/worker.py", "web/build.py",
-    "web/src/index.html", "web/src/theme.css", "web/src/core.js", "web/src/app.js",
+    "scripts/pricing.py", "projections/contract.json",
+    "web/src/index.html", "web/src/theme.css", "web/src/core.js", "web/src/app.js", "web/src/projections.js",
 )
 
 
 def build(output):
     pbi = subprocess.check_output(["git", "ls-files", "-z", "--", "powerbi"], cwd=ROOT).decode().split("\0")
     pbi = [name for name in pbi if name]
+    projection_page = ROOT / "powerbi/CopilotMetrics.Report/definition/pages/projections"
+    pbi = sorted(set(pbi + [str(path.relative_to(ROOT)) for pattern in ("page.json", "visuals/v[0-9][0-9][0-9]/visual.json")
+                           for path in projection_page.glob(pattern)]))
     if not pbi or any(not name.startswith("powerbi/CopilotMetrics") for name in pbi):
         raise ValueError("Expected the tracked neutral Power BI project only")
     current = json.loads((ROOT / "powerbi/CopilotMetrics.SemanticModel/model.bim").read_text())
     if current != model(make_sample()[0]):
         raise ValueError("The kit requires the unchanged generated SAMPLE model; REAL data is never packaged")
-    entries = {"README.md": ROOT / "docs/local-kit.md"}
+    entries = {"README.md": ROOT / "docs/local-kit.md", "projections.md": ROOT / "docs/projections.md"}
     entries.update({name: ROOT / name for name in [*SOURCES, *pbi]})
     for path in entries.values():
         if path.is_symlink() or not path.is_file():

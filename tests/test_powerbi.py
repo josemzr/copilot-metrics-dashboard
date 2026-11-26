@@ -103,6 +103,11 @@ class PowerBIReportTests(unittest.TestCase):
                 self.assertNotIn("Display " + name, self.measures)
                 self.assertNotIn("FORMAT(", self.measures[name]["expression"])
 
+    def test_long_projection_page_uses_native_fit_to_width_without_changing_original_pages(self):
+        for path in (self.report / "definition/pages").glob("*/page.json"):
+            page = json.loads(path.read_text())
+            self.assertEqual(page["displayOption"], "FitToWidth" if page["name"] == "projections" else "FitToPage")
+
     def test_only_numeric_cards_use_hidden_displays_and_all_other_visuals_keep_base_measures(self):
         used = set()
         for path in (self.report / "definition/pages").glob("*/visuals/*/visual.json"):

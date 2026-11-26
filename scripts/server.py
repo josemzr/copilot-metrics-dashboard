@@ -6,6 +6,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import urllib.parse
 
 from snapshot import read_snapshot
+from pricing import STORE as PRICES
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -50,6 +51,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_body(200, body, "text/html; charset=utf-8")
         elif url.path == "/healthz" and not url.query:
             self.json_body(200, dict(status="alive"))
+        elif url.path == "/api/pricing" and not url.query:
+            self.json_body(200, PRICES.get())
         elif url.path == "/api/status" and not url.query:
             if os.environ.get("DATA_MODE") == "MANUAL":
                 self.json_body(200, dict(state="manual", lastAttempt=None,

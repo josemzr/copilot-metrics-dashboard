@@ -2,7 +2,7 @@
 
 Open **`powerbi/CopilotMetrics.pbip`** in a recent **Power BI Desktop on Windows**. Enable Power BI project / enhanced report format support if your Desktop version requires it.
 
-The project embeds only the fictional SAMPLE data. Its ten pages cover overview, billing, adoption/models, budgets/pools, source coverage, licenses/adoption, code/acceptance, users, 14-day model blocks and surfaces/telemetry coverage.
+The project embeds only the fictional SAMPLE data. Its ten original pages cover overview, billing, adoption/models, budgets/pools, source coverage, licenses/adoption, code/acceptance, users, 14-day model blocks and surfaces/telemetry coverage. **Projections** is an eleventh native page using separately imported current official pricing and explicit hypothetical assumptions.
 
 ## Use a private REAL snapshot
 
@@ -14,7 +14,9 @@ mkdir -p ../copilot-metrics-private
 docker compose cp web:/data/dataset.json ../copilot-metrics-private/dataset.json
 ```
 
-3. In Desktop, open **Transform data → Manage parameters**. Set `DataMode` to `REAL` and `DataRootPath` to the folder containing `dataset.json`, then refresh. The model rejects a mode mismatch.
+3. In Desktop, open **Transform data → Manage parameters / Edit parameters**. Change `DataMode` from `SAMPLE` to `REAL`. Set `DataRootPath` to the **absolute folder containing `dataset.json`**, not the filename or a URL. Choose **Apply / Close & Apply**, then **Refresh** and confirm REAL and the coverage dates. The model rejects a mode mismatch.
+
+Refresh also checks the two fixed official Copilot pricing sources anonymously. Allow the public source when prompted; no private dataset values are used in a pricing URL. Pricing query failures load an explicit Projections error/N/D status, not a silently current snapshot. This is Import refresh, not a real-time push. The [manual local guide](local-kit.md) includes the one-line PowerShell download steps; [projection rules](projections.md) explain assumptions and exclusions.
 
 The container **does not run Power BI Desktop or Power BI Service**. A file copied once does not update automatically. For scheduled Service refresh, provide an accessible private data source and the appropriate gateway or deployment; the Service cannot fetch `localhost` from your laptop. These deployment steps are not automated here.
 

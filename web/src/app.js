@@ -1,6 +1,10 @@
 (function () {
   "use strict";
   const D = window.CopilotData, $ = id => document.getElementById(id);
+  const P = window.CopilotProjections, projectionContract = JSON.parse($("projection-contract").textContent);
+  let pricing = null, pricingBusy = false, projectionOptions = { ...projectionContract.defaults }, projectionUser = "", mixError = "";
+  const projectionFormat = new Intl.NumberFormat("en-US", { maximumFractionDigits: 6 });
+  const pfmt = value => D.num(value) ? projectionFormat.format(value) : "N/D";
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const format = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
   const fmt = value => D.num(value) ? format.format(value) : "N/D";
@@ -83,7 +87,7 @@
     });
     rows.forEach((row, i) => {
       if (i % Math.max(1, Math.ceil(rows.length / 5)) === 0 || i === rows.length - 1)
-        body += `<text x="${x(i)}" y="211" text-anchor="middle">${esc(String(row[label]).slice(5))}</text>`;
+        body += `<text x="${x(i)}" y="211" text-anchor="middle">${esc(label === "Day" ? String(row[label]).slice(5) : row[label])}</text>`;
     });
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>${body}</svg>`;
     charts.set(id, { svg, title });
@@ -174,9 +178,73 @@
       heading("Pools - current snapshot") + table("pools", "Pools - balance N/D without a verified unit", s.pools, [["CenterId", "Center"], ["PoolEnabled", "Enabled"], ["TargetRaw", "Raw target"], ["CurrentRaw", "Raw current"], ["UnitStatus", "Unit status"], ["AsOf", "As of"]]) +
       heading("Budgets - current snapshot") + table("budgets", "Reported budgets", s.budgets, [["CenterId", "Center"], ["Scope", "Scope"], ["ProductSKU", "Product SKU"], ["BudgetAmount", "Raw budget"], ["ConsumedAmount", "Raw consumed"], ["HardStop", "Hard stop"], ["AsOf", "As of"]]);
   }
+  function projectionsView() {
+    const catalog = pricing?.catalog, o = projectionOptions, f = { ...state.filters, user: projectionUser };
+    const result = mixError ? { state: "invalid", error: mixError, rows: [], excluded: [], eligibleRows: 0 } :
+      P.simulate(data, projectionContract, pricing, o, f);
+    const select = (id, label, values, value) => `<label>${label}<select id="${id}">${values.map(([key, text]) => `<option value="${esc(key)}"${value === key ? " selected" : ""}>${esc(text)}</option>`).join("")}</select></label>`;
+    const input = (id, label, value, max = 100) => `<label>${label}<input id="${id}" type="number" min="0" max="${max}" step="any" value="${esc(value)}"></label>`;
+    const targetModels = [...new Set(catalog?.rates.map(row => row.Model) || [])].sort();
+    const aliases = P.aliases(projectionContract, data.Info[0].Mode === "SAMPLE", true);
+    const centers = new Map(data.Centers.map(row => [row.CenterId, row]));
+    const bills = data.Billing.filter(row => row.UnitType === "ai-credits" && row.Day >= f.start && row.Day <= f.end &&
+      (!f.user || row.User === f.user) && (!f.center || row.CenterId === f.center) &&
+      (!f.country || centers.get(row.CenterId)?.Country === f.country) &&
+      (!f.model || (aliases.get(row.Model) || row.Model) === (aliases.get(f.model) || f.model)));
+    const status = pricingBusy ? "Checking official public prices..." : pricing?.state || "not checked";
+    const selectedMix = o.mixes || projectionContract.mixes;
+    const rows = result.rows.map(row => ({ ...row, BaselineUSD: pfmt(row.BaselineUSD), TargetUSD: pfmt(row.TargetUSD), DeltaUSD: pfmt(row.DeltaUSD) }));
+    const coverage = ["PromptTokens", "OutputTokens", "Requests"].map(Field => {
+      const known = result.rows.filter(row => D.num(row[Field]));
+      const eligible = known.filter(row => !row.Reason);
+      return { Field, Known: known.length ? known.reduce((n, row) => n + row[Field], 0) : null,
+        Eligible: eligible.length ? eligible.reduce((n, row) => n + row[Field], 0) : null,
+        MissingRows: result.rows.filter(row => !D.num(row[Field])).length };
+    });
+    const tariffs = (catalog?.rates || []).map(row => ({ ...row, InputUSD: pfmt(row.InputUSD),
+      CachedInputUSD: pfmt(row.CachedInputUSD), OutputUSD: pfmt(row.OutputUSD),
+      CacheWriteUSD: row.CacheWriteStatus === "not-applicable" ? "N/A: ordinary input" : pfmt(row.CacheWriteUSD) }));
+    return heading("Projections - hypothetical, not invoice savings") +
+      `<div class="notice${result.error ? " error" : " subtle"}" role="status" id="pricing-state">Prices: ${esc(status)} | Checked: ${esc(stamp(pricing?.lastChecked))} | Verified: ${esc(stamp(catalog?.asOf))} | ${esc(catalog?.contentHash || "no verified fingerprint")}<br>${esc(pricing?.lastError || result.error || "Only public Copilot pricing is fetched. Filters do not query pricing or GitHub reports.")}</div>
+      <div class="toolbar data-section"><button id="pricing-refresh" type="button"${pricingBusy ? " disabled" : ""}>Refresh official prices</button><label><input id="p-stale" type="checkbox"${o.allowStale ? " checked" : ""}${!catalog ? " disabled" : ""}> Explicitly accept last verified prices if stale (not latest)</label></div>
+      <div class="filters" id="projection-controls">
+      ${select("p-mode", "Scenario", [["unchanged", "No changes"], ["target", "Substitute target model"], ...Object.entries(projectionContract.mixes).map(([key, entry]) => [key, entry.label])], o.mode)}
+      ${select("p-target", "Target model (public tariff, not availability advice)", [["", "Choose target"], ...targetModels.map(m => [m, m])], o.targetModel || "")}
+      ${select("p-user", "User", [["", "All users"], ...data.Users.filter(row => !row.IsResidual).map(row => [row.User, row.User])], projectionUser)}
+      ${input("p-replacement", "Replacement %", o.replacement * 100)}
+      ${select("p-tier", "Assumed context tier (not inferred)", [["Default", "Default"], ["Long context", "Long context"]], o.tier)}
+      <label>Assumed rate valuation day<input id="p-day" type="date" value="${esc(o.valuationDay || catalog?.asOf?.slice(0, 10) || new Date().toISOString().slice(0, 10))}"></label>
+      ${input("p-read", "Cached read % of total input", o.cacheRead * 100)}
+      ${input("p-write", "Cache write % of total input", o.cacheWrite * 100)}
+      ${input("p-volume", "Migrated token volume multiplier", o.targetVolumeFactor, 10)}
+      ${input("p-extra", "Fusion extra multiplier", o.fusionExtraFactor, 10)}
+      <label><input id="p-promo" type="checkbox"${o.fusionPromotionEligible ? " checked" : ""}> Paid-plan eligible: apply published Fusion promo within its dates</label>
+      </div>
+      <p class="caption">Same ClientModels rows on both modeled sides. Input is split into disjoint uncached / cached-read / cache-write buckets; N/A separate write tariff is charged as ordinary input, never free. Tier is an assumption: request sizes and actual cache splits are not reported. Models with no matching tier/tariff are excluded. Tokens can change in reality; quality/equivalence/ROI are not modeled.</p>
+      <p class="caption">${data.Info[0].Mode === "SAMPLE" ? "SAMPLE volumes and model aliases are fictional demonstration mappings. " : ""}Fusion modes use editable EXAMPLE mixtures and token overhead, not a deterministic router. SelectionMode=auto never implies Fusion. Promotion requires explicit eligibility; after its published end no discount is applied.</p>
+      <details class="data-section"><summary>Edit example mixes / weights / overhead (not recommendations)</summary><textarea id="p-mixes" rows="10" aria-label="Example mixes JSON">${esc(JSON.stringify(selectedMix, null, 2))}</textarea></details>
+      <div class="kpi-grid four data-section">${kpi("Baseline modeled gross USD", pfmt(result.baselineUSD))}${kpi("Scenario modeled gross USD", pfmt(result.targetUSD))}${kpi("Delta cost USD", pfmt(result.deltaUSD), "Scenario - baseline; negative = lower modeled cost")}${kpi("Delta cost %", pct(result.deltaPct), "Zero baseline denominator = N/D")}</div>
+      <div class="kpi-grid four data-section">${kpi("Baseline modeled AI credits", pfmt(result.baselineCredits))}${kpi("Scenario modeled AI credits", pfmt(result.targetCredits))}${kpi("Eligible / source rows BEFORE center filter", `${fmt(result.eligibleRows)} / ${fmt(result.selectedRows)}`, "Not a center-specific coverage percentage")}${kpi("Rows with center evidence", fmt(result.attributionRows), "Enterprise-only is not a country")}</div>
+      <div class="chart-grid equal">${chart("projection-comparison", "Comparable modeled gross USD", [{ Side: "Baseline", USD: result.baselineUSD }, { Side: "Scenario", USD: result.targetUSD }], [["USD", "Modeled USD"]], "Side")}
+      ${table("projection-excluded", "Exclusions / coverage", result.excluded || [], [["Reason", "Reason"], ["Rows", "Rows"]])}</div>
+      <p class="caption">Rate valuation day: ${esc(result.valuationDay || "N/D")}. Known input/output tokens in source scope: ${fmt(result.knownInputTokens)} / ${fmt(result.knownOutputTokens)}; missing-token rows: ${fmt(result.missingTokenRows)}. Current published rates reprice observed volume; this is not historical invoicing. No proportional allocation of billing credits, requests, budget pools or unverified units.</p>
+      <div class="data-section">${table("projection-rows", "Projection source rows and attribution", rows, [["Day", "Day"], ["User", "User"], ["RawModel", "Source alias"], ["Model", "Canonical model"], ["CenterId", "Historical center"], ["Attribution", "Evidence"], ["PromptTokens", "Input tokens"], ["OutputTokens", "Output tokens"], ["BaselineUSD", "Baseline USD"], ["TargetUSD", "Scenario USD"], ["Reason", "Excluded reason"]])}</div>
+      <div class="data-section">${table("projection-coverage", "Source volume BEFORE center filtering / comparable modeled volume", coverage, [["Field", "Field"], ["Known", "Known source volume (pre-center)"], ["Eligible", "Comparable modeled volume"], ["MissingRows", "Unknown rows"]])}</div>
+      ${heading("REPORTED billing - separate, not the modeled baseline")}<div class="kpi-grid four">${kpi("Reported gross USD", pfmt(D.sum(bills, "grossAmount")))}${kpi("Reported discounts USD", pfmt(D.sum(bills, "discountAmount")))}${kpi("Reported net USD", pfmt(D.sum(bills, "netAmount")), "May be zero; not predicted cash savings")}${kpi("Reported billing rows", fmt(bills.length))}</div>
+      <div class="data-section">${table("projection-tariffs", "Verified catalog USD per 1M text tokens - check tier and effective dates", tariffs, [["Model", "Model"], ["Tier", "Tier"], ["Threshold", "Published threshold"], ["InputUSD", "Input USD"], ["CachedInputUSD", "Cached read USD"], ["CacheWriteUSD", "Cache write USD"], ["OutputUSD", "Output USD"], ["Profile", "Price profile"], ["EffectiveFrom", "Effective from"], ["EffectiveTo", "Effective to (exclusive)"]])}</div>
+      <p class="caption">Official sources: ${projectionContract.sources.map(url => esc(url)).join(" | ")}. Alias contract ${esc(projectionContract.aliasesVersion)}; parser ${esc(projectionContract.pricingParserVersion)}. Cached prices are never silently presented as current.</p>`;
+  }
+  async function loadPricing() {
+    if (pricingBusy) return;
+    pricingBusy = true;
+    if (state.tab === "projections") panel();
+    try { pricing = await getJSON("/api/pricing"); }
+    catch (error) { pricing = { state: pricing?.catalog ? "stale" : "error", catalog: pricing?.catalog || null, lastChecked: new Date().toISOString(), lastError: "Official pricing could not be checked. Use Docker with internet access for Projections." }; }
+    finally { pricingBusy = false; if (state.tab === "projections") panel(); }
+  }
   function panel() {
     charts = new Map(); tables = {};
-    $("panel").innerHTML = ({ overview, users: usersView, daily: dailyView, models: modelsView, quality: qualityView })[state.tab]();
+    $("panel").innerHTML = ({ overview, users: usersView, daily: dailyView, models: modelsView, quality: qualityView, projections: projectionsView })[state.tab]();
     $("panel").setAttribute("aria-labelledby", `tab-${state.tab}`);
   }
   function render() {
@@ -194,6 +262,7 @@
     try { render(); } catch (error) { message(error.message, true); }
   }
   function setTab(tab, focus = false) {
+    const opening = state.tab !== "projections";
     state.tab = tab;
     document.querySelectorAll("[data-tab]").forEach(button => {
       const selected = button.dataset.tab === tab;
@@ -201,6 +270,7 @@
       if (selected && focus) button.focus();
     });
     panel();
+    if (tab === "projections" && opening) loadPricing();
   }
   async function getJSON(path) {
     const response = await fetch(path, { cache: "no-store", credentials: "omit", redirect: "error" });
@@ -303,6 +373,7 @@
     setTab(tabs[next].dataset.tab, true);
   };
   $("panel").onclick = event => {
+    if (event.target.closest("#pricing-refresh")) { loadPricing(); return; }
     const rank = event.target.closest("[data-rank]"); if (rank) { state.rank = rank.dataset.rank; panel(); }
     const page = event.target.closest("[data-page]"); if (page) { state.pages[page.dataset.page] += Number(page.dataset.step); panel(); }
     const csv = event.target.closest("[data-csv]");
@@ -313,6 +384,20 @@
     }
     const c = event.target.closest("[data-chart]"); if (c) exportChart(c.dataset.chart, c.dataset.format);
   };
+  $("panel").addEventListener("change", event => {
+    if (!event.target.id.startsWith("p-")) return;
+    projectionUser = $("p-user").value;
+    const numeric = id => $(id).value.trim() === "" ? NaN : Number($(id).value);
+    Object.assign(projectionOptions, { mode: $("p-mode").value, targetModel: $("p-target").value,
+      replacement: numeric("p-replacement") / 100, cacheRead: numeric("p-read") / 100,
+      cacheWrite: numeric("p-write") / 100, tier: $("p-tier").value,
+      valuationDay: $("p-day").value,
+      targetVolumeFactor: numeric("p-volume"), fusionExtraFactor: numeric("p-extra"),
+      fusionPromotionEligible: $("p-promo").checked, allowStale: $("p-stale").checked });
+    try { projectionOptions.mixes = JSON.parse($("p-mixes").value); mixError = ""; }
+    catch { mixError = "Invalid example-mix JSON: projections are N/D."; }
+    panel();
+  });
   $("panel").oninput = event => {
     const id = event.target.dataset.search; if (!id) return;
     const value = event.target.value, position = event.target.selectionStart;

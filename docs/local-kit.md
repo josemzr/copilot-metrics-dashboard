@@ -1,8 +1,33 @@
 # Manual local kit
 
-**One private `dataset.json`, two manual viewers:** Power BI Desktop or Docker. No Azure, GitHub App or PEM is needed. Neither viewer contacts GitHub. Nothing is scheduled in this mode.
+**One private `dataset.json`, two manual viewers:** Power BI Desktop or Docker. No Azure, GitHub App or PEM is needed. Viewers never request private GitHub business reports. Only **Projections** checks anonymous public GitHub pricing when opened/refreshed; nothing is scheduled in this mode.
 
 Run commands from the project or unpacked kit folder. Prerequisites are **PowerShell 7** (`pwsh`) and **Python 3.11+** (`python3` or `python` on PATH). REAL downloads also need **GitHub CLI** (`gh`). Install these yourself; the scripts install nothing. Docker Desktop is only needed for the browser viewer. **Power BI Desktop is Windows-only**; Linux can download the JSON and use Docker, or transfer the private JSON to Windows.
+
+## REAL Power BI: download, point at the folder, refresh
+
+1. Sign in with your own authorized account:
+
+```powershell
+gh auth login --hostname github.com --web --scopes "read:enterprise,manage_billing:enterprise"
+```
+
+2. Download explicitly, replacing the fictitious account/enterprise and dates:
+
+```powershell
+pwsh -NoProfile -File ./scripts/download.ps1 -GitHubUser your-login -Enterprise example-enterprise -StartDay 2026-11-15 -EndDay 2026-11-18 -OutputDirectory "../private real data"
+```
+
+3. From the **same working folder**, print the absolute folder you just downloaded to:
+
+```powershell
+pwsh -NoProfile -Command "(Resolve-Path '../private real data').Path"
+```
+
+4. On **Windows**, open `powerbi/CopilotMetrics.pbip`. Go to **Transform data → Manage parameters / Edit parameters**. Change **DataMode** from **SAMPLE** to **REAL**. Copy the **exact printed folder path** into **DataRootPath**, for example `C:/CopilotMetrics/private real data`. It is the **ABSOLUTE FOLDER containing `dataset.json`**, **not** the JSON filename, a relative path, or a URL. Do not copy the command's quotation marks into the parameter dialog.
+5. Choose **Apply / Close & Apply**, then **Refresh**. Confirm the report's **REAL** source label and selected coverage dates. Leave the JSON private and outside the kit folder.
+
+These are single-line commands usable from Bash or PowerShell. Power BI refresh reads your local JSON; it does **not** run the downloader. Projections imports current public Copilot pricing at Refresh, not continuously. If prompted for either of the two official public documentation sources, select **Anonymous → Connect** (internet required). Do **not** supply a GitHub token, business OAuth credential or private JSON URL for the pricing sources. No private report values are sent to the pricing site.
 
 ## Try it offline
 
@@ -13,7 +38,7 @@ docker compose -p copilot-metrics-manual -f compose.manual.yaml --profile manual
 
 Open **http://localhost:8081**, choose **Import JSON**, and select `dataset.json` from that folder. SAMPLE is synthetic. The bundled `powerbi/CopilotMetrics.pbip` opens directly on Windows with the same generated SAMPLE scenario embedded for an offline check.
 
-This Docker mode has **no worker, scheduler, credentials, data volume or automatic refresh**. Import happens only in browser memory, never uploads the file, and Refresh only recalculates the loaded JSON. Import a newly downloaded file to update it. Opening the page, importing and refreshing make no GitHub calls. Stop this separate viewer with:
+This Docker mode has **no worker, scheduler, credentials, data volume or automatic refresh**. Import happens only in browser memory, never uploads the file, and Refresh only recalculates the loaded JSON. Import a newly downloaded file to update it. The original views make no GitHub calls; opening **Projections** or its price-refresh button fetches only official public pricing. Stop this separate viewer with:
 
 ```powershell
 docker compose -p copilot-metrics-manual -f compose.manual.yaml --profile manual down
@@ -58,6 +83,8 @@ In Power BI Desktop, open `powerbi/CopilotMetrics.pbip`, then **Transform data �
 In Power BI, model costs show gross USD, discounts USD and net USD together, including fully discounted usage with net cost zero. Covered empty diagnostic counts display 0; unknown values, zero-denominator ratios and missing budget consumption display N/D. Client telemetry present rate is the share of **known-status user-day rows** marked present, not the share of users.
 
 If you publish to Power BI Service and need classic dashboard alerts, pin the overview **Gross AI credits** or **Net cost USD** numeric card. N/D text-display cards cannot provide numeric alerts. The manual kit does not publish or configure Service alerts for you.
+
+**Projections** adds an eleventh Power BI page and a Docker tab. It compares hypothetical gross costs on the same eligible token rows using live official tariffs, explicit cache/context assumptions and editable example mixes. It does not promise invoice savings or actual Fusion routing. Pricing errors/staleness show N/D; a cache-write “not applicable” tariff still charges ordinary input. See the [projection rules and limits](projections.md).
 
 Permission references: [billing usage](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/usage?apiVersion=2026-03-10), [cost centers](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/cost-centers), [budgets](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/budgets), [Copilot licenses](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-user-management), [Copilot metrics](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-usage-metrics?apiVersion=2026-03-10).
 

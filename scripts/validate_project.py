@@ -17,7 +17,10 @@ def main():
     definitions = {m["name"]: m for t in tables for m in t.get("measures", [])}
     measures = set(definitions)
     displays = {name for name in measures if name.startswith("Display ")}
-    assert len(tables) == 21 and len(model["relationships"]) == 37 and len(measures - displays) == 90
+    projection_tables = [t for t in tables if t["name"].startswith("Projection")]
+    projection_measures = {n for n in measures if n.startswith("Projection ")}
+    assert len(tables) - len(projection_tables) == 21 and len(model["relationships"]) == 45
+    assert len(measures - displays - projection_measures) == 90
     assert all(definitions[name].get("isHidden") for name in displays)
     fields = {t["name"]: {c["name"] for c in t["columns"]} for t in tables}
     for relation in model["relationships"]:
@@ -29,10 +32,10 @@ def main():
             # Bracketed DAX identifiers can be either columns or measures.
             import re
             for value in re.findall(r"(?<!\w)\[([^\]]+)\]", measure["expression"]):
-                assert value in measures or value in {c for cols in fields.values() for c in cols} or value in {"D", "U", "W"}, value
+                assert value in measures or value in {c for cols in fields.values() for c in cols} or value in {"D", "U", "W", "_Model", "_Weight", "_Overhead", "_Cost"}, value
     report = ROOT / "powerbi/CopilotMetrics.Report"
     pages = json.loads((report / "definition/pages/pages.json").read_text())["pageOrder"]
-    assert len(pages) == 10 and len(set(pages)) == 10
+    assert len(pages) == 11 and len(set(pages)) == 11 and pages[-1] == "projections"
     visuals = 0
     used_displays = set()
     for page in pages:
@@ -56,8 +59,9 @@ def main():
     sample = validate(json.loads(base64.b64decode(embedded)), "SAMPLE")
     assert sample == make_sample()[0]
     assert json.loads((ROOT / "data/sample/dataset.json").read_text()) == sample
-    print(f"PASS: 21 tables, 37 relationships, 90 base + {len(displays)} card-display measures, "
-          f"10 pages, {visuals} visuals; embedded SAMPLE matches generator")
+    print(f"PASS: 21 original + {len(projection_tables)} derived tables, 45 relationships, "
+          f"90 base + {len(displays)} card + {len(projection_measures)} projection measures, "
+          f"11 pages, {visuals} visuals; embedded SAMPLE matches generator")
 
 
 if __name__ == "__main__":

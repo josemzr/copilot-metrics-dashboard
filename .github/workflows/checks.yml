@@ -21,11 +21,12 @@ jobs:
       - run: python -m unittest discover -s tests
       - run: python scripts/build_powerbi.py && python web/build.py && python scripts/validate_project.py
       - run: python scripts/validate_schemas.py
-      - run: node --test web/tests/core.test.cjs
+      - run: node --test web/tests/core.test.cjs web/tests/projections.test.cjs
       - run: npm ci && npx playwright install --with-deps chromium
       - run: docker compose -p metrics-ci up --build --wait
       - run: docker build --target collector -t metrics-collector-check .
       - run: node web/tests/browser.cjs
+      - run: node web/tests/projections-browser.cjs
       - run: python scripts/smoke_http.py http://127.0.0.1:8080
       - run: docker compose -p metrics-manual-ci -f compose.manual.yaml --profile manual up --build --wait
       - run: |

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "v026",
+  "position": {
+    "x": 20,
+    "y": 1255,
+    "z": 26,
+    "tabOrder": 26,
+    "width": 690,
+    "height": 260
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionUsage"
+                    }
+                  },
+                  "Property": "Attribution"
+                }
+              },
+              "queryRef": "ProjectionUsage.Attribution",
+              "nativeQueryRef": "Attribution"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionUsage"
+                    }
+                  },
+                  "Property": "Reason"
+                }
+              },
+              "queryRef": "ProjectionUsage.Reason",
+              "nativeQueryRef": "Reason"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Selected Rows"
+                }
+              },
+              "queryRef": "Info.Projection Selected Rows",
+              "nativeQueryRef": "Projection Selected Rows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Eligible Rows"
+                }
+              },
+              "queryRef": "Info.Projection Eligible Rows",
+              "nativeQueryRef": "Projection Eligible Rows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Excluded Rows"
+                }
+              },
+              "queryRef": "Info.Projection Excluded Rows",
+              "nativeQueryRef": "Projection Excluded Rows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Missing Token Rows"
+                }
+              },
+              "queryRef": "Info.Projection Missing Token Rows",
+              "nativeQueryRef": "Projection Missing Token Rows"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Source-row counts BEFORE center filtering; center scope and unmodellable rows excluded'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#9a1a41'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -4,7 +4,8 @@ WORKDIR /app
 RUN groupadd --gid 10001 metrics \
     && useradd --uid 10001 --gid metrics --no-create-home metrics \
     && mkdir /data && chown metrics:metrics /data && chmod 0770 /data
-COPY scripts/collect.py scripts/normalize.py scripts/make_sample.py scripts/snapshot.py scripts/server.py scripts/worker.py ./scripts/
+COPY scripts/collect.py scripts/normalize.py scripts/make_sample.py scripts/snapshot.py scripts/server.py scripts/worker.py scripts/pricing.py ./scripts/
+COPY projections/contract.json ./projections/
 COPY web/build.py ./web/
 COPY web/src/ ./web/src/
 RUN mkdir -p data/sample \

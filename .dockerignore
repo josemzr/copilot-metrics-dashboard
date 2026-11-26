@@ -8,6 +8,9 @@
 !scripts/snapshot.py
 !scripts/server.py
 !scripts/worker.py
+!scripts/pricing.py
+!projections/
+!projections/contract.json
 !web/
 !web/build.py
 !web/src/
@@ -15,3 +18,4 @@
 !web/src/theme.css
 !web/src/core.js
 !web/src/app.js
+!web/src/projections.js

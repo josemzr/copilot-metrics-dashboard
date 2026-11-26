@@ -7,6 +7,7 @@ from pathlib import Path
 from make_sample import make_sample
 from normalize import write_json
 from analytics import MEASURES as ANALYTIC_MEASURES, NEW_TABLES, TABLE_EXTENSIONS, zero_when_covered
+from projection_powerbi import augment_model, build_projection_page
 
 ROOT = Path(__file__).resolve().parents[1]
 PBI = ROOT / "powerbi"
@@ -111,6 +112,10 @@ CARD_DISPLAY_MEASURES = {
 }
 CARD_TITLES = {
     "Known telemetry coverage": "Client telemetry present rate (known-status user-day rows)",
+    "Projection Display Baseline USD": "Baseline modeled gross USD",
+    "Projection Display Scenario USD": "Scenario modeled gross USD",
+    "Projection Display Delta Cost USD": "Delta cost USD (scenario - baseline)",
+    "Projection Display Delta Cost Pct": "Delta cost % (zero denominator = N/D)",
 }
 
 
@@ -201,10 +206,10 @@ def model(dataset):
             relationships.append(dict(
                 name=f"{table}_{dimension}", fromTable=table, fromColumn=key,
                 toTable=dimension, toColumn=key, crossFilteringBehavior="oneDirection"))
-    return dict(name="Copilot Metrics", compatibilityLevel=1600, model=dict(
+    return augment_model(dict(name="Copilot Metrics", compatibilityLevel=1600, model=dict(
         culture="en-US", sourceQueryCulture="en-US", defaultPowerBIDataSourceVersion="powerBI_V3",
         annotations=[dict(name="__PBI_TimeIntelligenceEnabled", value="0")],
-        expressions=expressions, tables=tables, relationships=relationships))
+        expressions=expressions, tables=tables, relationships=relationships)))
 
 
 def literal(value):
@@ -271,8 +276,9 @@ def build_report():
         (folder / "visuals").mkdir(parents=True, exist_ok=True)
         write_json(folder / "page.json", {
             "$schema": SCHEMA + "report/definition/page/2.1.0/schema.json",
-            "name": identifier, "displayName": title, "displayOption": "FitToPage",
-            "height": 1100 if identifier in ("engagement", "code", "users", "models14", "diagnostics")
+            "name": identifier, "displayName": title,
+            "displayOption": "FitToWidth" if identifier == "projections" else "FitToPage",
+            "height": 2280 if identifier == "projections" else 1100 if identifier in ("engagement", "code", "users", "models14", "diagnostics")
             else 1000 if identifier == "controls" else 900, "width": 1440,
             "objects": {"background": [{"properties": {
                 "color": {"solid": {"color": literal("#f7f4ef")}}, "transparency": literal(0)}}]}})
@@ -308,13 +314,14 @@ def build_report():
                    "labels": [{"properties": {
                        "fontSize": literal(13 if measure in (
                            "Balance status", "Center notice", "Adoption status",
-                           "Interpretation notice", "Metrics coverage status", "Data source") else 20),
+                           "Interpretation notice", "Metrics coverage status", "Data source",
+                           "Projection Pricing State", "Projection Assumptions", "Projection Coverage Note") else 20),
                        "labelDisplayUnits": literal(1)}}],
                    "categoryLabels": [{"properties": {"show": literal(False)}}]})
 
-    def slicer(folder, table, column, x, y, w=270):
+    def slicer(folder, table, column, x, y, w=270, title=None):
         visual(folder, "slicer", {"Values": {"projections": [projection(table, column, active=True)]}},
-               column, x, y, w, 80, {
+               title or column, x, y, w, 80, {
                    "data": [{"properties": {"mode": literal("Dropdown")}}],
                    "selection": [{"properties": {"singleSelect": literal(False)}}]})
 
@@ -518,6 +525,7 @@ def build_report():
     card(diagnostics, "Unknown requirements rows", 495, 790, 450, 120)
     card(diagnostics, "Unknown activity rows", 970, 790, 450, 120)
     card(diagnostics, "Interpretation notice", 20, 940, 1400, 120)
+    build_projection_page(page, slicer, card, chart, table)
     write_json(REPORT / "definition/pages/pages.json", {
         "$schema": SCHEMA + "report/definition/pagesMetadata/1.0.0/schema.json",
         "pageOrder": pages, "activePageName": pages[0]})
@@ -537,7 +545,7 @@ def main():
         "version": "1.0", "artifacts": [{"report": {"path": "CopilotMetrics.Report"}}],
         "settings": {"enableAutoRecovery": True}})
     build_report()
-    print("Built powerbi/CopilotMetrics.pbip: 10 pages; SAMPLE embedded; no remote connection")
+    print("Built CopilotMetrics.pbip: 10 original pages + Projections; SAMPLE embedded; only pricing refresh uses public official URLs")
 
 
 if __name__ == "__main__":

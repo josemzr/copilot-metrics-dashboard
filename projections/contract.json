@@ -1,0 +1,87 @@
+{
+  "version": "copilot-projections-v1",
+  "aliasesVersion": "2026-11-26.1",
+  "pricingParserVersion": "copilot-markdown-v1",
+  "sources": [
+    "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing.md",
+    "https://docs.github.com/en/copilot/concepts/models/copilot-fusion.md"
+  ],
+  "maxAgeHours": 24,
+  "models": [
+    {"model": "GPT-5.3-Codex", "aliases": ["gpt-5.3-codex"]},
+    {"model": "GPT-5.4 nano", "aliases": ["gpt-5.4-nano"]},
+    {"model": "GPT-5.6 Luna", "aliases": ["gpt-5.6-luna"]},
+    {"model": "GPT-5.6 Sol", "aliases": ["gpt-5.6-sol"]},
+    {"model": "GPT-6 Astra", "aliases": ["gpt-6-astra"]},
+    {"model": "GPT-6 Luna", "aliases": ["gpt-6-luna"]},
+    {"model": "GPT-6 Sol", "aliases": ["gpt-6-sol"]},
+    {"model": "GPT-6.1 Sol", "aliases": ["gpt-6.1-sol"]},
+    {"model": "GPT-6.1 Terra", "aliases": ["gpt-6.1-terra"]},
+    {"model": "GPT-6.2 Astra", "aliases": ["gpt-6.2-astra"]},
+    {"model": "GPT-6.2 Sol", "aliases": ["gpt-6.2-sol"]},
+    {"model": "Claude Haiku 4.5", "aliases": ["claude-haiku-4.5", "claude-4.5-haiku"]},
+    {"model": "Claude Haiku 5.5", "aliases": ["claude-haiku-5.5"]},
+    {"model": "Claude Sonnet 4", "aliases": ["claude-sonnet-4"]},
+    {"model": "Claude Sonnet 4.6", "aliases": ["claude-sonnet-4.6"]},
+    {"model": "Claude Sonnet 5", "aliases": ["claude-sonnet-5"]},
+    {"model": "Claude Sonnet 5.5", "aliases": ["claude-sonnet-5.5"]},
+    {"model": "Claude Opus 4.8", "aliases": ["claude-opus-4.8"]},
+    {"model": "Claude Opus 5.5", "aliases": ["claude-opus-5.5"]},
+    {"model": "Claude Opus 4.8 (fast mode) (preview)", "aliases": []},
+    {"model": "Claude Fable 5", "aliases": ["claude-fable-5"]},
+    {"model": "Claude Fable 5.1", "aliases": ["claude-fable-5.1"]},
+    {"model": "Claude Fable 5.2", "aliases": ["claude-fable-5.2"]},
+    {"model": "Gemini 3.8 Flash", "aliases": ["gemini-3.8-flash"]},
+    {"model": "Gemini 4 Argon", "aliases": ["gemini-4-argon"]},
+    {"model": "Gemini 4 Carbon", "aliases": ["gemini-4-carbon"]},
+    {"model": "Gemini 4 Hydrogen", "aliases": ["gemini-4-hydrogen"]},
+    {"model": "Gemini 4 Neon", "aliases": ["gemini-4-neon"]},
+    {"model": "MAI-Code-1.1-Flash", "aliases": ["mai-code-1.1-flash"]},
+    {"model": "MAI Code 2", "aliases": ["mai-code-2"]},
+    {"model": "MAI Code 2 Flash", "aliases": ["mai-code-2-flash"]},
+    {"model": "Grok 4.5", "aliases": ["grok-4.5"]},
+    {"model": "Grok 4.6", "aliases": ["grok-4.6"]},
+    {"model": "Grok 4.7", "aliases": ["grok-4.7"]},
+    {"model": "Kimi K3", "aliases": ["kimi-k3"]}
+  ],
+  "sampleAliases": {
+    "Model Alpha": "GPT-6 Luna",
+    "Model Beta": "Claude Sonnet 5.5",
+    "Model Gamma": "GPT-6.2 Sol"
+  },
+  "billingAliases": {
+    "Fusion (Standard): GPT-6 Luna": "GPT-6 Luna"
+  },
+  "mixes": {
+    "recommended": {
+      "label": "Recommended-set EXAMPLE (editable, not advice)",
+      "overhead": 1,
+      "weights": [{"model": "GPT-6 Luna", "weight": 0.5}, {"model": "Claude Sonnet 5.5", "weight": 0.5}]
+    },
+    "fusion-standard": {
+      "label": "Fusion Standard HYPOTHESIS",
+      "overhead": 1,
+      "weights": [{"model": "GPT-6 Luna", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
+    },
+    "fusion-high": {
+      "label": "Fusion High HYPOTHESIS",
+      "overhead": 1.25,
+      "weights": [{"model": "Claude Sonnet 5.5", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
+    },
+    "fusion-max": {
+      "label": "Fusion Max HYPOTHESIS",
+      "overhead": 1.5,
+      "weights": [{"model": "Claude Opus 5.5", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
+    }
+  },
+  "defaults": {
+    "mode": "unchanged",
+    "replacement": 1,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "tier": "Default",
+    "targetVolumeFactor": 1,
+    "fusionExtraFactor": 1,
+    "fusionPromotionEligible": false
+  }
+}

@@ -27,6 +27,8 @@ def build(dataset_path, output_path):
         "/*__STYLES__*/": (ROOT / "src/theme.css").read_text(),
         "/*__CORE__*/": (ROOT / "src/core.js").read_text(),
         "/*__APP__*/": (ROOT / "src/app.js").read_text(),
+        "/*__PROJECTIONS__*/": (ROOT / "src/projections.js").read_text(),
+        "__PROJECTION_CONTRACT__": (ROOT.parent / "projections/contract.json").read_text().replace("<", "\\u003c"),
         "__DATASET_JSON__": encoded,
     }
     for token, value in replacements.items():

@@ -1,6 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const P = require("../src/projections.js");
+const D = require("../src/core.js");
 const base = require("../../projections/contract.json");
 const oracle = require("../../projections/calibrated-golden.json");
 const theoretical = require("../../projections/golden.json");
@@ -36,6 +37,23 @@ test("multiple client and Billing rows aggregate exactly once at complete bucket
   assert.equal(first.rows.find(row => row.Model === "Fixture A").TokenRows, 2);
   data.Billing.reverse(); data.ClientModels.reverse();
   near(P.calibrate(data, contract, pricing, options).targetCredits, 60);
+});
+test("reader-resolved client labels scope Billing and calibration consistently without modifying input", () => {
+  const { contract, data, pricing } = fixture();
+  Object.assign(data.Info[0], { Label: "Synthetic label fixture", AsOf: "2026-11-19T00:00:00Z" });
+  data.Dates = [{ Day: "2026-11-18" }]; data.Metrics = [];
+  for (const center of data.Centers) center.Center = center.CenterId;
+  const center = data.Centers.find(row => row.CenterId === "c1");
+  center.Center = "North_West Business_Copilot"; center.Country = "Unmapped region";
+  for (const row of [...data.Billing, ...data.ClientModels]) row.CenterId = "c1";
+  const before = structuredClone(data);
+  const resolved = D.validateDataset(data);
+  const result = P.calibrate(resolved, contract, pricing,
+    { mode: "target", targetModel: "Fixture B", replaceSourceModel: "Fixture A" },
+    { country: "North_West Business_Copilot" });
+  near(result.baselineCredits, 140); near(result.targetCredits, 60);
+  assert.ok(result.rows.every(row => row.Country === "North_West Business_Copilot"));
+  assert.deepEqual(data, before);
 });
 test("unpriced or tokenless Billing remains actual when untouched; requested changes are explicit ND, never dropped", () => {
   const { contract, data, pricing } = fixture();

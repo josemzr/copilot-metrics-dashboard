@@ -28,7 +28,7 @@
   function centers() {
     const values = data.Centers.filter(r => !state.filters.country || r.Country === state.filters.country);
     if (!values.some(r => r.CenterId === state.filters.center)) state.filters.center = "";
-    $("center").innerHTML = options(values.map(r => [r.CenterId, r.Center.replaceAll("_", " ")]), "All centers", state.filters.center);
+    $("center").innerHTML = options(values.map(r => [r.CenterId, r.Center]), "All centers", state.filters.center);
   }
   function populate(reset = true) {
     const info = data.Info[0];
@@ -39,7 +39,7 @@
     $("start").value = state.filters.start; $("end").value = state.filters.end;
     const months = [...new Set(data.Dates.map(r => r.Day.slice(0, 7)))];
     $("month").innerHTML = options(months.map(m => [m, m]), "All months");
-    $("country").innerHTML = options([...new Set(data.Centers.map(r => r.Country))].sort().map(v => [v, v.replaceAll("_", " ")]), "All regions", state.filters.country);
+    $("country").innerHTML = options([...new Set(data.Centers.map(r => r.Country))].sort().map(v => [v, v]), "All regions / groups", state.filters.country);
     centers();
     const models = [...new Set([...data.Models, ...data.Billing, ...data.ModelFeatures, ...data.ClientModels].map(r => r.Model).filter(Boolean))].sort();
     $("model").innerHTML = options(models.map(v => [v, v]), "All models", state.filters.model);
@@ -258,7 +258,7 @@
   }
   function render() {
     summary = D.summarize(data, state.filters);
-    $("scope-summary").textContent = `${summary.days.length} days - ${state.filters.country || "All regions"} - ${state.filters.center || "All centers"}`;
+    $("scope-summary").textContent = `${summary.days.length} days - ${state.filters.country || "All regions / groups"} - ${state.filters.center || "All centers"}`;
     $("source-notice").textContent = `Metrics: ${summary.days.length - summary.metricsMissingDays.length}/${summary.days.length} days | Billing: ${summary.days.length - summary.billingMissingDays.length}/${summary.days.length} days${summary.metricsMissingDays.length ? " | Partial activity coverage; full-period rates N/D" : ""}`;
     $("model-notice").hidden = !state.filters.model;
     panel();
@@ -337,7 +337,7 @@
       const label = (text, y) => { const el = doc.createElementNS(ns, "text"); el.setAttribute("x", "14"); el.setAttribute("y", y); el.textContent = text; svg.append(el); };
       label(`Copilot Metrics - ${c.title}`, "16");
       label(`${data.Info[0].Mode} | ${state.filters.start} to ${state.filters.end} | AsOf ${data.Info[0].AsOf}`, "32");
-      label(`${state.filters.country || "All regions"} | ${state.filters.center || "All centers"} | ${state.filters.model || "All models"} | Missing M/B days ${summary.metricsMissingDays.length}/${summary.billingMissingDays.length}`, "48");
+      label(`${state.filters.country || "All regions / groups"} | ${state.filters.center || "All centers"} | ${state.filters.model || "All models"} | Missing M/B days ${summary.metricsMissingDays.length}/${summary.billingMissingDays.length}`, "48");
       const blob = new Blob([new XMLSerializer().serializeToString(svg)], { type: "image/svg+xml" });
       const name = `copilot-${data.Info[0].Mode.toLowerCase()}-${id}`;
       if (type === "svg") download(blob, `${name}.svg`);

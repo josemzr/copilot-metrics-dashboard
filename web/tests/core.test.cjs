@@ -52,11 +52,27 @@ test("usage facts never add Metrics + ModelFeatures + ClientModels", () => {
 test("country and center filters use facts, not present-day memberships or logins", () => {
   const d = fixture();
   d.Memberships = [{ CenterId: "uk", ResourceName: "u1", ResourceType: "User" }];
-  const s = D.summarize(d, { country: "Region A" });
+  const s = D.summarize(d, { country: "Center A" });
   assert.equal(s.totals.Credits, 120);
   assert.equal(s.totals.Generations, 30);
   assert.equal(s.licenseCount, 1);
-  assert.equal(D.summarize(d, { country: "UK" }).totals.Generations, 0);
+  assert.equal(D.summarize(d, { country: "Center B" }).totals.Generations, 0);
+});
+test("group labels always use exact client center names in a reader copy", () => {
+  for (const country of [undefined, null, "", " Unmapped region ", "Different legacy region"]) {
+    const input = fixture();
+    input.Centers[0].Center = "North_West Business_Copilot";
+    if (country === undefined) delete input.Centers[0].Country;
+    else input.Centers[0].Country = country;
+    const before = structuredClone(input);
+    const data = D.validateDataset(input);
+    assert.equal(data.Centers[0].Country, "North_West Business_Copilot");
+    assert.deepEqual(input, before);
+    assert.equal(data.Centers[1].Country, "Center B");
+    assert.equal(D.summarize(data, { country: "North_West Business_Copilot" }).totals.Credits, 120);
+    input.Centers.push({ CenterId: "none", Center: "Enterprise only", Country: null });
+    assert.equal(D.validateDataset(input).Centers.at(-1).Country, "No region");
+  }
 });
 test("model filter uses the modeled grained facts and leaves snapshot totals alone", () => {
   const s = D.summarize(fixture(), { model: "Model One" });

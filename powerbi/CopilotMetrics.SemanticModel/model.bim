@@ -1376,7 +1376,8 @@
               "expression": [
                 "let",
                 "  Rows = Table.FromRecords(Dataset[Centers], {\"CenterId\", \"Center\", \"Country\", \"State\"}, MissingField.UseNull),",
-                "  Typed = Table.TransformColumnTypes(Rows, {{\"CenterId\", type text}, {\"Center\", type text}, {\"Country\", type text}, {\"State\", type text}}, \"en-US\")",
+                "  Labeled = Table.ReplaceValue(Rows, each [Country], each if [State] = \"virtual\" or List.Contains({\"none\",\"unattributed-history\",\"unattributed-snapshot\"},[CenterId]) then \"No region\" else [Center], Replacer.ReplaceValue, {\"Country\"}),",
+                "  Typed = Table.TransformColumnTypes(Labeled, {{\"CenterId\", type text}, {\"Center\", type text}, {\"Country\", type text}, {\"State\", type text}}, \"en-US\")",
                 "in Typed"
               ]
             }
@@ -2876,7 +2877,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "ProjectionPricing[Rates]"
+                "let",
+                "  Source = (ProjectionPricing[Rates]),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Model\", type text}, {\"Tier\", type text}, {\"Threshold\", type text}, {\"InputUSD\", type number}, {\"CachedInputUSD\", type number}, {\"CacheWriteUSD\", type number}, {\"CacheWriteStatus\", type text}, {\"OutputUSD\", type number}, {\"EffectiveFrom\", type datetime}, {\"EffectiveTo\", type datetime}, {\"Profile\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -2968,7 +2972,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "let R=Record.RemoveFields(ProjectionPricing,{\"Rates\"}), T=Table.FromRecords({R}), D=Table.TransformColumns(T,{{\"AsOf\",each if _=null then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(_)),type nullable datetime}}) in D"
+                "let",
+                "  Source = (let R=Record.RemoveFields(ProjectionPricing,{\"Rates\"}), T=Table.FromRecords({R}), D=Table.TransformColumns(T,{{\"AsOf\",each if _=null then null else DateTimeZone.RemoveZone(DateTimeZone.FromText(_)),type nullable datetime}}) in D),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"State\", type text}, {\"AsOf\", type datetime}, {\"LastChecked\", type text}, {\"ContentHash\", type text}, {\"FusionDiscount\", type number}, {\"FusionUntil\", type datetime}, {\"Error\", type text}, {\"ValuationDay\", type datetime}, {\"SourceURLs\", type text}, {\"ParserVersion\", type text}, {\"AliasesVersion\", type text}, {\"CreditsPerUSD\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3076,7 +3083,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "ProjectionDerived[Usage]"
+                "let",
+                "  Source = (ProjectionDerived[Usage]),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"RowId\", type number}, {\"Day\", type datetime}, {\"User\", type text}, {\"RawModel\", type text}, {\"Model\", type text}, {\"CenterId\", type text}, {\"Country\", type text}, {\"Attribution\", type text}, {\"PromptTokens\", type number}, {\"OutputTokens\", type number}, {\"Requests\", type number}, {\"Reason\", type text}, {\"SampleAlias\", type logical}, {\"SourceModel\", type text}, {\"SourceKey\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3160,7 +3170,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "ProjectionDerived[Billing]"
+                "let",
+                "  Source = (ProjectionDerived[Billing]),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Day\", type datetime}, {\"User\", type text}, {\"CenterId\", type text}, {\"SourceModel\", type text}, {\"SourceKey\", type text}, {\"UnitType\", type text}, {\"Product\", type text}, {\"grossQuantity\", type number}, {\"grossAmount\", type number}, {\"discountAmount\", type number}, {\"netAmount\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3280,7 +3293,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "ProjectionDerived[Buckets]"
+                "let",
+                "  Source = (ProjectionDerived[Buckets]),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"BucketId\", type number}, {\"Day\", type datetime}, {\"User\", type text}, {\"SourceModel\", type text}, {\"SourceKey\", type text}, {\"SourceLabel\", type text}, {\"Model\", type text}, {\"CenterId\", type text}, {\"ReportedCredits\", type number}, {\"ReportedUSD\", type number}, {\"BillingRows\", type number}, {\"TokenRows\", type number}, {\"PromptTokens\", type number}, {\"OutputTokens\", type number}, {\"Requests\", type number}, {\"CalibrationReason\", type text}, {\"Attribution\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3309,7 +3325,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.Combine({#table(type table[Key=text,Model=text],{{\"\",\"All source models\"}}),ProjectionDerived[Sources]})"
+                "let",
+                "  Source = (Table.Combine({#table(type table[Key=text,Model=text],{{\"\",\"All source models\"}}),ProjectionDerived[Sources]})),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Key\", type text}, {\"Model\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3338,7 +3357,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "ProjectionDerived[Sources]"
+                "let",
+                "  Source = (ProjectionDerived[Sources]),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Key\", type text}, {\"Model\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3361,7 +3383,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(List.Transform(ProjectionsContract[models],each [Model=[model]]),type table[Model=text])"
+                "let",
+                "  Source = (Table.FromRecords(List.Transform(ProjectionsContract[models],each [Model=[model]]),type table[Model=text])),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Model\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3384,7 +3409,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVGllciI6ICJEZWZhdWx0In0sIHsiVGllciI6ICJMb25nIGNvbnRleHQifV0=\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVGllciI6ICJEZWZhdWx0In0sIHsiVGllciI6ICJMb25nIGNvbnRleHQifV0=\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Tier\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3408,7 +3436,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromColumns({List.Dates(Date.From(DateTimeZone.FixedUtcNow()),366,#duration(1,0,0,0))},{\"Day\"})"
+                "let",
+                "  Source = (Table.FromColumns({List.Dates(Date.From(DateTimeZone.FixedUtcNow()),366,#duration(1,0,0,0))},{\"Day\"})),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Day\", type datetime}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3431,7 +3462,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siTW9kZSI6ICJ1bmNoYW5nZWQifSwgeyJNb2RlIjogInRhcmdldCJ9LCB7Ik1vZGUiOiAicmVjb21tZW5kZWQifSwgeyJNb2RlIjogImZ1c2lvbi1zdGFuZGFyZCJ9LCB7Ik1vZGUiOiAiZnVzaW9uLWhpZ2gifSwgeyJNb2RlIjogImZ1c2lvbi1tYXgifV0=\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siTW9kZSI6ICJ1bmNoYW5nZWQifSwgeyJNb2RlIjogInRhcmdldCJ9LCB7Ik1vZGUiOiAicmVjb21tZW5kZWQifSwgeyJNb2RlIjogImZ1c2lvbi1zdGFuZGFyZCJ9LCB7Ik1vZGUiOiAiZnVzaW9uLWhpZ2gifSwgeyJNb2RlIjogImZ1c2lvbi1tYXgifV0=\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Mode\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3454,7 +3488,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNzV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNzV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3477,7 +3514,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNn0sIHsiVmFsdWUiOiAwLjc1fSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMjV9LCB7IlZhbHVlIjogMC41fSwgeyJWYWx1ZSI6IDAuNn0sIHsiVmFsdWUiOiAwLjc1fSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3500,7 +3540,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMX0sIHsiVmFsdWUiOiAwLjJ9LCB7IlZhbHVlIjogMC4yNX0sIHsiVmFsdWUiOiAwLjV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuMX0sIHsiVmFsdWUiOiAwLjJ9LCB7IlZhbHVlIjogMC4yNX0sIHsiVmFsdWUiOiAwLjV9LCB7IlZhbHVlIjogMX1d\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3523,7 +3566,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuNX0sIHsiVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMjV9LCB7IlZhbHVlIjogMS41fSwgeyJWYWx1ZSI6IDJ9XQ==\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDAuNX0sIHsiVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMjV9LCB7IlZhbHVlIjogMS41fSwgeyJWYWx1ZSI6IDJ9XQ==\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3546,7 +3592,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMn0sIHsiVmFsdWUiOiAxLjI1fSwgeyJWYWx1ZSI6IDEuNX0sIHsiVmFsdWUiOiAyfSwgeyJWYWx1ZSI6IDN9XQ==\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAxfSwgeyJWYWx1ZSI6IDEuMn0sIHsiVmFsdWUiOiAxLjI1fSwgeyJWYWx1ZSI6IDEuNX0sIHsiVmFsdWUiOiAyfSwgeyJWYWx1ZSI6IDN9XQ==\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3569,7 +3618,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siVmFsdWUiOiAwfSwgeyJWYWx1ZSI6IDF9XQ==\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Value\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3592,7 +3644,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siU2lkZSI6ICJSZXBvcnRlZCBiYXNlbGluZSJ9LCB7IlNpZGUiOiAiQ2FsaWJyYXRlZCBlc3RpbWF0ZSJ9XQ==\",BinaryEncoding.Base64)))"
+                "let",
+                "  Source = (Table.FromRecords(Json.Document(Binary.FromText(\"W3siU2lkZSI6ICJSZXBvcnRlZCBiYXNlbGluZSJ9LCB7IlNpZGUiOiAiQ2FsaWJyYXRlZCBlc3RpbWF0ZSJ9XQ==\",BinaryEncoding.Base64)))),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Side\", type text}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }
@@ -3633,7 +3688,10 @@
             "source": {
               "type": "m",
               "expression": [
-                "let C=Json.Document(Text.ToBinary(ProjectionMixJSON)), Rows=List.Combine(List.Transform(Record.FieldNames(C),(mode)=>List.Transform(Record.Field(C,mode)[weights],(r)=>[Mode=mode,Model=r[model],Weight=r[weight],Overhead=Record.Field(C,mode)[overhead]]))) in Table.FromRecords(Rows,type table[Mode=text,Model=text,Weight=number,Overhead=number])"
+                "let",
+                "  Source = (let C=Json.Document(Text.ToBinary(ProjectionMixJSON)), Rows=List.Combine(List.Transform(Record.FieldNames(C),(mode)=>List.Transform(Record.Field(C,mode)[weights],(r)=>[Mode=mode,Model=r[model],Weight=r[weight],Overhead=Record.Field(C,mode)[overhead]]))) in Table.FromRecords(Rows,type table[Mode=text,Model=text,Weight=number,Overhead=number])),",
+                "  Typed = Table.TransformColumnTypes(Source, {{\"Mode\", type text}, {\"Model\", type text}, {\"Weight\", type number}, {\"Overhead\", type number}}, \"en-US\")",
+                "in Typed"
               ]
             }
           }

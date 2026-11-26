@@ -39,8 +39,9 @@ const pricing = () => ({ state: failed ? "stale" : "ready", lastChecked: new Dat
     const fmt = value => value === null ? "N/D" : format.format(value);
     assert.equal(await page.locator(".kpi").filter({ hasText: "Estimated calibrated gross USD" }).locator(".kpi-number").textContent(), fmt(expected.targetUSD));
     assert.equal(await page.locator(".kpi").filter({ hasText: "Reported baseline AI credits" }).locator(".kpi-number").textContent(), fmt(expected.baselineCredits));
-    await page.locator("#country").selectOption("Region_A");
-    await page.locator("#center").selectOption(data.Centers.find(c => c.Country === "Region_A").CenterId);
+    const center = data.Centers.find(c => c.State !== "virtual");
+    await page.locator("#country").selectOption(center.Country);
+    await page.locator("#center").selectOption(center.CenterId);
     await page.locator("#model").selectOption("Model Alpha");
     await page.locator("#p-user").selectOption("demo-user-01");
     await page.locator("#start").fill("2026-11-02"); await page.locator("#start").dispatchEvent("change");
@@ -48,7 +49,7 @@ const pricing = () => ({ state: failed ? "stale" : "ready", lastChecked: new Dat
     assert.equal(calls, 1, "Filters must not refetch tariffs");
     const scoped = P.calibrate(data, contract, pricing(), {
       mode: "target", targetModel: "GPT-6.2 Sol", replacement: .5, cacheRead: .6, cacheWrite: .2 },
-    { country: "Region_A", center: data.Centers.find(c => c.Country === "Region_A").CenterId,
+    { country: center.Country, center: center.CenterId,
       model: "Model Alpha", user: "demo-user-01", start: "2026-11-02", end: "2026-11-08" });
     assert.equal(await page.getByRole("table", { name: "Complete Billing buckets and calibration coverage", exact: true }).locator("tbody tr").count(),
       scoped.rows.length);

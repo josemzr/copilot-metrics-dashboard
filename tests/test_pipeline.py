@@ -33,6 +33,22 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(historical_center("99", "renamed", "2026-12-01", [assignment]),
                          "unattributed-history")
 
+    def test_unconfigured_region_uses_exact_client_center_name_without_changing_facts(self):
+        raw = deepcopy(self.raw)
+        raw["cost_centers"][0]["name"] = "North_West Business_Copilot"
+        configured = normalize(raw, self.config, "REAL")
+        names = normalize(raw, dict(self.config, countries={}), "REAL")
+        for center in raw["cost_centers"]:
+            self.assertEqual(next(r["Country"] for r in names["Centers"] if r["CenterId"] == center["id"]),
+                             center["name"])
+        first = raw["cost_centers"][0]["id"]
+        self.assertEqual(next(r["Country"] for r in configured["Centers"] if r["CenterId"] == first),
+                         self.config["countries"][first])
+        self.assertEqual(next(r["Country"] for r in names["Centers"] if r["CenterId"] == "none"), "No region")
+        for table in names:
+            if table != "Centers":
+                self.assertEqual(names[table], configured[table])
+
     def test_ambiguous_history_fails(self):
         assignment = self.config["telemetry_assignments"][0]
         with self.assertRaisesRegex(ContractError, "Overlapping"):

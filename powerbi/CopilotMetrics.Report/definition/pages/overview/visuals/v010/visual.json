@@ -127,7 +127,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Drill-down: country > center > model > user'"
+                  "Value": "'Drill-down: region/group > center > model > user'"
                 }
               }
             },

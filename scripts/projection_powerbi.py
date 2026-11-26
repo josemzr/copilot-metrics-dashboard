@@ -311,10 +311,19 @@ for name in ("Projection Baseline Credits", "Projection Scenario Credits", "Proj
 
 def table_definition(name, columns, query):
     types = dict(s="string", n="double", b="boolean", d="dateTime")
+    mtypes = dict(s="type text", n="type number", b="type logical", d="type datetime")
+    fields = [field.split(":") for field in columns.split()]
+    conversions = ", ".join('{"' + column + '", ' + mtypes[code] + '}' for column, code in fields)
+    typed_query = (
+        "let\n"
+        f"  Source = ({query}),\n"
+        f'  Typed = Table.TransformColumnTypes(Source, {{{conversions}}}, "en-US")\n'
+        "in Typed"
+    )
     return dict(name=name, columns=[dict(name=column, dataType=types[code], sourceColumn=column,
                                         summarizeBy="none", **({"formatString": "yyyy-MM-dd"} if code == "d" else {}))
-                                   for column, code in (field.split(":") for field in columns.split())],
-                partitions=[dict(name=name, mode="import", source=dict(type="m", expression=query.splitlines()))])
+                                   for column, code in fields],
+                partitions=[dict(name=name, mode="import", source=dict(type="m", expression=typed_query.splitlines()))])
 
 
 def literal_table(name, column, values):
@@ -410,7 +419,7 @@ def build_projection_page(page, slicer, card, chart, table):
         ("ProjectionScenario", "Mode", "Hypothetical scenario"), ("ProjectionTarget", "Model", "Target model"), ("ProjectionMigration", "Value", "Replacement fraction"),
         ("ProjectionTier", "Tier", "Assumed context tier"), ("ProjectionCacheRead", "Value", "Cache read fraction"), ("ProjectionCacheWrite", "Value", "Cache write fraction"),
         ("ProjectionVolume", "Value", "Target volume multiplier"), ("ProjectionFusionExtra", "Value", "Fusion extra multiplier"), ("ProjectionPromotion", "Value", "Eligible Fusion promo: 0=no / 1=yes"),
-        ("ProjectionValuation", "Day", "Assumed rate valuation day"), ("Centers", "Country", "Country / region"),
+        ("ProjectionValuation", "Day", "Assumed rate valuation day"), ("Centers", "Country", "Region / cost-center label"),
         ("ProjectionReplaceSource", "Model", "Models to replace (empty = All)"),
     )):
         slicer(folder, name, column, 20 + index % 4 * 355, 200 + index // 4 * 90, 335, title=label)

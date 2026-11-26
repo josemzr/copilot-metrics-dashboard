@@ -242,7 +242,7 @@ def normalize(raw, config, mode="REAL"):
     available_metrics_days = {r["Day"] for r in source_coverage if r["MetricsAvailable"]}
     center_rows = [
         dict(CenterId=c["id"], Center=c["name"],
-             Country=config["countries"].get(c["id"], "Unmapped region"),
+             Country=config["countries"].get(c["id"], c["name"]),
              State=c.get("state", "unknown"))
         for c in raw["cost_centers"]
     ] + [

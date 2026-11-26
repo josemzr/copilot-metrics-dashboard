@@ -76,7 +76,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Country is a governed mapping; not inferred from a name suffix'"
+                  "Value": "'Region/group: exact configured cost-center name; no country mapping'"
                 }
               }
             },

@@ -5,7 +5,7 @@ from pathlib import Path
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import urllib.parse
 
-from snapshot import read_snapshot
+from snapshot import read_snapshot, with_center_labels
 from pricing import STORE as PRICES
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,7 +86,7 @@ class Handler(BaseHTTPRequestHandler):
             path = (ROOT / "data/sample/dataset.json" if mode == "SAMPLE"
                     else Path(os.environ.get("DATA_DIR", "/data")) / "dataset.json")
             try:
-                self.json_body(200, read_snapshot(path, mode))
+                self.json_body(200, with_center_labels(read_snapshot(path, mode)))
             except FileNotFoundError:
                 self.json_body(503, dict(error="No valid REAL snapshot yet. Enable and configure the collector."))
             except (ValueError, KeyError, TypeError, OSError):

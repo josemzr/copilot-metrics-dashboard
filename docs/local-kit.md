@@ -49,7 +49,17 @@ pwsh -NoProfile -Command "(Resolve-Path './projections/mixes.json').Path"
 
 Only a blank parameter selects embedded defaults. A missing file, an empty file or invalid JSON produces an explicit Refresh error, **not** a fallback to defaults. Weights must be non-negative and sum to one; overhead must be between 0 and 10. These mixtures are editable examples, not recommendations or measured Fusion routing.
 
-For a clean check after upgrading to **1.2.1**, unpack it into a **new folder** and open its PBIP with **DataMode = SAMPLE**, the default **DataRootPath**, and **ProjectionMixFile blank**. After a successful **Close & Apply → Refresh**, repeat REAL steps 4–5 with your existing private data folder; optionally point ProjectionMixFile at your saved custom mixture file. Keep private JSON and customized files; do not overwrite your old kit or data folder. Older kits use the JSON-text parameter and do not support this blank/file-path option.
+For a clean check after upgrading to **1.2.2**, unpack it into a **new folder** and open its PBIP with **DataMode = SAMPLE**, the default **DataRootPath**, and **ProjectionMixFile blank**. After a successful **Close & Apply → Refresh**, repeat REAL steps 4–5 with your existing private data folder; optionally point ProjectionMixFile at your saved custom mixture file. Keep private JSON and customized files; do not overwrite your old kit or data folder. Kits **1.2.0 and earlier** use the JSON-text parameter and do not support this blank/file-path option.
+
+Version 1.2.2 explicitly types every Projections query output in Power Query, so Desktop keeps reported credits, USD and token counters numeric after Apply/Refresh. Missing values remain N/D and pricing timestamps retain their time of day. If an older kit reports that **SUM does not support String**, use the new folder rather than converting amounts to text or changing the DAX formulas. Your existing private `dataset.json`, dates and mixture file do not need to be redownloaded or replaced.
+
+## Region / cost-center labels
+
+**No country-map file or fixed country list is required.** For every non-virtual center, the group label is **always its exact cost-center name configured in GitHub**, including spaces, underscores and suffixes such as `_Copilot`. Labels do not depend on a previous country value; nothing is stripped or classified as a geographic country.
+
+Power BI and the browser use that center name even if an older JSON contains a valid country label, a blank value or **Unmapped region**. This happens in the reader, without changing the stored JSON or its country metadata, billing amounts, IDs, users or dates, so you do not need to redownload your file to see the labels. Virtual enterprise-only or unattributed centers keep **No region**.
+
+The underlying `Country` field name remains compatible with existing JSON and reports, but the filter is labeled **Region / cost-center label** because client-defined groups are not necessarily countries. The Power Query numeric-type correction is a separate fix.
 
 ## Try it offline
 
@@ -98,7 +108,7 @@ The same PowerShell command works on Linux and Windows; quoted paths with spaces
 
 The downloader reads daily user reports, cost centers, current memberships, budgets, licenses and billing, then runs the **shared** normalizer/validator. The output is the complete **21-table `dataset.json`**, not raw NDJSON or report-link metadata. It reads your selected account from GitHub CLI's existing credential store; configure secure OS credential storage for `gh`. The downloader creates no token file or auth configuration, and never passes a token as a process argument or writes it to logs/M/JSON. Signed report downloads receive **no GitHub Authorization header**.
 
-The selected dates are printed and recorded in the JSON and dashboard. Metrics availability does not mean billing has finished settling. Errors, denied permissions, missing licenses or inconsistent billing keep the previous valid dataset; they do not create a successful SAMPLE/zero fallback. `download-status.json` records a safe error/stage, not response bodies or tokens. Known unavailable metrics can be allowed explicitly with `-AllowMissingMetrics`; gaps stay N/D. Current membership/licenses never become invented historical assignments. Country remains unmapped without a governed map.
+The selected dates are printed and recorded in the JSON and dashboard. Metrics availability does not mean billing has finished settling. Errors, denied permissions, missing licenses or inconsistent billing keep the previous valid dataset; they do not create a successful SAMPLE/zero fallback. `download-status.json` records a safe error/stage, not response bodies or tokens. Known unavailable metrics can be allowed explicitly with `-AllowMissingMetrics`; gaps stay N/D. Current membership/licenses never become invented historical assignments. Region/group filters use exact cost-center names; no country taxonomy is inferred.
 
 In Power BI Desktop, open `powerbi/CopilotMetrics.pbip`, then **Transform data → Manage parameters**: set **DataMode = REAL** and **DataRootPath** to the private folder containing that **same `dataset.json`**. Click **Refresh**. In Docker, import that file. Download again and repeat those manual viewer steps when you want new data. No Power BI Service automation is configured.
 

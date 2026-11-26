@@ -179,8 +179,14 @@ def model(dataset, *, mix_file_parameter=True):
         ]
         if transformations:
             query.append("  ParsedDates = Table.TransformColumns(Rows, {" + ", ".join(transformations) + "}),")
+        if name == "Centers":
+            query.append(
+                '  Labeled = Table.ReplaceValue(Rows, each [Country], each '
+                'if [State] = "virtual" or List.Contains({"none","unattributed-history","unattributed-snapshot"},[CenterId]) '
+                'then "No region" else [Center], '
+                'Replacer.ReplaceValue, {"Country"}),')
         query.append("  Typed = Table.TransformColumnTypes(" + (
-            "ParsedDates" if transformations else "Rows") + ", {" + ", ".join(pairs) + '}, "en-US")')
+            "ParsedDates" if transformations else "Labeled" if name == "Centers" else "Rows") + ", {" + ", ".join(pairs) + '}, "en-US")')
         query.append("in Typed")
         table = dict(name=name, columns=columns, partitions=[
             dict(name=name, mode="import", source=dict(type="m", expression=query))])
@@ -327,7 +333,7 @@ def build_report():
 
     def slicer(folder, table, column, x, y, w=270, title=None):
         visual(folder, "slicer", {"Values": {"projections": [projection(table, column, active=True)]}},
-               title or column, x, y, w, 80, {
+               title or ("Region / cost-center label" if table == "Centers" and column == "Country" else column), x, y, w, 80, {
                    "data": [{"properties": {"mode": literal("Dropdown")}}],
                    "selection": [{"properties": {"singleSelect": literal(False)}}]})
 
@@ -356,7 +362,7 @@ def build_report():
             projection(t, c) for t, c in columns
         ] + [projection("Info", m, True) for m in measures]}}, title, x, y, w, h)
 
-    overview = page("overview", "01 | Country > center > model")
+    overview = page("overview", "01 | Region/group > center > model")
     slicer(overview, "Centers", "Country", 20, 90)
     slicer(overview, "Centers", "Center", 310, 90)
     slicer(overview, "Dates", "Day", 600, 90)
@@ -366,7 +372,7 @@ def build_report():
         card(overview, measure, 20 + index * 355, 190, 335)
     chart(overview, "clusteredColumnChart",
           [("Centers", "Country"), ("Centers", "Center"), ("Models", "Model"), ("Users", "User")],
-          ["Gross AI credits"], "Drill-down: country > center > model > user", 20, 310, 880, 310)
+          ["Gross AI credits"], "Drill-down: region/group > center > model > user", 20, 310, 880, 310)
     table(overview, [("Models", "Model")],
           ["Gross amount USD", "Discounts USD", "Net cost USD"],
           "Model costs USD: gross / discounts / net (API amounts)", 920, 310, 500, 310)
@@ -429,7 +435,7 @@ def build_report():
                     ("Info", "EndDay"), ("Info", "Coverage")], [],
           "Export metadata", 20, 220, 1400, 150)
     table(quality, [("Centers", "Country"), ("Centers", "Center"), ("Centers", "State")], [],
-          "Country is a governed mapping; not inferred from a name suffix", 20, 390, 690, 300)
+          "Region/group: exact configured cost-center name; no country mapping", 20, 390, 690, 300)
     table(quality, [("Centers", "Center"), ("Memberships", "ResourceType"),
                     ("Memberships", "ResourceName"), ("Memberships", "AsOf")], [],
           "CURRENT memberships do not attribute historical usage", 730, 390, 690, 300)

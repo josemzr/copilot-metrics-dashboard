@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Country'"
+                  "Value": "'Region / cost-center label'"
                 }
               }
             },

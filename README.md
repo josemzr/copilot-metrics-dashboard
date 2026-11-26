@@ -16,6 +16,8 @@ Open **http://localhost:8080**. **SAMPLE** usage is fictional. The original view
 
 Filter by region, cost center, model and dates. Explore **Overview, Users, Daily, Models and Data quality**. Export filtered CSV tables or SVG/PNG charts. **Import JSON** opens a file locally without uploading it. **Projections** starts with reported Billing: no changes equals actual gross consumption. Alternatives are approximate, Billing-calibrated scenarios using current official tariffs, not promised invoice savings. Only those tariff checks need internet.
 
+**Region / cost-center labels** always use the client's exact non-virtual center names, not a country value, fixed country list or separate map file. Existing JSON is displayed this way without modifying the file; virtual centers keep **No region**.
+
 ## Your own data
 
 Prefer manual downloads with your own GitHub account and one JSON for both viewers? Use the **[manual local kit](docs/local-kit.md)**: no Azure, App or PEM, isolated Docker on port 8081, and Power BI Desktop Refresh on Windows. Only the downloader needs GitHub permissions, not people opening the JSON.

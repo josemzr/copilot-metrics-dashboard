@@ -20,7 +20,7 @@ import collect
 from collect import Client, ContractError
 from make_sample import make_sample
 import server
-from snapshot import atomic_json, read_snapshot, validate
+from snapshot import atomic_json, read_snapshot, validate, with_center_labels
 import worker
 
 
@@ -187,6 +187,30 @@ class RuntimeTests(unittest.TestCase):
                 validate(data)
         with self.assertRaises(ContractError):
             validate(self.sample, "REAL")
+
+    def test_legacy_region_labels_resolve_in_memory_without_changing_json_or_facts(self):
+        for country in (None, "", " Unmapped region ", "Custom regional group"):
+            with self.subTest(country=country), tempfile.TemporaryDirectory() as directory:
+                data = deepcopy(self.sample)
+                data["Centers"][0].update(Center="North_West Business_Copilot", Country=country)
+                virtual = next(c for c in data["Centers"] if c["CenterId"] == "none")
+                virtual["Country"] = None
+                path = Path(directory) / "dataset.json"
+                atomic_json(path, data)
+                before = path.read_bytes()
+                loaded = with_center_labels(read_snapshot(path, "SAMPLE"))
+                self.assertEqual(loaded["Centers"][0]["Country"], "North_West Business_Copilot")
+                self.assertEqual(read_snapshot(path, "SAMPLE")["Centers"][0]["Country"], country)
+                self.assertEqual(next(c["Country"] for c in loaded["Centers"] if c["CenterId"] == "none"), "No region")
+                self.assertEqual(path.read_bytes(), before)
+                self.assertEqual(data["Centers"][0]["Country"], country)
+                for table in data:
+                    if table != "Centers":
+                        self.assertEqual(loaded[table], data[table])
+        data = deepcopy(self.sample)
+        del data["Centers"][0]["Country"]
+        self.assertEqual(with_center_labels(validate(data))["Centers"][0]["Country"], data["Centers"][0]["Center"])
+        self.assertNotIn("Country", data["Centers"][0])
 
     def test_app_signing_uses_ephemeral_rsa_key_and_short_lived_installation_token(self):
         from cryptography.hazmat.primitives import hashes, serialization

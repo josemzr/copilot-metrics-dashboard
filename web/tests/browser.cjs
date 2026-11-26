@@ -2,6 +2,7 @@ const { chromium } = require("playwright");
 const assert = require("node:assert/strict");
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const D = require("../src/core.js");
 const base = process.env.BASE_URL || "http://127.0.0.1:8080";
 
 (async () => {
@@ -17,11 +18,12 @@ const base = process.env.BASE_URL || "http://127.0.0.1:8080";
     assert.equal(await page.locator("html").getAttribute("lang"), "en");
     assert.equal(await page.locator("#mode-badge").textContent(), "SAMPLE");
     const sample = await (await page.request.get(base + "/api/dataset?mode=SAMPLE")).json();
-    const region = sample.Centers.find(r => r.Country === "Region_A").Country;
+    const firstCenter = sample.Centers.find(r => r.State !== "virtual");
+    const region = firstCenter.Country;
     await page.locator("#country").selectOption(region);
     const selected = await page.locator("#center option").allTextContents();
-    assert.ok(selected.every(label => label === "All centers" || label.includes("Region A")));
-    const center = sample.Centers.find(r => r.Country === region).CenterId;
+    assert.ok(selected.every(label => label === "All centers" || label === firstCenter.Center));
+    const center = firstCenter.CenterId;
     await page.locator("#center").selectOption(center);
     await page.locator("#model").selectOption("Model Alpha");
     assert.equal(await page.locator("#model-notice").isVisible(), true);
@@ -70,6 +72,19 @@ const base = process.env.BASE_URL || "http://127.0.0.1:8080";
     await page.locator("#file-input").setInputFiles({ name: "fixture.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(imported)) });
     await page.locator("#notice").filter({ hasText: /Validated REAL JSON loaded/ }).waitFor();
     assert.equal(await page.locator("#mode-badge").textContent(), "REAL");
+    const clientLabels = structuredClone(imported);
+    clientLabels.Centers[0].Center = "North_West Business_Copilot";
+    clientLabels.Centers[0].Country = "Different legacy region metadata";
+    await page.locator("#file-input").setInputFiles({ name: "client-labels.json", mimeType: "application/json",
+      buffer: Buffer.from(JSON.stringify(clientLabels)) });
+    await page.locator("#notice").filter({ hasText: /loaded in memory only/ }).waitFor();
+    await page.locator("#country").selectOption("North_West Business_Copilot");
+    assert.equal(await page.locator("#country option:checked").textContent(), "North_West Business_Copilot");
+    await page.locator("#center").selectOption(clientLabels.Centers[0].CenterId);
+    assert.equal(await page.locator("#center option:checked").textContent(), "North_West Business_Copilot");
+    const expected = D.summarize(D.validateDataset(clientLabels), { country: "North_West Business_Copilot" });
+    assert.equal(await page.locator(".kpi").filter({ hasText: "Gross AI credits" }).locator(".kpi-number").textContent(),
+      new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }).format(expected.totals.Credits));
     await page.locator("#sample-mode").click();
     let real = structuredClone(imported);
     real.Info[0].AsOf = "2026-11-18T18:00:00Z";

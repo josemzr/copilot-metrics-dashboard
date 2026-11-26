@@ -37,6 +37,10 @@
     if (count > 3660) throw new Error("The date range cannot exceed ten years.");
     return Array.from({ length: count }, (_, i) => new Date(dayTime(start) + i * DAY_MS).toISOString().slice(0, 10));
   }
+  function regionLabel(center) {
+    if (center.State === "virtual" || ["none", "unattributed-history", "unattributed-snapshot"].includes(center.CenterId)) return "No region";
+    return center.Center;
+  }
   function validateDataset(input) {
     if (!input || typeof input !== "object" || Array.isArray(input)) throw new Error("Expected a dataset JSON object.");
     for (const required of ["Info", "Centers", "Dates", "Users", "Billing", "Metrics"]) {
@@ -73,8 +77,8 @@
         if (["Billing", "Metrics", "ModelFeatures", "ClientModels", "Features", "CLI", "LicensedDays", "Pools"].includes(table) && typeof row.CenterId !== "string") {
           throw new Error(`${table}[${index}]: CenterId required.`);
         }
-        if (["Centers"].includes(table) && (typeof row.CenterId !== "string" || typeof row.Center !== "string" || typeof row.Country !== "string")) {
-          throw new Error("Centers requires CenterId, Center and Country.");
+        if (["Centers"].includes(table) && (typeof row.CenterId !== "string" || typeof row.Center !== "string")) {
+          throw new Error("Centers requires CenterId and Center.");
         }
         if (["Users", "Licenses", "LicensedDays", "Metrics", "ModelFeatures", "ClientModels", "Features", "CLI"].includes(table) && (typeof row.User !== "string" || !row.User)) {
           throw new Error(`${table}[${index}]: User required.`);
@@ -88,6 +92,7 @@
     if (!isDay(info.StartDay) || !isDay(info.EndDay) || info.StartDay > info.EndDay) throw new Error("Invalid Info.StartDay/EndDay.");
     if (typeof info.AsOf !== "string" || !Number.isFinite(Date.parse(info.AsOf))) throw new Error("Info.AsOf must be a valid timestamp.");
     daysBetween(info.StartDay, info.EndDay);
+    data.Centers = data.Centers.map(center => ({ ...center, Country: regionLabel(center) }));
     return data;
   }
   function parseDataset(text) {

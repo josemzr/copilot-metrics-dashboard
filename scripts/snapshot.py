@@ -47,6 +47,13 @@ def is_day(value):
     return isinstance(value, str) and dt.date.fromisoformat(value).isoformat() == value
 
 
+def region_label(center):
+    if center.get("State") == "virtual" or center["CenterId"] in (
+            "none", "unattributed-history", "unattributed-snapshot"):
+        return "No region"
+    return center["Center"]
+
+
 def validate(data, mode=None):
     if not isinstance(data, dict) or set(data) - TABLES:
         raise ContractError("Snapshot must contain only known tables")
@@ -67,8 +74,8 @@ def validate(data, mode=None):
                 raise ContractError("Daily snapshot row requires an ISO Day")
             if table in PERSON_TABLES and (not isinstance(row.get("User"), str) or not row["User"]):
                 raise ContractError("Person snapshot row requires a User")
-            if table == "Centers" and any(not isinstance(row.get(key), str) for key in ("CenterId", "Center", "Country")):
-                raise ContractError("Center row requires CenterId, Center and Country")
+            if table == "Centers" and any(not isinstance(row.get(key), str) for key in ("CenterId", "Center")):
+                raise ContractError("Center row requires CenterId and Center")
             for key, value in row.items():
                 if key in ("__proto__", "constructor", "prototype"):
                     raise ContractError("Unsafe snapshot field")
@@ -118,6 +125,10 @@ def validate(data, mode=None):
         if len(covered) != len(set(covered)) or set(covered) != expected:
             raise ContractError("Source coverage must identify every dataset day exactly once")
     return data
+
+
+def with_center_labels(data):
+    return dict(data, Centers=[dict(center, Country=region_label(center)) for center in data["Centers"]])
 
 
 def read_snapshot(path, mode):

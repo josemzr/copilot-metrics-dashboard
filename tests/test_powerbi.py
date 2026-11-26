@@ -136,6 +136,33 @@ class PowerBIReportTests(unittest.TestCase):
         self.assertIn("IsParameterQuery=true", embedded)
         self.assertNotIn("File.Contents", embedded)
 
+    def test_all_projection_partitions_declare_m_types_not_only_model_column_types(self):
+        mtypes = {"string": "type text", "double": "type number",
+                  "boolean": "type logical", "dateTime": "type datetime"}
+        for table in self.database["tables"]:
+            if not table["name"].startswith("Projection"):
+                continue
+            query = "\n".join(table["partitions"][0]["source"]["expression"])
+            self.assertIn("Table.TransformColumnTypes(", query)
+            for column in table["columns"]:
+                self.assertIn('{"' + column["name"] + '", ' + mtypes[column["dataType"]] + '}', query)
+            self.assertIn(', "en-US")', query)
+
+    def test_projection_pricing_timestamp_uses_datetime_without_truncating_to_date(self):
+        table = next(t for t in self.database["tables"] if t["name"] == "ProjectionPriceStatus")
+        query = "\n".join(table["partitions"][0]["source"]["expression"])
+        self.assertIn('{"AsOf", type datetime}', query)
+        self.assertIn('{"ValuationDay", type datetime}', query)
+        self.assertNotIn("Date.From(", query)
+
+    def test_center_labels_use_exact_names_before_typing_and_keep_virtuals(self):
+        table = next(t for t in self.database["tables"] if t["name"] == "Centers")
+        query = "\n".join(table["partitions"][0]["source"]["expression"])
+        self.assertIn('then "No region" else [Center]', query)
+        self.assertIn('{"none","unattributed-history","unattributed-snapshot"}', query)
+        self.assertIn("Table.TransformColumnTypes(Labeled", query)
+        self.assertNotIn('Text.Replace([Center]', query)
+
     def test_overview_financial_cards_remain_numeric_for_classic_dashboard_alerts(self):
         cards = [visual for visual in self.visuals("overview") if visual["visualType"] == "card"]
         references = {visual["query"]["queryState"]["Values"]["projections"][0]["queryRef"]

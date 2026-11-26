@@ -25,7 +25,7 @@ def build(output):
     pbi = subprocess.check_output(["git", "ls-files", "-z", "--", "powerbi"], cwd=ROOT).decode().split("\0")
     pbi = [name for name in pbi if name]
     projection_page = ROOT / "powerbi/CopilotMetrics.Report/definition/pages/projections"
-    pbi = sorted(set(pbi + [str(path.relative_to(ROOT)) for pattern in ("page.json", "visuals/v[0-9][0-9][0-9]/visual.json")
+    pbi = sorted(set(pbi + [path.relative_to(ROOT).as_posix() for pattern in ("page.json", "visuals/v[0-9][0-9][0-9]/visual.json")
                            for path in projection_page.glob(pattern)]))
     if not pbi or any(not name.startswith("powerbi/CopilotMetrics") for name in pbi):
         raise ValueError("Expected the tracked neutral Power BI project only")

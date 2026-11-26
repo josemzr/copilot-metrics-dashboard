@@ -150,7 +150,7 @@ class CatalogStore:
                     self.catalog = parse_catalog(fetch(SOURCES[0]), fetch(SOURCES[1]), now)
                     self.last_error = None
                 except (PricingError, ValueError, UnicodeError) as error:
-                    self.last_error = "Official pricing unavailable or changed; projections are N/D unless you explicitly accept the last verified catalog."
+                    self.last_error = "Official pricing unavailable or changed. Reported Billing remains available; alternatives require verified prices or explicit acceptance of the last verified catalog."
             state = "ready" if self.last_error is None and self.catalog else "stale" if self.catalog else "error"
             if self.catalog and (now - dt.datetime.fromisoformat(self.catalog["asOf"])).total_seconds() > CONTRACT["maxAgeHours"] * 3600:
                 state = "stale"

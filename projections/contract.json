@@ -2,6 +2,16 @@
   "version": "copilot-projections-v1",
   "aliasesVersion": "2026-11-26.1",
   "pricingParserVersion": "copilot-markdown-v1",
+  "calibrationVersion": "billing-bucket-v1",
+  "calibration": {
+    "baseline": "Reported Copilot Billing grossQuantity and grossAmount, summed independently",
+    "bucket": ["Day", "User", "SourceKey", "CenterId"],
+    "sourceKey": "K: or U: plus uppercase UTF8 hex of known canonical or exact unknown raw model; never fuzzy matched by Power BI collation",
+    "ratio": "Sum modeled scenario USD / sum modeled source USD for the complete verified token bucket",
+    "missingChangedBucket": "N/D total; expose partial estimate and unprojected reported amount, never drop or silently retain it",
+    "identity": "No changes, zero replacement or unchanged target with volume factor 1 returns reported amounts without pricing",
+    "replacementScope": "replaceSourceModel is separate from the source-model filter; empty means all source models in scope"
+  },
   "sources": [
     "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing.md",
     "https://docs.github.com/en/copilot/concepts/models/copilot-fusion.md"
@@ -76,6 +86,7 @@
   },
   "defaults": {
     "mode": "unchanged",
+    "replaceSourceModel": "",
     "replacement": 1,
     "cacheRead": 0,
     "cacheWrite": 0,

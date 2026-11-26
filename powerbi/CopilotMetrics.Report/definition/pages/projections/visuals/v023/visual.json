@@ -2,37 +2,18 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v023",
   "position": {
-    "x": 20,
-    "y": 815,
+    "x": 1085,
+    "y": 695,
     "z": 23,
     "tabOrder": 23,
-    "width": 690,
-    "height": 300
+    "width": 335,
+    "height": 100
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionSide"
-                    }
-                  },
-                  "Property": "Side"
-                }
-              },
-              "queryRef": "ProjectionSide.Side",
-              "nativeQueryRef": "Side",
-              "active": true
-            }
-          ]
-        },
-        "Y": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -42,32 +23,14 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Chart USD"
+                  "Property": "Projection Display Delta Credits Pct"
                 }
               },
-              "queryRef": "Info.Projection Chart USD",
-              "nativeQueryRef": "Projection Chart USD"
+              "queryRef": "Info.Projection Display Delta Credits Pct",
+              "nativeQueryRef": "Projection Display Delta Credits Pct"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "ProjectionSide"
-                  }
-                },
-                "Property": "Side"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true,
@@ -85,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Modeled gross USD on the same eligible rows - NOT an invoice forecast'"
+                  "Value": "'Delta AI credits % (zero denominator = N/D)'"
                 }
               }
             },
@@ -135,6 +98,41 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

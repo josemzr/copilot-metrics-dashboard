@@ -21,7 +21,7 @@ jobs:
       - run: python -m unittest discover -s tests
       - run: python scripts/build_powerbi.py && python web/build.py && python scripts/validate_project.py
       - run: python scripts/validate_schemas.py
-      - run: node --test web/tests/core.test.cjs web/tests/projections.test.cjs
+      - run: node --test web/tests/core.test.cjs web/tests/projections.test.cjs web/tests/calibration.test.cjs
       - run: npm ci && npx playwright install --with-deps chromium
       - run: docker compose -p metrics-ci up --build --wait
       - run: docker build --target collector -t metrics-collector-check .

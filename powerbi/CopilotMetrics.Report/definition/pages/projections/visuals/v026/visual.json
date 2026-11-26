@@ -3,101 +3,31 @@
   "name": "v026",
   "position": {
     "x": 20,
-    "y": 1255,
+    "y": 1135,
     "z": 26,
     "tabOrder": 26,
-    "width": 690,
-    "height": 260
+    "width": 1400,
+    "height": 100
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "card",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionUsage"
-                    }
-                  },
-                  "Property": "Attribution"
-                }
-              },
-              "queryRef": "ProjectionUsage.Attribution",
-              "nativeQueryRef": "Attribution"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionUsage"
-                    }
-                  },
-                  "Property": "Reason"
-                }
-              },
-              "queryRef": "ProjectionUsage.Reason",
-              "nativeQueryRef": "Reason"
-            },
-            {
-              "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Selected Rows"
+                  "Property": "Projection Coverage Note"
                 }
               },
-              "queryRef": "Info.Projection Selected Rows",
-              "nativeQueryRef": "Projection Selected Rows"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Eligible Rows"
-                }
-              },
-              "queryRef": "Info.Projection Eligible Rows",
-              "nativeQueryRef": "Projection Eligible Rows"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Excluded Rows"
-                }
-              },
-              "queryRef": "Info.Projection Excluded Rows",
-              "nativeQueryRef": "Projection Excluded Rows"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Missing Token Rows"
-                }
-              },
-              "queryRef": "Info.Projection Missing Token Rows",
-              "nativeQueryRef": "Projection Missing Token Rows"
+              "queryRef": "Info.Projection Coverage Note",
+              "nativeQueryRef": "Projection Coverage Note"
             }
           ]
         }
@@ -118,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Source-row counts BEFORE center filtering; center scope and unmodellable rows excluded'"
+                  "Value": "'Projection Coverage Note'"
                 }
               }
             },
@@ -168,6 +98,41 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

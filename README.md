@@ -14,7 +14,7 @@ docker compose up --build
 
 Open **http://localhost:8080**. **SAMPLE** usage is fictional. The original views make no GitHub report calls, need no keys and create no paid usage; only optional **Projections** checks public official pricing. Stop it with `Ctrl+C`, then `docker compose down`. Use `PORT=8081 docker compose up --build` if port 8080 is busy.
 
-Filter by region, cost center, model and dates. Explore **Overview, Users, Daily, Models and Data quality**. Export filtered CSV tables or SVG/PNG charts. **Import JSON** opens a file locally without uploading it. **Projections** optionally fetches current public Copilot tariffs on opening/price refresh to compare explicit hypothetical scenarios, never invoice savings; it needs internet only for those prices.
+Filter by region, cost center, model and dates. Explore **Overview, Users, Daily, Models and Data quality**. Export filtered CSV tables or SVG/PNG charts. **Import JSON** opens a file locally without uploading it. **Projections** starts with reported Billing: no changes equals actual gross consumption. Alternatives are approximate, Billing-calibrated scenarios using current official tariffs, not promised invoice savings. Only those tariff checks need internet.
 
 ## Your own data
 
@@ -44,7 +44,7 @@ python3 -m pip install -r requirements-dev.txt
 python3 scripts/build_powerbi.py
 python3 web/build.py
 python3 -m unittest discover -s tests
-node --test web/tests/core.test.cjs web/tests/projections.test.cjs
+node --test web/tests/core.test.cjs web/tests/projections.test.cjs web/tests/calibration.test.cjs
 ```
 
 Power BI preserves its 10 original pages, 21 source tables, 37 original relationships and 90 analytical measures, plus hidden numeric-card displays for N/D. An eleventh **[Projections](docs/projections.md)** page adds derived tables and anonymous live-price imports without changing the downloaded JSON. [Validation](validation/README.md) checks its file structure; Power BI Desktop is needed to verify rendering and DAX execution.

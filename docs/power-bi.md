@@ -4,6 +4,8 @@ Open **`powerbi/CopilotMetrics.pbip`** in a recent **Power BI Desktop on Windows
 
 The project embeds only the fictional SAMPLE data. Its ten original pages cover overview, billing, adoption/models, budgets/pools, source coverage, licenses/adoption, code/acceptance, users, 14-day model blocks and surfaces/telemetry coverage. **Projections** is an eleventh native page using separately imported current official pricing and explicit hypothetical assumptions.
 
+The Projections baseline is **reported Billing gross AI credits and gross USD**, independently summed; no changes / zero replacement reproduces it exactly. **Models to replace** is separate from the source-model scope filter. Alternatives are calibrated complete-bucket token-cost ratios, not net invoice forecasts; unmatched unchanged Billing stays actual, but an unresolved requested change makes the full estimate N/D with partial components labeled. [Calibration details](projections.md).
+
 ## Use a private REAL snapshot
 
 1. Enable the [collector](github-app.md) and wait for a successful run.

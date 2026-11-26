@@ -19,7 +19,7 @@ def main():
     displays = {name for name in measures if name.startswith("Display ")}
     projection_tables = [t for t in tables if t["name"].startswith("Projection")]
     projection_measures = {n for n in measures if n.startswith("Projection ")}
-    assert len(tables) - len(projection_tables) == 21 and len(model["relationships"]) == 45
+    assert len(tables) - len(projection_tables) == 21 and len(model["relationships"]) == 49
     assert len(measures - displays - projection_measures) == 90
     assert all(definitions[name].get("isHidden") for name in displays)
     fields = {t["name"]: {c["name"] for c in t["columns"]} for t in tables}
@@ -59,7 +59,7 @@ def main():
     sample = validate(json.loads(base64.b64decode(embedded)), "SAMPLE")
     assert sample == make_sample()[0]
     assert json.loads((ROOT / "data/sample/dataset.json").read_text()) == sample
-    print(f"PASS: 21 original + {len(projection_tables)} derived tables, 45 relationships, "
+    print(f"PASS: 21 original + {len(projection_tables)} derived tables, 49 relationships, "
           f"90 base + {len(displays)} card + {len(projection_measures)} projection measures, "
           f"11 pages, {visuals} visuals; embedded SAMPLE matches generator")
 

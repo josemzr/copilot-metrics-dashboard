@@ -1,0 +1,235 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "v031",
+  "position": {
+    "x": 20,
+    "y": 1945,
+    "z": 31,
+    "tabOrder": 31,
+    "width": 1400,
+    "height": 300
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "Model"
+                }
+              },
+              "queryRef": "ProjectionPrices.Model",
+              "nativeQueryRef": "Model"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "Tier"
+                }
+              },
+              "queryRef": "ProjectionPrices.Tier",
+              "nativeQueryRef": "Tier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "Threshold"
+                }
+              },
+              "queryRef": "ProjectionPrices.Threshold",
+              "nativeQueryRef": "Threshold"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "InputUSD"
+                }
+              },
+              "queryRef": "ProjectionPrices.InputUSD",
+              "nativeQueryRef": "InputUSD"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "CachedInputUSD"
+                }
+              },
+              "queryRef": "ProjectionPrices.CachedInputUSD",
+              "nativeQueryRef": "CachedInputUSD"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "CacheWriteUSD"
+                }
+              },
+              "queryRef": "ProjectionPrices.CacheWriteUSD",
+              "nativeQueryRef": "CacheWriteUSD"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "CacheWriteStatus"
+                }
+              },
+              "queryRef": "ProjectionPrices.CacheWriteStatus",
+              "nativeQueryRef": "CacheWriteStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "OutputUSD"
+                }
+              },
+              "queryRef": "ProjectionPrices.OutputUSD",
+              "nativeQueryRef": "OutputUSD"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "EffectiveFrom"
+                }
+              },
+              "queryRef": "ProjectionPrices.EffectiveFrom",
+              "nativeQueryRef": "EffectiveFrom"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionPrices"
+                    }
+                  },
+                  "Property": "EffectiveTo"
+                }
+              },
+              "queryRef": "ProjectionPrices.EffectiveTo",
+              "nativeQueryRef": "EffectiveTo"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Official USD per 1M text tokens - no request-level tier inference or unknown promo reversion'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#9a1a41'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

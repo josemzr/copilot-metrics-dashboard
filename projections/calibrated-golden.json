@@ -1,0 +1,31 @@
+{
+  "purpose": "Synthetic Billing-calibrated acceptance oracle, NOT customer data or live GitHub prices.",
+  "data": {
+    "Info": [{"Mode":"REAL","StartDay":"2026-11-18","EndDay":"2026-11-18"}],
+    "Users": [{"User":"fixture-user","IsResidual":false}],
+    "Centers": [{"CenterId":"none","Country":"No region","State":"virtual"},{"CenterId":"c1","Country":"Example region","State":"active"},{"CenterId":"unattributed-history","Country":"No region","State":"virtual"}],
+    "SourceCoverage": [{"Day":"2026-11-18","MetricsAvailable":true,"BillingAvailable":true}],
+    "Billing": [
+      {"Day":"2026-11-18","User":"fixture-user","Model":"Fixture A","CenterId":"none","Attribution":"API user filter","Product":"Copilot","UnitType":"ai-credits","grossQuantity":100,"grossAmount":1,"discountAmount":1,"netAmount":0},
+      {"Day":"2026-11-18","User":"fixture-user","Model":"Fixture B","CenterId":"none","Attribution":"API user filter","Product":"Copilot","UnitType":"ai-credits","grossQuantity":40,"grossAmount":0.4,"discountAmount":0.4,"netAmount":0}
+    ],
+    "ClientModels": [
+      {"Day":"2026-11-18","User":"fixture-user","Model":"Fixture A","CenterId":"unattributed-history","CustomModel":false,"PromptTokens":1000000,"OutputTokens":200000,"Requests":100},
+      {"Day":"2026-11-18","User":"fixture-user","Model":"Fixture B","CenterId":"unattributed-history","CustomModel":false,"PromptTokens":1000000,"OutputTokens":200000,"Requests":200}
+    ]
+  },
+  "mix": {"overhead":1.2,"weights":[{"model":"Fixture B","weight":0.7},{"model":"Fixture A","weight":0.3}]},
+  "cases": [
+    {"name":"No changes without prices","options":{"mode":"unchanged"},"pricesUnavailable":true,"baselineCredits":140,"scenarioCredits":140,"baselineUSD":1.4,"scenarioUSD":1.4},
+    {"name":"Zero replacement without prices","options":{"mode":"target","targetModel":"Fixture B","replacement":0},"pricesUnavailable":true,"baselineCredits":140,"scenarioCredits":140,"baselineUSD":1.4,"scenarioUSD":1.4},
+    {"name":"Identity source without prices","options":{"mode":"target","targetModel":"Fixture A","replaceSourceModel":"Fixture A"},"pricesUnavailable":true,"baselineCredits":140,"scenarioCredits":140,"baselineUSD":1.4,"scenarioUSD":1.4},
+    {"name":"Only A to B","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A"},"baselineCredits":140,"scenarioCredits":60,"baselineUSD":1.4,"scenarioUSD":0.6},
+    {"name":"Half A to B","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A","replacement":0.5},"baselineCredits":140,"scenarioCredits":100,"baselineUSD":1.4,"scenarioUSD":1},
+    {"name":"A source scope only","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A"},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":20,"baselineUSD":1,"scenarioUSD":0.2},
+    {"name":"Disjoint cache buckets A to B","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A","cacheRead":0.6,"cacheWrite":0.2},"baselineCredits":140,"scenarioCredits":60,"baselineUSD":1.4,"scenarioUSD":0.6},
+    {"name":"Fusion hypothesis eligible A only scope","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A","fusionPromotionEligible":true},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":36.96,"baselineUSD":1,"scenarioUSD":0.3696},
+    {"name":"Fusion hypothesis no promo A only scope","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A"},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":52.8,"baselineUSD":1,"scenarioUSD":0.528},
+    {"name":"Fusion hypothesis eligible with B untouched","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A","fusionPromotionEligible":true},"baselineCredits":140,"scenarioCredits":76.96,"baselineUSD":1.4,"scenarioUSD":0.7696},
+    {"name":"USD anchor not derived from credits","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A"},"sourceUSDOverride":1.3,"baselineCredits":140,"scenarioCredits":60,"baselineUSD":1.7,"scenarioUSD":0.66}
+  ]
+}

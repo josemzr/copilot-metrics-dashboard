@@ -10,7 +10,7 @@ import zlib
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from pricing import CatalogStore, PricingError, SOURCES, parse_catalog, pricing_rows, public_source
-from projection_powerbi import augment_model
+from projection_powerbi import augment_model, patch_model
 from projection_powerbi import MEASURES
 
 
@@ -113,6 +113,25 @@ class PricingTests(unittest.TestCase):
         self.assertIn("FILTER(Targets,[_Weight]>0)", MEASURES["Projection Row Scenario USD"][0])
         self.assertIn("ISBLANK([_Weight])", MEASURES["Projection Option Error"][0])
         self.assertIn("ISBLANK([_Overhead])", MEASURES["Projection Option Error"][0])
+
+    def test_calibrated_patch_preserves_original_objects_and_pricing_uses_no_private_source(self):
+        from copy import deepcopy
+        from build_powerbi import model
+        from make_sample import make_sample
+        database = model(make_sample()[0])
+        before = deepcopy(database)
+        patch_model(database)
+        self.assertEqual(database, before)
+        original_tables = [t for t in database["model"]["tables"] if not t["name"].startswith("Projection")]
+        self.assertEqual(len(original_tables), 21)
+        buckets = next(t for t in database["model"]["tables"] if t["name"] == "ProjectionBuckets")
+        self.assertTrue({"ReportedCredits", "ReportedUSD", "CalibrationReason", "TokenRows"} <= {c["name"] for c in buckets["columns"]})
+        self.assertIn("ProjectionReplaceSource", {t["name"] for t in database["model"]["tables"]})
+        self.assertIn("[Projection Partial Reported Credits]", MEASURES["Projection Baseline Credits"][0])
+        self.assertIn("[Projection Partial Reported USD]", MEASURES["Projection Baseline USD"][0])
+        self.assertNotIn("*100", MEASURES["Projection Baseline Credits"][0])
+        self.assertIn("[Projection Unresolved Change Rows]=0", MEASURES["Projection Scenario Credits"][0])
+        self.assertIn("Source>0", MEASURES["Projection Bucket Ratio"][0])
 
 
 if __name__ == "__main__":

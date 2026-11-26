@@ -38,7 +38,7 @@
       {
         "name": "ProjectionsContract",
         "kind": "m",
-        "expression": "Json.Document(Binary.FromText(\"eyJ2ZXJzaW9uIjoiY29waWxvdC1wcm9qZWN0aW9ucy12MSIsImFsaWFzZXNWZXJzaW9uIjoiMjAyNi0xMS0yNi4xIiwicHJpY2luZ1BhcnNlclZlcnNpb24iOiJjb3BpbG90LW1hcmtkb3duLXYxIiwic291cmNlcyI6WyJodHRwczovL2RvY3MuZ2l0aHViLmNvbS9lbi9jb3BpbG90L3JlZmVyZW5jZS9jb3BpbG90LWJpbGxpbmcvbW9kZWxzLWFuZC1wcmljaW5nLm1kIiwiaHR0cHM6Ly9kb2NzLmdpdGh1Yi5jb20vZW4vY29waWxvdC9jb25jZXB0cy9tb2RlbHMvY29waWxvdC1mdXNpb24ubWQiXSwibWF4QWdlSG91cnMiOjI0LCJtb2RlbHMiOlt7Im1vZGVsIjoiR1BULTUuMy1Db2RleCIsImFsaWFzZXMiOlsiZ3B0LTUuMy1jb2RleCJdfSx7Im1vZGVsIjoiR1BULTUuNCBuYW5vIiwiYWxpYXNlcyI6WyJncHQtNS40LW5hbm8iXX0seyJtb2RlbCI6IkdQVC01LjYgTHVuYSIsImFsaWFzZXMiOlsiZ3B0LTUuNi1sdW5hIl19LHsibW9kZWwiOiJHUFQtNS42IFNvbCIsImFsaWFzZXMiOlsiZ3B0LTUuNi1zb2wiXX0seyJtb2RlbCI6IkdQVC02IEFzdHJhIiwiYWxpYXNlcyI6WyJncHQtNi1hc3RyYSJdfSx7Im1vZGVsIjoiR1BULTYgTHVuYSIsImFsaWFzZXMiOlsiZ3B0LTYtbHVuYSJdfSx7Im1vZGVsIjoiR1BULTYgU29sIiwiYWxpYXNlcyI6WyJncHQtNi1zb2wiXX0seyJtb2RlbCI6IkdQVC02LjEgU29sIiwiYWxpYXNlcyI6WyJncHQtNi4xLXNvbCJdfSx7Im1vZGVsIjoiR1BULTYuMSBUZXJyYSIsImFsaWFzZXMiOlsiZ3B0LTYuMS10ZXJyYSJdfSx7Im1vZGVsIjoiR1BULTYuMiBBc3RyYSIsImFsaWFzZXMiOlsiZ3B0LTYuMi1hc3RyYSJdfSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJhbGlhc2VzIjpbImdwdC02LjItc29sIl19LHsibW9kZWwiOiJDbGF1ZGUgSGFpa3UgNC41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtaGFpa3UtNC41IiwiY2xhdWRlLTQuNS1oYWlrdSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEhhaWt1IDUuNSIsImFsaWFzZXMiOlsiY2xhdWRlLWhhaWt1LTUuNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA0IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTQiXX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNC42IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTQuNiJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTUiXX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtc29ubmV0LTUuNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNC44IiwiYWxpYXNlcyI6WyJjbGF1ZGUtb3B1cy00LjgiXX0seyJtb2RlbCI6IkNsYXVkZSBPcHVzIDUuNSIsImFsaWFzZXMiOlsiY2xhdWRlLW9wdXMtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgT3B1cyA0LjggKGZhc3QgbW9kZSkgKHByZXZpZXcpIiwiYWxpYXNlcyI6W119LHsibW9kZWwiOiJDbGF1ZGUgRmFibGUgNSIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUiXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1LjEiLCJhbGlhc2VzIjpbImNsYXVkZS1mYWJsZS01LjEiXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1LjIiLCJhbGlhc2VzIjpbImNsYXVkZS1mYWJsZS01LjIiXX0seyJtb2RlbCI6IkdlbWluaSAzLjggRmxhc2giLCJhbGlhc2VzIjpbImdlbWluaS0zLjgtZmxhc2giXX0seyJtb2RlbCI6IkdlbWluaSA0IEFyZ29uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1hcmdvbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgQ2FyYm9uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1jYXJib24iXX0seyJtb2RlbCI6IkdlbWluaSA0IEh5ZHJvZ2VuIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1oeWRyb2dlbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgTmVvbiIsImFsaWFzZXMiOlsiZ2VtaW5pLTQtbmVvbiJdfSx7Im1vZGVsIjoiTUFJLUNvZGUtMS4xLUZsYXNoIiwiYWxpYXNlcyI6WyJtYWktY29kZS0xLjEtZmxhc2giXX0seyJtb2RlbCI6Ik1BSSBDb2RlIDIiLCJhbGlhc2VzIjpbIm1haS1jb2RlLTIiXX0seyJtb2RlbCI6Ik1BSSBDb2RlIDIgRmxhc2giLCJhbGlhc2VzIjpbIm1haS1jb2RlLTItZmxhc2giXX0seyJtb2RlbCI6Ikdyb2sgNC41IiwiYWxpYXNlcyI6WyJncm9rLTQuNSJdfSx7Im1vZGVsIjoiR3JvayA0LjYiLCJhbGlhc2VzIjpbImdyb2stNC42Il19LHsibW9kZWwiOiJHcm9rIDQuNyIsImFsaWFzZXMiOlsiZ3Jvay00LjciXX0seyJtb2RlbCI6IktpbWkgSzMiLCJhbGlhc2VzIjpbImtpbWktazMiXX1dLCJzYW1wbGVBbGlhc2VzIjp7Ik1vZGVsIEFscGhhIjoiR1BULTYgTHVuYSIsIk1vZGVsIEJldGEiOiJDbGF1ZGUgU29ubmV0IDUuNSIsIk1vZGVsIEdhbW1hIjoiR1BULTYuMiBTb2wifSwiYmlsbGluZ0FsaWFzZXMiOnsiRnVzaW9uIChTdGFuZGFyZCk6IEdQVC02IEx1bmEiOiJHUFQtNiBMdW5hIn0sIm1peGVzIjp7InJlY29tbWVuZGVkIjp7ImxhYmVsIjoiUmVjb21tZW5kZWQtc2V0IEVYQU1QTEUgKGVkaXRhYmxlLCBub3QgYWR2aWNlKSIsIm92ZXJoZWFkIjoxLCJ3ZWlnaHRzIjpbeyJtb2RlbCI6IkdQVC02IEx1bmEiLCJ3ZWlnaHQiOjAuNX0seyJtb2RlbCI6IkNsYXVkZSBTb25uZXQgNS41Iiwid2VpZ2h0IjowLjV9XX0sImZ1c2lvbi1zdGFuZGFyZCI6eyJsYWJlbCI6IkZ1c2lvbiBTdGFuZGFyZCBIWVBPVEhFU0lTIiwib3ZlcmhlYWQiOjEsIndlaWdodHMiOlt7Im1vZGVsIjoiR1BULTYgTHVuYSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLWhpZ2giOnsibGFiZWwiOiJGdXNpb24gSGlnaCBIWVBPVEhFU0lTIiwib3ZlcmhlYWQiOjEuMjUsIndlaWdodHMiOlt7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJ3ZWlnaHQiOjAuNX0seyJtb2RlbCI6IkdQVC02LjIgU29sIiwid2VpZ2h0IjowLjV9XX0sImZ1c2lvbi1tYXgiOnsibGFiZWwiOiJGdXNpb24gTWF4IEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MS41LCJ3ZWlnaHRzIjpbeyJtb2RlbCI6IkNsYXVkZSBPcHVzIDUuNSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfX0sImRlZmF1bHRzIjp7Im1vZGUiOiJ1bmNoYW5nZWQiLCJyZXBsYWNlbWVudCI6MSwiY2FjaGVSZWFkIjowLCJjYWNoZVdyaXRlIjowLCJ0aWVyIjoiRGVmYXVsdCIsInRhcmdldFZvbHVtZUZhY3RvciI6MSwiZnVzaW9uRXh0cmFGYWN0b3IiOjEsImZ1c2lvblByb21vdGlvbkVsaWdpYmxlIjpmYWxzZX19\",BinaryEncoding.Base64))"
+        "expression": "Json.Document(Binary.FromText(\"eyJ2ZXJzaW9uIjoiY29waWxvdC1wcm9qZWN0aW9ucy12MSIsImFsaWFzZXNWZXJzaW9uIjoiMjAyNi0xMS0yNi4xIiwicHJpY2luZ1BhcnNlclZlcnNpb24iOiJjb3BpbG90LW1hcmtkb3duLXYxIiwiY2FsaWJyYXRpb25WZXJzaW9uIjoiYmlsbGluZy1idWNrZXQtdjEiLCJjYWxpYnJhdGlvbiI6eyJiYXNlbGluZSI6IlJlcG9ydGVkIENvcGlsb3QgQmlsbGluZyBncm9zc1F1YW50aXR5IGFuZCBncm9zc0Ftb3VudCwgc3VtbWVkIGluZGVwZW5kZW50bHkiLCJidWNrZXQiOlsiRGF5IiwiVXNlciIsIlNvdXJjZUtleSIsIkNlbnRlcklkIl0sInNvdXJjZUtleSI6Iks6IG9yIFU6IHBsdXMgdXBwZXJjYXNlIFVURjggaGV4IG9mIGtub3duIGNhbm9uaWNhbCBvciBleGFjdCB1bmtub3duIHJhdyBtb2RlbDsgbmV2ZXIgZnV6enkgbWF0Y2hlZCBieSBQb3dlciBCSSBjb2xsYXRpb24iLCJyYXRpbyI6IlN1bSBtb2RlbGVkIHNjZW5hcmlvIFVTRCAvIHN1bSBtb2RlbGVkIHNvdXJjZSBVU0QgZm9yIHRoZSBjb21wbGV0ZSB2ZXJpZmllZCB0b2tlbiBidWNrZXQiLCJtaXNzaW5nQ2hhbmdlZEJ1Y2tldCI6Ik4vRCB0b3RhbDsgZXhwb3NlIHBhcnRpYWwgZXN0aW1hdGUgYW5kIHVucHJvamVjdGVkIHJlcG9ydGVkIGFtb3VudCwgbmV2ZXIgZHJvcCBvciBzaWxlbnRseSByZXRhaW4gaXQiLCJpZGVudGl0eSI6Ik5vIGNoYW5nZXMsIHplcm8gcmVwbGFjZW1lbnQgb3IgdW5jaGFuZ2VkIHRhcmdldCB3aXRoIHZvbHVtZSBmYWN0b3IgMSByZXR1cm5zIHJlcG9ydGVkIGFtb3VudHMgd2l0aG91dCBwcmljaW5nIiwicmVwbGFjZW1lbnRTY29wZSI6InJlcGxhY2VTb3VyY2VNb2RlbCBpcyBzZXBhcmF0ZSBmcm9tIHRoZSBzb3VyY2UtbW9kZWwgZmlsdGVyOyBlbXB0eSBtZWFucyBhbGwgc291cmNlIG1vZGVscyBpbiBzY29wZSJ9LCJzb3VyY2VzIjpbImh0dHBzOi8vZG9jcy5naXRodWIuY29tL2VuL2NvcGlsb3QvcmVmZXJlbmNlL2NvcGlsb3QtYmlsbGluZy9tb2RlbHMtYW5kLXByaWNpbmcubWQiLCJodHRwczovL2RvY3MuZ2l0aHViLmNvbS9lbi9jb3BpbG90L2NvbmNlcHRzL21vZGVscy9jb3BpbG90LWZ1c2lvbi5tZCJdLCJtYXhBZ2VIb3VycyI6MjQsIm1vZGVscyI6W3sibW9kZWwiOiJHUFQtNS4zLUNvZGV4IiwiYWxpYXNlcyI6WyJncHQtNS4zLWNvZGV4Il19LHsibW9kZWwiOiJHUFQtNS40IG5hbm8iLCJhbGlhc2VzIjpbImdwdC01LjQtbmFubyJdfSx7Im1vZGVsIjoiR1BULTUuNiBMdW5hIiwiYWxpYXNlcyI6WyJncHQtNS42LWx1bmEiXX0seyJtb2RlbCI6IkdQVC01LjYgU29sIiwiYWxpYXNlcyI6WyJncHQtNS42LXNvbCJdfSx7Im1vZGVsIjoiR1BULTYgQXN0cmEiLCJhbGlhc2VzIjpbImdwdC02LWFzdHJhIl19LHsibW9kZWwiOiJHUFQtNiBMdW5hIiwiYWxpYXNlcyI6WyJncHQtNi1sdW5hIl19LHsibW9kZWwiOiJHUFQtNiBTb2wiLCJhbGlhc2VzIjpbImdwdC02LXNvbCJdfSx7Im1vZGVsIjoiR1BULTYuMSBTb2wiLCJhbGlhc2VzIjpbImdwdC02LjEtc29sIl19LHsibW9kZWwiOiJHUFQtNi4xIFRlcnJhIiwiYWxpYXNlcyI6WyJncHQtNi4xLXRlcnJhIl19LHsibW9kZWwiOiJHUFQtNi4yIEFzdHJhIiwiYWxpYXNlcyI6WyJncHQtNi4yLWFzdHJhIl19LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsImFsaWFzZXMiOlsiZ3B0LTYuMi1zb2wiXX0seyJtb2RlbCI6IkNsYXVkZSBIYWlrdSA0LjUiLCJhbGlhc2VzIjpbImNsYXVkZS1oYWlrdS00LjUiLCJjbGF1ZGUtNC41LWhhaWt1Il19LHsibW9kZWwiOiJDbGF1ZGUgSGFpa3UgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtaGFpa3UtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDQiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNCJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA0LjYiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNC42Il19LHsibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDUiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJhbGlhc2VzIjpbImNsYXVkZS1zb25uZXQtNS41Il19LHsibW9kZWwiOiJDbGF1ZGUgT3B1cyA0LjgiLCJhbGlhc2VzIjpbImNsYXVkZS1vcHVzLTQuOCJdfSx7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNS41IiwiYWxpYXNlcyI6WyJjbGF1ZGUtb3B1cy01LjUiXX0seyJtb2RlbCI6IkNsYXVkZSBPcHVzIDQuOCAoZmFzdCBtb2RlKSAocHJldmlldykiLCJhbGlhc2VzIjpbXX0seyJtb2RlbCI6IkNsYXVkZSBGYWJsZSA1IiwiYWxpYXNlcyI6WyJjbGF1ZGUtZmFibGUtNSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEZhYmxlIDUuMSIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUuMSJdfSx7Im1vZGVsIjoiQ2xhdWRlIEZhYmxlIDUuMiIsImFsaWFzZXMiOlsiY2xhdWRlLWZhYmxlLTUuMiJdfSx7Im1vZGVsIjoiR2VtaW5pIDMuOCBGbGFzaCIsImFsaWFzZXMiOlsiZ2VtaW5pLTMuOC1mbGFzaCJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgQXJnb24iLCJhbGlhc2VzIjpbImdlbWluaS00LWFyZ29uIl19LHsibW9kZWwiOiJHZW1pbmkgNCBDYXJib24iLCJhbGlhc2VzIjpbImdlbWluaS00LWNhcmJvbiJdfSx7Im1vZGVsIjoiR2VtaW5pIDQgSHlkcm9nZW4iLCJhbGlhc2VzIjpbImdlbWluaS00LWh5ZHJvZ2VuIl19LHsibW9kZWwiOiJHZW1pbmkgNCBOZW9uIiwiYWxpYXNlcyI6WyJnZW1pbmktNC1uZW9uIl19LHsibW9kZWwiOiJNQUktQ29kZS0xLjEtRmxhc2giLCJhbGlhc2VzIjpbIm1haS1jb2RlLTEuMS1mbGFzaCJdfSx7Im1vZGVsIjoiTUFJIENvZGUgMiIsImFsaWFzZXMiOlsibWFpLWNvZGUtMiJdfSx7Im1vZGVsIjoiTUFJIENvZGUgMiBGbGFzaCIsImFsaWFzZXMiOlsibWFpLWNvZGUtMi1mbGFzaCJdfSx7Im1vZGVsIjoiR3JvayA0LjUiLCJhbGlhc2VzIjpbImdyb2stNC41Il19LHsibW9kZWwiOiJHcm9rIDQuNiIsImFsaWFzZXMiOlsiZ3Jvay00LjYiXX0seyJtb2RlbCI6Ikdyb2sgNC43IiwiYWxpYXNlcyI6WyJncm9rLTQuNyJdfSx7Im1vZGVsIjoiS2ltaSBLMyIsImFsaWFzZXMiOlsia2ltaS1rMyJdfV0sInNhbXBsZUFsaWFzZXMiOnsiTW9kZWwgQWxwaGEiOiJHUFQtNiBMdW5hIiwiTW9kZWwgQmV0YSI6IkNsYXVkZSBTb25uZXQgNS41IiwiTW9kZWwgR2FtbWEiOiJHUFQtNi4yIFNvbCJ9LCJiaWxsaW5nQWxpYXNlcyI6eyJGdXNpb24gKFN0YW5kYXJkKTogR1BULTYgTHVuYSI6IkdQVC02IEx1bmEifSwibWl4ZXMiOnsicmVjb21tZW5kZWQiOnsibGFiZWwiOiJSZWNvbW1lbmRlZC1zZXQgRVhBTVBMRSAoZWRpdGFibGUsIG5vdCBhZHZpY2UpIiwib3ZlcmhlYWQiOjEsIndlaWdodHMiOlt7Im1vZGVsIjoiR1BULTYgTHVuYSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiQ2xhdWRlIFNvbm5ldCA1LjUiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLXN0YW5kYXJkIjp7ImxhYmVsIjoiRnVzaW9uIFN0YW5kYXJkIEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MSwid2VpZ2h0cyI6W3sibW9kZWwiOiJHUFQtNiBMdW5hIiwid2VpZ2h0IjowLjV9LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsIndlaWdodCI6MC41fV19LCJmdXNpb24taGlnaCI6eyJsYWJlbCI6IkZ1c2lvbiBIaWdoIEhZUE9USEVTSVMiLCJvdmVyaGVhZCI6MS4yNSwid2VpZ2h0cyI6W3sibW9kZWwiOiJDbGF1ZGUgU29ubmV0IDUuNSIsIndlaWdodCI6MC41fSx7Im1vZGVsIjoiR1BULTYuMiBTb2wiLCJ3ZWlnaHQiOjAuNX1dfSwiZnVzaW9uLW1heCI6eyJsYWJlbCI6IkZ1c2lvbiBNYXggSFlQT1RIRVNJUyIsIm92ZXJoZWFkIjoxLjUsIndlaWdodHMiOlt7Im1vZGVsIjoiQ2xhdWRlIE9wdXMgNS41Iiwid2VpZ2h0IjowLjV9LHsibW9kZWwiOiJHUFQtNi4yIFNvbCIsIndlaWdodCI6MC41fV19fSwiZGVmYXVsdHMiOnsibW9kZSI6InVuY2hhbmdlZCIsInJlcGxhY2VTb3VyY2VNb2RlbCI6IiIsInJlcGxhY2VtZW50IjoxLCJjYWNoZVJlYWQiOjAsImNhY2hlV3JpdGUiOjAsInRpZXIiOiJEZWZhdWx0IiwidGFyZ2V0Vm9sdW1lRmFjdG9yIjoxLCJmdXNpb25FeHRyYUZhY3RvciI6MSwiZnVzaW9uUHJvbW90aW9uRWxpZ2libGUiOmZhbHNlfX0=\",BinaryEncoding.Base64))"
       },
       {
         "name": "ProjectionMixJSON",
@@ -144,10 +144,14 @@
           "  BillingRows=AliasRows&List.Transform(Record.FieldNames(Contract[billingAliases]),each [Alias=_,Model=Record.Field(Contract[billingAliases],_)]),",
           "  BillingMap=Record.FromList(List.Transform(BillingRows,each [Model]),List.Transform(BillingRows,each [Alias])),",
           "  Canonical=(name as any,billing as logical) as nullable text=>if not Value.Is(name,type text) then null else Record.FieldOrDefault(if billing then BillingMap else SourceMap,name,null),",
+          "  SourceKey=(raw as text,model as nullable text) as text =>",
+          "    (if model=null then \"U:\" else \"K:\")&Text.Upper(Binary.ToText(Text.ToBinary(if model=null then raw else model,TextEncoding.Utf8),BinaryEncoding.Hex)),",
+          "  SourceLabel=(raw as text,model as nullable text) as text =>",
+          "    if model<>null then model else \"[Unknown exact alias] \"&raw&\" [\"&Text.Range(SourceKey(raw,model),2)&\"]\",",
           "  CenterRows=Dataset[Centers],",
           "  CenterMap=Record.FromList(CenterRows,List.Transform(CenterRows,each [CenterId])),",
           "  Available=Record.FromList(List.Transform(Dataset[SourceCoverage],each [MetricsAvailable]=true),List.Transform(Dataset[SourceCoverage],each [Day])),",
-          "  Billing=Table.FromRecords(Dataset[Billing],{\"Day\",\"User\",\"Model\",\"CenterId\",\"Attribution\",\"UnitType\",\"grossAmount\",\"discountAmount\",\"netAmount\"},MissingField.UseNull),",
+          "  Billing=Table.FromRecords(Dataset[Billing],{\"Day\",\"User\",\"Model\",\"CenterId\",\"Attribution\",\"UnitType\",\"Product\",\"grossQuantity\",\"grossAmount\",\"discountAmount\",\"netAmount\"},MissingField.UseNull),",
           "  BModel=Table.AddColumn(Billing,\"CanonicalModel\",each Canonical([Model],true),type nullable text),",
           "  Evidence=Table.SelectRows(BModel,each [Attribution]=\"API user filter\" and [UnitType]=\"ai-credits\" and [CanonicalModel]<>null",
           "    and not List.Contains({\"unattributed-history\",\"unattributed-snapshot\"},[CenterId]) and Record.HasFields(CenterMap,[CenterId])),",
@@ -173,12 +177,47 @@
           "  WithId=Table.AddIndexColumn(Expanded,\"RowId\",0,1,Int64.Type),",
           "  Selected=Table.SelectColumns(WithId,{\"RowId\",\"Day\",\"User\",\"RawModel\",\"Model\",\"CenterId\",\"Country\",\"Attribution\",\"PromptTokens\",\"OutputTokens\",\"Requests\",\"Reason\",\"SampleAlias\"}),",
           "  Dates=Table.TransformColumns(Selected,{{\"Day\",each Date.FromText(_),type date}}),",
-          "  Usage=Table.AddColumn(Dates,\"SourceModel\",each if [Model]=null then [RawModel] else [Model],type text),",
+          "  UsageLabels=Table.AddColumn(Dates,\"SourceModel\",each if [Model]=null then [RawModel] else [Model],type text),",
+          "  Usage=Table.AddColumn(UsageLabels,\"SourceKey\",each SourceKey([RawModel],[Model]),type text),",
           "  BSource=Table.AddColumn(BModel,\"SourceModel\",each if [CanonicalModel]=null then [Model] else [CanonicalModel],type text),",
-          "  BSelected=Table.SelectColumns(BSource,{\"Day\",\"User\",\"CenterId\",\"SourceModel\",\"UnitType\",\"grossAmount\",\"discountAmount\",\"netAmount\"}),",
+          "  BKeys=Table.AddColumn(BSource,\"SourceKey\",each SourceKey([Model],[CanonicalModel]),type text),",
+          "  BLabels=Table.AddColumn(BKeys,\"SourceLabel\",each SourceLabel([Model],[CanonicalModel]),type text),",
+          "  BSelected=Table.SelectColumns(BLabels,{\"Day\",\"User\",\"CenterId\",\"SourceModel\",\"SourceKey\",\"UnitType\",\"Product\",\"grossQuantity\",\"grossAmount\",\"discountAmount\",\"netAmount\"}),",
           "  BDates=Table.TransformColumns(BSelected,{{\"Day\",each Date.FromText(_),type date}}),",
-          "  Sources=Table.FromColumns({List.Distinct(Usage[SourceModel]&BDates[SourceModel])},{\"Model\"})",
-          "in [Usage=Usage,Billing=BDates,Sources=Sources]"
+          "  SumComplete=(rows as table,column as text) as nullable number =>",
+          "    let values=Table.Column(rows,column) in",
+          "    if List.IsEmpty(values) or List.AnyTrue(List.Transform(values,each not Number(_))) then null else",
+          "      let attempt=try List.Sum(values) in if attempt[HasError] then null else",
+          "        let total=attempt[Value] in if total>=0 and total<=1.7976931348623157e308 then total else null,",
+          "  CopilotBills=Table.SelectRows(BLabels,each [UnitType]=\"ai-credits\" and [Product]=\"Copilot\"),",
+          "  Groups=Table.Group(CopilotBills,{\"Day\",\"User\",\"SourceKey\",\"CenterId\"},{{\"Bills\",each _,type table}}),",
+          "  UsageGroups=Table.Group(Usage,{\"Day\",\"User\",\"SourceKey\"},{{\"AllTokens\",each _,type table}}),",
+          "  BillDay=Table.TransformColumns(Groups,{{\"Day\",each Date.FromText(_),type date}}),",
+          "  TokenJoin=Table.NestedJoin(BillDay,{\"Day\",\"User\",\"SourceKey\"},UsageGroups,{\"Day\",\"User\",\"SourceKey\"},\"Tokens\",JoinKind.LeftOuter),",
+          "  Bucket=Table.AddColumn(TokenJoin,\"Bucket\",each",
+          "    let bills=[Bills], model=bills{0}[CanonicalModel], user=[User],",
+          "      all=if Table.IsEmpty([Tokens]) then Table.FirstN(Usage,0) else [Tokens]{0}[AllTokens],",
+          "      cid=[CenterId],",
+          "      matched=Table.SelectRows(all,each [CenterId]=cid and List.Contains({\"verified-client-center\",\"unique-api-user-billing\"},[Attribution])),",
+          "      unresolved=Table.RowCount(Table.SelectRows(all,each not List.Contains({\"verified-client-center\",\"unique-api-user-billing\"},[Attribution])))>0,",
+          "      residual=List.AnyTrue(List.Transform(Dataset[Users],(u)=>u[User]=user and Record.FieldOrDefault(u,\"IsResidual\",false))),",
+          "      evidence=List.AllTrue(List.Transform(bills[Attribution],each _=\"API user filter\")) or",
+          "        (Table.RowCount(matched)>0 and List.AllTrue(List.Transform(matched[Attribution],each _=\"verified-client-center\")) and not residual),",
+          "      bad=Table.SelectRows(matched,each [Reason]<>\"\"),",
+          "      input=SumComplete(matched,\"PromptTokens\"), output=SumComplete(matched,\"OutputTokens\"),",
+          "      reason=if model=null then \"Unknown exact Billing model alias\" else if not evidence then \"No audited user/center Billing evidence\"",
+          "        else if unresolved then \"Incomplete/ambiguous token center attribution\" else if Table.IsEmpty(matched) then \"No complete token bucket\"",
+          "        else if not Table.IsEmpty(bad) then \"Incomplete token bucket: \"&bad{0}[Reason]",
+          "        else if input=null or output=null then \"Invalid/non-finite token bucket aggregate\" else \"\"",
+          "    in [Model=model,SourceModel=bills{0}[SourceModel],SourceLabel=bills{0}[SourceLabel],",
+          "      ReportedCredits=SumComplete(bills,\"grossQuantity\"),ReportedUSD=SumComplete(bills,\"grossAmount\"),",
+          "      BillingRows=Table.RowCount(bills),TokenRows=Table.RowCount(matched),PromptTokens=input,",
+          "      OutputTokens=output,Requests=SumComplete(matched,\"Requests\"),",
+          "      CalibrationReason=reason,Attribution=if reason=\"\" then \"complete-verified-bucket\" else \"unprojected-bucket\"]),",
+          "  BucketExpanded=Table.ExpandRecordColumn(Bucket,\"Bucket\",{\"Model\",\"SourceModel\",\"SourceLabel\",\"ReportedCredits\",\"ReportedUSD\",\"BillingRows\",\"TokenRows\",\"PromptTokens\",\"OutputTokens\",\"Requests\",\"CalibrationReason\",\"Attribution\"}),",
+          "  Buckets=Table.AddIndexColumn(Table.RemoveColumns(BucketExpanded,{\"Bills\",\"Tokens\"}),\"BucketId\",0,1,Int64.Type),",
+          "  Sources=Table.RenameColumns(Table.Distinct(Table.SelectColumns(Buckets,{\"SourceKey\",\"SourceLabel\"})),{{\"SourceKey\",\"Key\"},{\"SourceLabel\",\"Model\"}})",
+          "in [Usage=Usage,Billing=BDates,Sources=Sources,Buckets=Buckets]"
         ]
       }
     ],
@@ -972,7 +1011,7 @@
           },
           {
             "name": "Projection Option Error",
-            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR Identity=Mode=\"unchanged\" || P=0 VAR InvalidTargets=COUNTROWS(FILTER(Targets,ISBLANK([_Weight]) || ISBLANK([_Overhead]) || [_Weight]<0 || [_Weight]>1 || [_Overhead]<0 || [_Overhead]>10))>0 RETURN IF(ISBLANK(Mode) || ISBLANK(Tier) || ISBLANK(P) || ISBLANK(R) || ISBLANK(W) || ISBLANK(Volume) || ISBLANK(Extra) || ISBLANK(Promo) || P<0 || P>1 || R<0 || W<0 || R+W>1 || Volume<0 || Volume>10 || Extra<0 || Extra>10 || (ISFILTERED(ProjectionValuation[Day]) && NOT HASONEVALUE(ProjectionValuation[Day])), \"Invalid/multiple scenario assumptions\",IF(NOT Identity && (COUNTROWS(Targets)=0 || InvalidTargets || ABS(SUMX(Targets,[_Weight])-1)>0.000000001 || MINX(Targets,[_Weight])<0 || MINX(Targets,[_Overhead])<0 || MAXX(Targets,[_Overhead])>10),\"Example mix weights must sum to 1; overhead must be 0..10\",\"\"))"
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR Identity=Mode=\"unchanged\" || P=0 VAR InvalidTargets=COUNTROWS(FILTER(Targets,ISBLANK([_Weight]) || ISBLANK([_Overhead]) || [_Weight]<0 || [_Weight]>1 || [_Overhead]<0 || [_Overhead]>10))>0 RETURN IF((ISCROSSFILTERED(ProjectionReplaceSource[Key]) && NOT HASONEVALUE(ProjectionReplaceSource[Key])) || ISBLANK(Mode) || ISBLANK(Tier) || ISBLANK(P) || ISBLANK(R) || ISBLANK(W) || ISBLANK(Volume) || ISBLANK(Extra) || ISBLANK(Promo) || P<0 || P>1 || R<0 || W<0 || R+W>1 || Volume<0 || Volume>10 || Extra<0 || Extra>10 || (ISFILTERED(ProjectionValuation[Day]) && NOT HASONEVALUE(ProjectionValuation[Day])), \"Invalid/multiple scenario assumptions\",IF(NOT Identity && (COUNTROWS(Targets)=0 || InvalidTargets || ABS(SUMX(Targets,[_Weight])-1)>0.000000001 || MINX(Targets,[_Weight])<0 || MINX(Targets,[_Overhead])<0 || MAXX(Targets,[_Overhead])>10),\"Example mix weights must sum to 1; overhead must be 0..10\",\"\"))"
           },
           {
             "name": "Projection Ready",
@@ -1063,17 +1102,17 @@
           },
           {
             "name": "Projection Baseline USD",
-            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Baseline USD]))",
+            "expression": "VAR Amount=[Projection Partial Reported USD] RETURN IF([Projection Complete Billing Coverage]=1 && [Projection Missing Billing Bucket Rows]=0 && ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0))",
             "formatString": "\"$\"#,0.0000"
           },
           {
             "name": "Projection Scenario USD",
-            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Scenario USD]))",
+            "expression": "IF([Projection No Changes]=1,[Projection Baseline USD],VAR Amount=[Projection Partial Scenario USD] RETURN IF([Projection Complete Billing Coverage]=1 && [Projection Unresolved Change Rows]=0 && ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0)))",
             "formatString": "\"$\"#,0.0000"
           },
           {
             "name": "Projection Delta Cost USD",
-            "expression": "IF(NOT ISBLANK([Projection Baseline USD]) && NOT ISBLANK([Projection Scenario USD]),[Projection Scenario USD]-[Projection Baseline USD])",
+            "expression": "VAR Baseline=[Projection Baseline USD] VAR Scenario=[Projection Scenario USD] RETURN IF(NOT ISBLANK(Baseline) && NOT ISBLANK(Scenario),Scenario-Baseline)",
             "formatString": "\"$\"#,0.0000"
           },
           {
@@ -1083,37 +1122,37 @@
           },
           {
             "name": "Projection Baseline Credits",
-            "expression": "IF(NOT ISBLANK([Projection Baseline USD]),[Projection Baseline USD]*100)",
+            "expression": "VAR Amount=[Projection Partial Reported Credits] RETURN IF([Projection Complete Billing Coverage]=1 && [Projection Missing Billing Bucket Rows]=0 && ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0))",
             "formatString": "#,0.00"
           },
           {
             "name": "Projection Scenario Credits",
-            "expression": "IF(NOT ISBLANK([Projection Scenario USD]),[Projection Scenario USD]*100)",
+            "expression": "IF([Projection No Changes]=1,[Projection Baseline Credits],VAR Amount=[Projection Partial Scenario Credits] RETURN IF([Projection Complete Billing Coverage]=1 && [Projection Unresolved Change Rows]=0 && ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0)))",
             "formatString": "#,0.00"
           },
           {
             "name": "Projection Chart USD",
-            "expression": "SWITCH(SELECTEDVALUE(ProjectionSide[Side]),\"Baseline modeled\",[Projection Baseline USD],\"Scenario modeled\",[Projection Scenario USD])",
+            "expression": "SWITCH(SELECTEDVALUE(ProjectionSide[Side]),\"Reported baseline\",[Projection Baseline USD],\"Calibrated estimate\",[Projection Scenario USD])",
             "formatString": "\"$\"#,0.0000"
           },
           {
             "name": "Projection Actual Gross USD",
-            "expression": "CALCULATE(SUM(ProjectionBilling[grossAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "expression": "CALCULATE(SUM(ProjectionBilling[grossAmount]),ProjectionBilling[UnitType]=\"ai-credits\",ProjectionBilling[Product]=\"Copilot\")",
             "formatString": "\"$\"#,0.00"
           },
           {
             "name": "Projection Actual Discount USD",
-            "expression": "CALCULATE(SUM(ProjectionBilling[discountAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "expression": "CALCULATE(SUM(ProjectionBilling[discountAmount]),ProjectionBilling[UnitType]=\"ai-credits\",ProjectionBilling[Product]=\"Copilot\")",
             "formatString": "\"$\"#,0.00"
           },
           {
             "name": "Projection Actual Net USD",
-            "expression": "CALCULATE(SUM(ProjectionBilling[netAmount]),ProjectionBilling[UnitType]=\"ai-credits\")",
+            "expression": "CALCULATE(SUM(ProjectionBilling[netAmount]),ProjectionBilling[UnitType]=\"ai-credits\",ProjectionBilling[Product]=\"Copilot\")",
             "formatString": "\"$\"#,0.00"
           },
           {
             "name": "Projection Pricing State",
-            "expression": "VAR Ready=[Projection Ready] RETURN IF(Ready=1,\"LIVE OFFICIAL PRICES checked at refresh: \",\"N/D - PRICES/OPTIONS UNAVAILABLE: \") & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[LastChecked]),\"not checked\") & \" | \" & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[ContentHash]),\"no verified fingerprint\") & \" | \" & [Projection Option Error] & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[Error]),\"\")"
+            "expression": "VAR Ready=[Projection Ready] RETURN IF(Ready=1,\"Official prices checked at refresh: \",\"Alternative ratios unavailable: \") & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[LastChecked]),\"not checked\") & \" | \" & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[ContentHash]),\"no verified fingerprint\") & \". Reported Billing baseline and no changes do not need pricing. \" & [Projection Option Error] & COALESCE(SELECTEDVALUE(ProjectionPriceStatus[Error]),\"\")"
           },
           {
             "name": "Projection Assumptions",
@@ -1121,7 +1160,136 @@
           },
           {
             "name": "Projection Coverage Note",
-            "expression": "\"Same priced rows on both modeled sides: \"&FORMAT([Projection Eligible Rows],\"0\")&\"/\"&FORMAT([Projection Selected Rows],\"0\")&\" source rows BEFORE the center filter (not a center-specific coverage percentage). Unknown/custom/image/missing tokens/tariff/tier/ambiguous center excluded. Known enterprise-only center is not a country. No task quality, ROI, retained code or guaranteed savings claim.\""
+            "expression": "\"Reported Billing stays in the baseline even without tokens/prices/aliases. Unprojected credits: \"&FORMAT([Projection Unprojected Credits],\"#,0.00\")&\" | Unresolved requested change credits: \"&FORMAT([Projection Unresolved Change Credits],\"#,0.00\")&\". Full bucket token ratio; no request/token allocation of Billing.\""
+          },
+          {
+            "name": "Projection Token Diagnostic Baseline USD",
+            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Baseline USD]))",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Token Diagnostic Scenario USD",
+            "expression": "IF([Projection Ready]=1 && [Projection Eligible Rows]>0,SUMX(ProjectionUsage,[Projection Row Scenario USD]))",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Complete Billing Coverage",
+            "expression": "VAR Days=COUNTROWS(VALUES(Dates[Day])) RETURN IF(Days>0 && Days=CALCULATE(COUNTROWS(SourceCoverage),KEEPFILTERS(SourceCoverage[BillingAvailable]=TRUE())),1,0)",
+            "formatString": "0"
+          },
+          {
+            "name": "Projection Billing Bucket Rows",
+            "expression": "COALESCE(COUNTROWS(ProjectionBuckets),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Bucket Change Requested",
+            "expression": "VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR ReplaceSource=IF(NOT ISCROSSFILTERED(ProjectionReplaceSource[Key]),\"\",SELECTEDVALUE(ProjectionReplaceSource[Key])) VAR Source=SELECTEDVALUE(ProjectionBuckets[Model]) VAR Label=SELECTEDVALUE(ProjectionBuckets[SourceKey]) VAR Identity=Mode=\"unchanged\" || P==0 || (ReplaceSource<>\"\" && ReplaceSource<>Label) || (Mode=\"target\" && NOT ISBLANK(Source) && Target=Source && Volume=1 && [Projection Option Error]=\"\") RETURN IF(Identity,0,1)",
+            "formatString": "0",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Bucket Token Source USD",
+            "expression": "IFERROR((VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR PriceDay=IF(NOT ISFILTERED(ProjectionValuation[Day]),MAX(ProjectionPriceStatus[ValuationDay]),SELECTEDVALUE(ProjectionValuation[Day])) VAR I=SELECTEDVALUE(ProjectionBuckets[PromptTokens]) VAR O=SELECTEDVALUE(ProjectionBuckets[OutputTokens]) VAR SourceModel=SELECTEDVALUE(ProjectionBuckets[Model]) VAR Identity=Mode=\"unchanged\" || P=0 VAR Fusion=LEFT(Mode,7)=\"fusion-\" VAR SourceRates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=SourceModel && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) VAR SourceCost=IF(COUNTROWS(SourceRates)=1, SUMX(SourceRates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000))) VAR Destination=ADDCOLUMNS(FILTER(Targets,[_Weight]>0),\"_Cost\",VAR TM=[_Model] VAR Rates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=TM && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) RETURN IF(COUNTROWS(Rates)=1, SUMX(Rates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000)))) VAR Discount=IF(Fusion && Promo=1 && PriceDay<MAX(ProjectionPriceStatus[FusionUntil]),MAX(ProjectionPriceStatus[FusionDiscount]),0) VAR PromotionOK=Identity || NOT(Fusion && Promo=1) || (NOT ISBLANK(MAX(ProjectionPriceStatus[FusionUntil])) && NOT ISBLANK(MAX(ProjectionPriceStatus[FusionDiscount])) && MAX(ProjectionPriceStatus[FusionDiscount])>=0 && MAX(ProjectionPriceStatus[FusionDiscount])<=1) VAR Valid=[Projection Ready]=1 && SELECTEDVALUE(ProjectionBuckets[CalibrationReason])=\"\" && NOT ISBLANK(I) && NOT ISBLANK(O) && I>=0 && O>=0 && NOT ISBLANK(SourceCost) && PromotionOK && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) RETURN IF(Valid,SourceCost)),BLANK())",
+            "formatString": "\"$\"#,0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Bucket Token Scenario USD",
+            "expression": "IFERROR((VAR Mode = IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR Tier = IF(NOT ISFILTERED(ProjectionTier[Tier]), \"Default\", SELECTEDVALUE(ProjectionTier[Tier])) VAR P = IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) VAR R = IF(NOT ISFILTERED(ProjectionCacheRead[Value]), 0, SELECTEDVALUE(ProjectionCacheRead[Value])) VAR W = IF(NOT ISFILTERED(ProjectionCacheWrite[Value]), 0, SELECTEDVALUE(ProjectionCacheWrite[Value])) VAR Volume = IF(NOT ISFILTERED(ProjectionVolume[Value]), 1, SELECTEDVALUE(ProjectionVolume[Value])) VAR Extra = IF(NOT ISFILTERED(ProjectionFusionExtra[Value]), 1, SELECTEDVALUE(ProjectionFusionExtra[Value])) VAR Promo = IF(NOT ISFILTERED(ProjectionPromotion[Value]), 0, SELECTEDVALUE(ProjectionPromotion[Value])) VAR Target = IF(NOT ISFILTERED(ProjectionTarget[Model]), \"GPT-6 Luna\", SELECTEDVALUE(ProjectionTarget[Model])) VAR Targets = UNION(SELECTCOLUMNS(FILTER(ROW(\"_Model\",Target,\"_Weight\",1,\"_Overhead\",1), Mode=\"target\"),\"_Model\",[_Model],\"_Weight\",[_Weight],\"_Overhead\",[_Overhead]),SELECTCOLUMNS(FILTER(ALL(ProjectionMix), ProjectionMix[Mode]=Mode),\"_Model\",ProjectionMix[Model],\"_Weight\",ProjectionMix[Weight],\"_Overhead\",ProjectionMix[Overhead])) VAR PriceDay=IF(NOT ISFILTERED(ProjectionValuation[Day]),MAX(ProjectionPriceStatus[ValuationDay]),SELECTEDVALUE(ProjectionValuation[Day])) VAR I=SELECTEDVALUE(ProjectionBuckets[PromptTokens]) VAR O=SELECTEDVALUE(ProjectionBuckets[OutputTokens]) VAR SourceModel=SELECTEDVALUE(ProjectionBuckets[Model]) VAR Identity=Mode=\"unchanged\" || P=0 VAR Fusion=LEFT(Mode,7)=\"fusion-\" VAR SourceRates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=SourceModel && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) VAR SourceCost=IF(COUNTROWS(SourceRates)=1, SUMX(SourceRates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000))) VAR Destination=ADDCOLUMNS(FILTER(Targets,[_Weight]>0),\"_Cost\",VAR TM=[_Model] VAR Rates=FILTER(ALL(ProjectionPrices), ProjectionPrices[Model]=TM && ProjectionPrices[Tier]=Tier && (ISBLANK(ProjectionPrices[EffectiveFrom]) || ProjectionPrices[EffectiveFrom]<=PriceDay) && (ISBLANK(ProjectionPrices[EffectiveTo]) || PriceDay<ProjectionPrices[EffectiveTo])) RETURN IF(COUNTROWS(Rates)=1, SUMX(Rates, IF(NOT ISBLANK(ProjectionPrices[InputUSD]) && ProjectionPrices[InputUSD]>=0 && NOT ISBLANK(ProjectionPrices[CachedInputUSD]) && ProjectionPrices[CachedInputUSD]>=0 && NOT ISBLANK(ProjectionPrices[OutputUSD]) && ProjectionPrices[OutputUSD]>=0 && ProjectionPrices[CacheWriteStatus] IN {\"priced\",\"not-applicable\"} && (ProjectionPrices[CacheWriteStatus]=\"not-applicable\" || (NOT ISBLANK(ProjectionPrices[CacheWriteUSD]) && ProjectionPrices[CacheWriteUSD]>=0)), (I*(1-R-W)*ProjectionPrices[InputUSD] + I*R*ProjectionPrices[CachedInputUSD] + I*W*IF(ProjectionPrices[CacheWriteStatus]=\"not-applicable\",ProjectionPrices[InputUSD],ProjectionPrices[CacheWriteUSD]) + O*ProjectionPrices[OutputUSD])/1000000)))) VAR Discount=IF(Fusion && Promo=1 && PriceDay<MAX(ProjectionPriceStatus[FusionUntil]),MAX(ProjectionPriceStatus[FusionDiscount]),0) VAR PromotionOK=Identity || NOT(Fusion && Promo=1) || (NOT ISBLANK(MAX(ProjectionPriceStatus[FusionUntil])) && NOT ISBLANK(MAX(ProjectionPriceStatus[FusionDiscount])) && MAX(ProjectionPriceStatus[FusionDiscount])>=0 && MAX(ProjectionPriceStatus[FusionDiscount])<=1) VAR Valid=[Projection Ready]=1 && SELECTEDVALUE(ProjectionBuckets[CalibrationReason])=\"\" && NOT ISBLANK(I) && NOT ISBLANK(O) && I>=0 && O>=0 && NOT ISBLANK(SourceCost) && PromotionOK && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) RETURN IF(Valid,IF(Identity,SourceCost,SourceCost*(1-P)+SUMX(Destination,[_Cost]*[_Weight]*[_Overhead])*P*Volume*IF(Fusion,Extra,1)*(1-Discount)))),BLANK())",
+            "formatString": "\"$\"#,0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Bucket Ratio",
+            "expression": "VAR Credits=SELECTEDVALUE(ProjectionBuckets[ReportedCredits]) VAR USD=SELECTEDVALUE(ProjectionBuckets[ReportedUSD]) RETURN IF(NOT ISBLANK(Credits) && NOT ISBLANK(USD) && Credits>=0 && USD>=0 && Credits<=1.7976931348623157E308 && USD<=1.7976931348623157E308,IF([Projection Bucket Change Requested]=0,1, VAR Source=[Projection Bucket Token Source USD] VAR Target=[Projection Bucket Token Scenario USD] VAR R=IF([Projection Option Error]=\"\" && NOT ISBLANK(Source) && NOT ISBLANK(Target),IF(Source>=0 && Target>=0 && Source<=1.7976931348623157E308 && Target<=1.7976931348623157E308,IF(Source>0,IFERROR(DIVIDE(Target,Source),BLANK()),IF(Target==0 && Credits==0 && USD==0,1)))) VAR ScaledCredits=IFERROR(Credits*R,BLANK()) VAR ScaledUSD=IFERROR(USD*R,BLANK()) RETURN IF(NOT ISBLANK(R) && R>=0 && R<=1.7976931348623157E308 && NOT ISBLANK(ScaledCredits) && ScaledCredits>=0 && ScaledCredits<=1.7976931348623157E308 && NOT ISBLANK(ScaledUSD) && ScaledUSD>=0 && ScaledUSD<=1.7976931348623157E308,R)))",
+            "formatString": "0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Bucket Scenario USD",
+            "expression": "VAR R=[Projection Bucket Ratio] VAR V=IFERROR(SELECTEDVALUE(ProjectionBuckets[ReportedUSD])*R,BLANK()) RETURN IF(NOT ISBLANK(R) && NOT ISBLANK(V) && V>=0 && V<=1.7976931348623157E308,V)",
+            "formatString": "\"$\"#,0.0000",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Bucket Scenario Credits",
+            "expression": "VAR R=[Projection Bucket Ratio] VAR V=IFERROR(SELECTEDVALUE(ProjectionBuckets[ReportedCredits])*R,BLANK()) RETURN IF(NOT ISBLANK(R) && NOT ISBLANK(V) && V>=0 && V<=1.7976931348623157E308,V)",
+            "formatString": "#,0.00",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Missing Billing Bucket Rows",
+            "expression": "COALESCE(COUNTROWS(FILTER(ProjectionBuckets,ISBLANK(ProjectionBuckets[ReportedCredits]) || ISBLANK(ProjectionBuckets[ReportedUSD]))),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Unresolved Change Rows",
+            "expression": "COALESCE(SUMX(ProjectionBuckets,IF(ISBLANK([Projection Bucket Ratio]),1,0)),0)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Projection Partial Reported Credits",
+            "expression": "IF([Projection Billing Bucket Rows]=0,0,IFERROR(SUM(ProjectionBuckets[ReportedCredits]),BLANK()))",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Partial Reported USD",
+            "expression": "IF([Projection Billing Bucket Rows]=0,0,IFERROR(SUM(ProjectionBuckets[ReportedUSD]),BLANK()))",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Partial Scenario Credits",
+            "expression": "IFERROR(SUMX(ProjectionBuckets,[Projection Bucket Scenario Credits]),BLANK())",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Partial Scenario USD",
+            "expression": "IFERROR(SUMX(ProjectionBuckets,[Projection Bucket Scenario USD]),BLANK())",
+            "formatString": "\"$\"#,0.0000"
+          },
+          {
+            "name": "Projection Numeric Total Error",
+            "expression": "IF([Projection Billing Bucket Rows]>0 && (ISBLANK([Projection Partial Reported Credits]) || ISBLANK([Projection Partial Reported USD])),\"Reported aggregate outside supported numeric range\",IF([Projection No Changes]=1,\"\",IF([Projection Billing Bucket Rows]>0 && [Projection Unresolved Change Rows]=0 && (ISBLANK([Projection Partial Scenario Credits]) || ISBLANK([Projection Partial Scenario USD])),\"Calibrated aggregate outside supported numeric range\",\"\")))"
+          },
+          {
+            "name": "Projection Unprojected Credits",
+            "expression": "VAR BucketRows=FILTER(ProjectionBuckets,ProjectionBuckets[CalibrationReason]<>\"\" || ISBLANK([Projection Bucket Ratio]) || ISBLANK([Projection Bucket Token Source USD]) || ([Projection Bucket Token Source USD]==0 && (ProjectionBuckets[ReportedCredits]>0 || ProjectionBuckets[ReportedUSD]>0))) RETURN IF(COUNTROWS(FILTER(BucketRows,ISBLANK(ProjectionBuckets[ReportedCredits])))=0,IFERROR(COALESCE(SUMX(BucketRows,ProjectionBuckets[ReportedCredits]),0),BLANK()))",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Unresolved Change Credits",
+            "expression": "VAR BucketRows=FILTER(ProjectionBuckets,ISBLANK([Projection Bucket Ratio])) RETURN IF(COUNTROWS(FILTER(BucketRows,ISBLANK(ProjectionBuckets[ReportedCredits])))=0,IFERROR(COALESCE(SUMX(BucketRows,ProjectionBuckets[ReportedCredits]),0),BLANK()))",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Unchanged Credits",
+            "expression": "COALESCE(SUMX(ProjectionBuckets,IF([Projection Bucket Change Requested]=0 && NOT ISBLANK([Projection Bucket Ratio]),ProjectionBuckets[ReportedCredits])),0)",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Changed Reported Credits",
+            "expression": "COALESCE(SUMX(ProjectionBuckets,IF([Projection Bucket Change Requested]=1 && NOT ISBLANK([Projection Bucket Ratio]),ProjectionBuckets[ReportedCredits])),0)",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection No Changes",
+            "expression": "VAR Mode=IF(NOT ISFILTERED(ProjectionScenario[Mode]), \"unchanged\", SELECTEDVALUE(ProjectionScenario[Mode])) VAR P=IF(NOT ISFILTERED(ProjectionMigration[Value]), 1, SELECTEDVALUE(ProjectionMigration[Value])) RETURN IF(Mode=\"unchanged\" || P==0,1,0)",
+            "formatString": "0"
+          },
+          {
+            "name": "Projection Delta Credits",
+            "expression": "VAR Baseline=[Projection Baseline Credits] VAR Scenario=[Projection Scenario Credits] RETURN IF(NOT ISBLANK(Baseline) && NOT ISBLANK(Scenario),Scenario-Baseline)",
+            "formatString": "#,0.00"
+          },
+          {
+            "name": "Projection Delta Credits Pct",
+            "expression": "DIVIDE([Projection Delta Credits],[Projection Baseline Credits])",
+            "formatString": "0.0%"
+          },
+          {
+            "name": "Projection Calibration State",
+            "expression": "IF([Projection Numeric Total Error]<>\"\",\"N/D: \"&[Projection Numeric Total Error],IF([Projection Complete Billing Coverage]<>1,\"N/D: incomplete Billing coverage; partial amounts shown separately.\",IF([Projection Missing Billing Bucket Rows]>0,\"N/D: incomplete reported amount pair; partial amounts shown separately.\",IF([Projection No Changes]=1,\"Billing-anchored no changes: reported consumption unchanged; pricing not required.\",IF([Projection Unresolved Change Rows]>0,\"PARTIAL/N-D: requested buckets lack a complete reliable ratio. No silent carry-forward.\",\"Billing-anchored: alternatives are calibrated estimates, not invoice savings.\")))))"
           },
           {
             "name": "Projection Display Baseline USD",
@@ -1141,6 +1309,26 @@
           {
             "name": "Projection Display Delta Cost Pct",
             "expression": "VAR V=[Projection Delta Cost Pct] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"0.0%\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Baseline Credits",
+            "expression": "VAR V=[Projection Baseline Credits] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"#,0.00\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Scenario Credits",
+            "expression": "VAR V=[Projection Scenario Credits] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"#,0.00\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Delta Credits",
+            "expression": "VAR V=[Projection Delta Credits] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"#,0.00\",\"en-US\"))",
+            "isHidden": true
+          },
+          {
+            "name": "Projection Display Delta Credits Pct",
+            "expression": "VAR V=[Projection Delta Credits Pct] RETURN IF(ISBLANK(V),\"N/D\",FORMAT(V,\"0.0%\",\"en-US\"))",
             "isHidden": true
           }
         ]
@@ -2868,6 +3056,12 @@
             "dataType": "string",
             "sourceColumn": "SourceModel",
             "summarizeBy": "none"
+          },
+          {
+            "name": "SourceKey",
+            "dataType": "string",
+            "sourceColumn": "SourceKey",
+            "summarizeBy": "none"
           }
         ],
         "partitions": [
@@ -2912,9 +3106,27 @@
             "summarizeBy": "none"
           },
           {
+            "name": "SourceKey",
+            "dataType": "string",
+            "sourceColumn": "SourceKey",
+            "summarizeBy": "none"
+          },
+          {
             "name": "UnitType",
             "dataType": "string",
             "sourceColumn": "UnitType",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Product",
+            "dataType": "string",
+            "sourceColumn": "Product",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "grossQuantity",
+            "dataType": "double",
+            "sourceColumn": "grossQuantity",
             "summarizeBy": "none"
           },
           {
@@ -2950,8 +3162,163 @@
         ]
       },
       {
+        "name": "ProjectionBuckets",
+        "columns": [
+          {
+            "name": "BucketId",
+            "dataType": "double",
+            "sourceColumn": "BucketId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Day",
+            "dataType": "dateTime",
+            "sourceColumn": "Day",
+            "summarizeBy": "none",
+            "formatString": "yyyy-MM-dd"
+          },
+          {
+            "name": "User",
+            "dataType": "string",
+            "sourceColumn": "User",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SourceModel",
+            "dataType": "string",
+            "sourceColumn": "SourceModel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SourceKey",
+            "dataType": "string",
+            "sourceColumn": "SourceKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SourceLabel",
+            "dataType": "string",
+            "sourceColumn": "SourceLabel",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CenterId",
+            "dataType": "string",
+            "sourceColumn": "CenterId",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ReportedCredits",
+            "dataType": "double",
+            "sourceColumn": "ReportedCredits",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ReportedUSD",
+            "dataType": "double",
+            "sourceColumn": "ReportedUSD",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "BillingRows",
+            "dataType": "double",
+            "sourceColumn": "BillingRows",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TokenRows",
+            "dataType": "double",
+            "sourceColumn": "TokenRows",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "PromptTokens",
+            "dataType": "double",
+            "sourceColumn": "PromptTokens",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OutputTokens",
+            "dataType": "double",
+            "sourceColumn": "OutputTokens",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Requests",
+            "dataType": "double",
+            "sourceColumn": "Requests",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CalibrationReason",
+            "dataType": "string",
+            "sourceColumn": "CalibrationReason",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Attribution",
+            "dataType": "string",
+            "sourceColumn": "Attribution",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionBuckets",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "ProjectionDerived[Buckets]"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "ProjectionReplaceSource",
+        "columns": [
+          {
+            "name": "Key",
+            "dataType": "string",
+            "sourceColumn": "Key",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Model",
+            "dataType": "string",
+            "sourceColumn": "Model",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "ProjectionReplaceSource",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "Table.Combine({#table(type table[Key=text,Model=text],{{\"\",\"All source models\"}}),ProjectionDerived[Sources]})"
+              ]
+            }
+          }
+        ]
+      },
+      {
         "name": "ProjectionSource",
         "columns": [
+          {
+            "name": "Key",
+            "dataType": "string",
+            "sourceColumn": "Key",
+            "summarizeBy": "none"
+          },
           {
             "name": "Model",
             "dataType": "string",
@@ -2989,7 +3356,7 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.Distinct(Table.SelectColumns(ProjectionPricing[Rates],{\"Model\"}))"
+                "Table.FromRecords(List.Transform(ProjectionsContract[models],each [Model=[model]]),type table[Model=text])"
               ]
             }
           }
@@ -3220,7 +3587,7 @@
             "source": {
               "type": "m",
               "expression": [
-                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siU2lkZSI6ICJCYXNlbGluZSBtb2RlbGVkIn0sIHsiU2lkZSI6ICJTY2VuYXJpbyBtb2RlbGVkIn1d\",BinaryEncoding.Base64)))"
+                "Table.FromRecords(Json.Document(Binary.FromText(\"W3siU2lkZSI6ICJSZXBvcnRlZCBiYXNlbGluZSJ9LCB7IlNpZGUiOiAiQ2FsaWJyYXRlZCBlc3RpbWF0ZSJ9XQ==\",BinaryEncoding.Base64)))"
               ]
             }
           }
@@ -3592,9 +3959,9 @@
       {
         "name": "ProjectionUsage_ProjectionSource",
         "fromTable": "ProjectionUsage",
-        "fromColumn": "SourceModel",
+        "fromColumn": "SourceKey",
         "toTable": "ProjectionSource",
-        "toColumn": "Model",
+        "toColumn": "Key",
         "crossFilteringBehavior": "oneDirection"
       },
       {
@@ -3624,9 +3991,41 @@
       {
         "name": "ProjectionBilling_ProjectionSource",
         "fromTable": "ProjectionBilling",
-        "fromColumn": "SourceModel",
+        "fromColumn": "SourceKey",
         "toTable": "ProjectionSource",
-        "toColumn": "Model",
+        "toColumn": "Key",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBuckets_Dates",
+        "fromTable": "ProjectionBuckets",
+        "fromColumn": "Day",
+        "toTable": "Dates",
+        "toColumn": "Day",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBuckets_Users",
+        "fromTable": "ProjectionBuckets",
+        "fromColumn": "User",
+        "toTable": "Users",
+        "toColumn": "User",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBuckets_Centers",
+        "fromTable": "ProjectionBuckets",
+        "fromColumn": "CenterId",
+        "toTable": "Centers",
+        "toColumn": "CenterId",
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "ProjectionBuckets_ProjectionSource",
+        "fromTable": "ProjectionBuckets",
+        "fromColumn": "SourceKey",
+        "toTable": "ProjectionSource",
+        "toColumn": "Key",
         "crossFilteringBehavior": "oneDirection"
       }
     ]

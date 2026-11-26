@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Pricing State"
+                  "Property": "Projection Calibration State"
                 }
               },
-              "queryRef": "Info.Projection Pricing State",
-              "nativeQueryRef": "Projection Pricing State"
+              "queryRef": "Info.Projection Calibration State",
+              "nativeQueryRef": "Projection Calibration State"
             }
           ]
         }
@@ -48,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Projection Pricing State'"
+                  "Value": "'Projection Calibration State'"
                 }
               }
             },

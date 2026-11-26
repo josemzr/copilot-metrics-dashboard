@@ -112,10 +112,14 @@ CARD_DISPLAY_MEASURES = {
 }
 CARD_TITLES = {
     "Known telemetry coverage": "Client telemetry present rate (known-status user-day rows)",
-    "Projection Display Baseline USD": "Baseline modeled gross USD",
-    "Projection Display Scenario USD": "Scenario modeled gross USD",
+    "Projection Display Baseline USD": "Reported baseline gross USD",
+    "Projection Display Scenario USD": "Estimated calibrated gross USD",
     "Projection Display Delta Cost USD": "Delta cost USD (scenario - baseline)",
     "Projection Display Delta Cost Pct": "Delta cost % (zero denominator = N/D)",
+    "Projection Display Baseline Credits": "Reported baseline AI credits",
+    "Projection Display Scenario Credits": "Estimated calibrated AI credits",
+    "Projection Display Delta Credits": "Delta AI credits (estimate - reported)",
+    "Projection Display Delta Credits Pct": "Delta AI credits % (zero denominator = N/D)",
 }
 
 
@@ -315,7 +319,8 @@ def build_report():
                        "fontSize": literal(13 if measure in (
                            "Balance status", "Center notice", "Adoption status",
                            "Interpretation notice", "Metrics coverage status", "Data source",
-                           "Projection Pricing State", "Projection Assumptions", "Projection Coverage Note") else 20),
+                           "Projection Pricing State", "Projection Assumptions", "Projection Coverage Note",
+                           "Projection Calibration State") else 20),
                        "labelDisplayUnits": literal(1)}}],
                    "categoryLabels": [{"properties": {"show": literal(False)}}]})
 

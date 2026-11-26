@@ -3,11 +3,11 @@
   "name": "v030",
   "position": {
     "x": 20,
-    "y": 1945,
+    "y": 1735,
     "z": 30,
     "tabOrder": 30,
     "width": 1400,
-    "height": 300
+    "height": 190
   },
   "visual": {
     "visualType": "tableEx",
@@ -17,143 +17,115 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Model"
+                  "Property": "Projection Token Diagnostic Baseline USD"
                 }
               },
-              "queryRef": "ProjectionPrices.Model",
-              "nativeQueryRef": "Model"
+              "queryRef": "Info.Projection Token Diagnostic Baseline USD",
+              "nativeQueryRef": "Projection Token Diagnostic Baseline USD"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Tier"
+                  "Property": "Projection Token Diagnostic Scenario USD"
                 }
               },
-              "queryRef": "ProjectionPrices.Tier",
-              "nativeQueryRef": "Tier"
+              "queryRef": "Info.Projection Token Diagnostic Scenario USD",
+              "nativeQueryRef": "Projection Token Diagnostic Scenario USD"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Threshold"
+                  "Property": "Projection Known Input Tokens"
                 }
               },
-              "queryRef": "ProjectionPrices.Threshold",
-              "nativeQueryRef": "Threshold"
+              "queryRef": "Info.Projection Known Input Tokens",
+              "nativeQueryRef": "Projection Known Input Tokens"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "InputUSD"
+                  "Property": "Projection Known Output Tokens"
                 }
               },
-              "queryRef": "ProjectionPrices.InputUSD",
-              "nativeQueryRef": "InputUSD"
+              "queryRef": "Info.Projection Known Output Tokens",
+              "nativeQueryRef": "Projection Known Output Tokens"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "CachedInputUSD"
+                  "Property": "Projection Known Requests"
                 }
               },
-              "queryRef": "ProjectionPrices.CachedInputUSD",
-              "nativeQueryRef": "CachedInputUSD"
+              "queryRef": "Info.Projection Known Requests",
+              "nativeQueryRef": "Projection Known Requests"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "CacheWriteUSD"
+                  "Property": "Projection Unknown Model Rows"
                 }
               },
-              "queryRef": "ProjectionPrices.CacheWriteUSD",
-              "nativeQueryRef": "CacheWriteUSD"
+              "queryRef": "Info.Projection Unknown Model Rows",
+              "nativeQueryRef": "Projection Unknown Model Rows"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "CacheWriteStatus"
+                  "Property": "Projection Unverified Center Rows"
                 }
               },
-              "queryRef": "ProjectionPrices.CacheWriteStatus",
-              "nativeQueryRef": "CacheWriteStatus"
+              "queryRef": "Info.Projection Unverified Center Rows",
+              "nativeQueryRef": "Projection Unverified Center Rows"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPrices"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "OutputUSD"
+                  "Property": "Projection Tariff Excluded Rows"
                 }
               },
-              "queryRef": "ProjectionPrices.OutputUSD",
-              "nativeQueryRef": "OutputUSD"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionPrices"
-                    }
-                  },
-                  "Property": "EffectiveFrom"
-                }
-              },
-              "queryRef": "ProjectionPrices.EffectiveFrom",
-              "nativeQueryRef": "EffectiveFrom"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionPrices"
-                    }
-                  },
-                  "Property": "EffectiveTo"
-                }
-              },
-              "queryRef": "ProjectionPrices.EffectiveTo",
-              "nativeQueryRef": "EffectiveTo"
+              "queryRef": "Info.Projection Tariff Excluded Rows",
+              "nativeQueryRef": "Projection Tariff Excluded Rows"
             }
           ]
         }
@@ -174,7 +146,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Official USD per 1M text tokens - no request-level tier inference or unknown promo reversion'"
+                  "Value": "'SECONDARY token-only diagnostics, not reported spend; no request-based allocation'"
                 }
               }
             },

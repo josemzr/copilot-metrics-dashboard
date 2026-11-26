@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v028",
   "position": {
-    "x": 20,
-    "y": 1535,
+    "x": 730,
+    "y": 1255,
     "z": 28,
     "tabOrder": 28,
-    "width": 1400,
-    "height": 180
+    "width": 690,
+    "height": 260
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,56 +20,56 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPriceStatus"
+                      "Entity": "ProjectionSource"
                     }
                   },
-                  "Property": "LastChecked"
+                  "Property": "Model"
                 }
               },
-              "queryRef": "ProjectionPriceStatus.LastChecked",
-              "nativeQueryRef": "LastChecked"
+              "queryRef": "ProjectionSource.Model",
+              "nativeQueryRef": "Model"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPriceStatus"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "ContentHash"
+                  "Property": "Projection Actual Gross USD"
                 }
               },
-              "queryRef": "ProjectionPriceStatus.ContentHash",
-              "nativeQueryRef": "ContentHash"
+              "queryRef": "Info.Projection Actual Gross USD",
+              "nativeQueryRef": "Projection Actual Gross USD"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPriceStatus"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "SourceURLs"
+                  "Property": "Projection Actual Discount USD"
                 }
               },
-              "queryRef": "ProjectionPriceStatus.SourceURLs",
-              "nativeQueryRef": "SourceURLs"
+              "queryRef": "Info.Projection Actual Discount USD",
+              "nativeQueryRef": "Projection Actual Discount USD"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionPriceStatus"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Error"
+                  "Property": "Projection Actual Net USD"
                 }
               },
-              "queryRef": "ProjectionPriceStatus.Error",
-              "nativeQueryRef": "Error"
+              "queryRef": "Info.Projection Actual Net USD",
+              "nativeQueryRef": "Projection Actual Net USD"
             }
           ]
         }
@@ -90,7 +90,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pricing provenance (refreshed on Import Refresh; not pushed live)'"
+                  "Value": "'REPORTED Billing gross / discounts / net: discounts and net are not scenario-scaled'"
                 }
               }
             },

@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v020",
   "position": {
-    "x": 20,
+    "x": 730,
     "y": 695,
     "z": 20,
     "tabOrder": 20,
@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Display Baseline Credits"
+                  "Property": "Projection Display Delta Credits"
                 }
               },
-              "queryRef": "Info.Projection Display Baseline Credits",
-              "nativeQueryRef": "Projection Display Baseline Credits"
+              "queryRef": "Info.Projection Display Delta Credits",
+              "nativeQueryRef": "Projection Display Delta Credits"
             }
           ]
         }
@@ -48,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Reported baseline AI credits'"
+                  "Value": "'Delta AI credits (estimate - reported)'"
                 }
               }
             },

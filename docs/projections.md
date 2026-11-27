@@ -39,8 +39,9 @@ Use the same period, users, historical center and **source model** for the basel
 
 - **No changes** is the reported identity case, including Billing without token/pricing coverage. Zero replacement also keeps the baseline unchanged.
 - **Target model** substitutes the selected fraction in the requested Billing buckets. A same-model identity requires unchanged effective volume; a different multiplier is still an estimated change.
-- **Recommended-set EXAMPLE** is an editable list/weight example, **not advice or a task-quality recommendation**.
-- **Fusion Standard / High / Max HYPOTHESIS** combines an example mixture with explicit token overhead. It is not GitHub's actual router. `SelectionMode=auto` does not identify Fusion.
+- **Custom mixture EXAMPLE** is an editable list/weight example (technical key `recommended`), **not advice or a task-quality recommendation**.
+
+**Fusion Standard/High/Max projections and their promotion/extra-call controls are removed.** The routing algorithm is unknown, so no hypothetical Fusion routing or promotional savings are estimated. Reported Fusion usage stays in Billing and the baseline, and official model tariffs remain available. Legacy `fusion-*` mixture entries cannot reactivate these modes and are ignored when loading a valid mixture file. Keep a valid `recommended` entry for a custom mixture, or use No changes / Target model; no business-data redownload is needed.
 
 `projections/contract.json` versions the exact aliases and example mixtures. Docker lets you edit mixture JSON. In Power BI Desktop, leave the optional **ProjectionMixFile** parameter blank for embedded examples, or set an absolute path to the included **`projections/mixes.json`** (or your copy) and Refresh after edits. `ProjectionMixJSON` is an internal query, not the field to fill in. A nonblank missing/invalid file is an explicit error, never a default fallback. The separate cloud generator keeps embedded mixtures with no laptop-file dependency. See the [file setup steps](local-kit.md#optional-example-mixtures-from-a-json-file). Weights must be non-negative and sum to one; overhead and optional target-volume multipliers are disclosed assumptions, not measured efficiencies.
 
@@ -52,7 +53,7 @@ Total input tokens are partitioned into **disjoint** uncached, cached-read and c
 
 Actual cache split and request-level context sizes are not in the current aggregate source. Select a context tier explicitly: **do not infer it from average tokens per request**. Models without the selected tier are excluded. The rate table exposes each model's threshold. The valuation day applies current published/announced tariffs to observed volume; it is **not historical billing reconstruction** or a guarantee of future prices.
 
-Promotions have effective-date boundaries. Known published successor prices are applied only from their announced date; an expired promotion with no published successor becomes unavailable. Fusion's published discount is only applied if you explicitly assume paid-plan eligibility and the valuation date is eligible. It does not imply guaranteed net savings; extra model calls/overhead can increase cost.
+Published model tariffs have effective-date boundaries. Known successor prices are applied only from their announced date; an expired price with no published successor becomes unavailable. No Fusion-specific promotional discount or extra-call multiplier is applied to an estimate.
 
 ## Coverage and historical attribution
 

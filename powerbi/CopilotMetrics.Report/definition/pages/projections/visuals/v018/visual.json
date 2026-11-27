@@ -2,33 +2,32 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v018",
   "position": {
-    "x": 1085,
-    "y": 470,
+    "x": 20,
+    "y": 695,
     "z": 18,
     "tabOrder": 18,
     "width": 335,
-    "height": 80
+    "height": 100
   },
   "visual": {
-    "visualType": "slicer",
+    "visualType": "card",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionReplaceSource"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Model"
+                  "Property": "Projection Display Baseline Credits"
                 }
               },
-              "queryRef": "ProjectionReplaceSource.Model",
-              "nativeQueryRef": "Model",
-              "active": true
+              "queryRef": "Info.Projection Display Baseline Credits",
+              "nativeQueryRef": "Projection Display Baseline Credits"
             }
           ]
         }
@@ -49,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Models to replace (empty = All)'"
+                  "Value": "'Reported baseline AI credits'"
                 }
               }
             },
@@ -107,23 +106,30 @@
       ]
     },
     "objects": {
-      "data": [
+      "labels": [
         {
           "properties": {
-            "mode": {
+            "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dropdown'"
+                  "Value": "20D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
                 }
               }
             }
           }
         }
       ],
-      "selection": [
+      "categoryLabels": [
         {
           "properties": {
-            "singleSelect": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"

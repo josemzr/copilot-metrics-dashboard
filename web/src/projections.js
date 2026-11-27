@@ -50,16 +50,17 @@
         Reason: reason, SampleAlias: sample && Object.hasOwn(contract.sampleAliases, row.Model) };
     });
   }
+  function scenarioModes() {
+    return ["unchanged", "target", "recommended"];
+  }
   function assumptions(contract, input) {
     const value = { ...contract.defaults, ...input };
-    if (!["unchanged", "target", ...Object.keys(contract.mixes)].includes(value.mode) ||
+    if (typeof value.mode === "string" && value.mode.toLowerCase().startsWith("fusion-")) throw new Error("Fusion projections have been removed.");
+    if (!scenarioModes().includes(value.mode) ||
         !number(value.replacement) || value.replacement > 1 ||
         !number(value.cacheRead) || !number(value.cacheWrite) || value.cacheRead + value.cacheWrite > 1 ||
         !["Default", "Long context"].includes(value.tier) ||
-        !number(value.targetVolumeFactor) || value.targetVolumeFactor > 10 ||
-        !number(value.fusionExtraFactor) || value.fusionExtraFactor > 10 ||
-        typeof value.fusionPromotionEligible !== "boolean") throw new Error("Invalid scenario assumptions");
-    value.fusion = value.mode.startsWith("fusion-");
+        !number(value.targetVolumeFactor) || value.targetVolumeFactor > 10) throw new Error("Invalid scenario assumptions");
     value.weights = [];
     value.overhead = 1;
     if (value.mode !== "unchanged" && value.replacement > 0) {
@@ -124,15 +125,8 @@
           migrated += value * weight.weight;
         }
         if (!reason) {
-          let discount = 0;
-          if (options.fusion && options.fusionPromotionEligible) {
-            const promo = context.catalog.fusion;
-            if (!promo || !number(promo.discount) || promo.discount > 1 || !isDay(promo.effectiveTo)) reason = "Fusion promotion terms unavailable";
-            else if (context.day < promo.effectiveTo) discount = promo.discount;
-          }
-          if (!reason) target = source * (1 - options.replacement) +
-            migrated * options.replacement * options.targetVolumeFactor * options.overhead *
-            (options.fusion ? options.fusionExtraFactor : 1) * (1 - discount);
+          target = source * (1 - options.replacement) +
+            migrated * options.replacement * options.targetVolumeFactor * options.overhead;
           if (!reason && !number(target)) reason = "Invalid/non-finite token modeled amount";
         }
       }
@@ -254,15 +248,16 @@
     let options, optionError = "";
     try { options = assumptions(contract, input); }
     catch (error) { options = { ...contract.defaults, ...input }; optionError = error.message; }
+    const invalidMode = !scenarioModes().includes(options.mode);
     const replaceSource = options.replaceSourceKey || (options.replaceSourceModel ?
       sourceKey(options.replaceSourceModel, names.get(options.replaceSourceModel)) : "");
     const context = priceContext(contract, pricing, input);
     const rows = buckets.map(bucket => {
-      const requested = options.mode !== "unchanged" && options.replacement !== 0 &&
+      const requested = invalidMode || options.mode !== "unchanged" && options.replacement !== 0 &&
         (!replaceSource || bucket.SourceKey === replaceSource);
-      const identity = !requested || !optionError && options.mode === "target" && bucket.Model &&
+      const identity = !invalidMode && (!requested || !optionError && options.mode === "target" && bucket.Model &&
         (names.get(options.targetModel) || options.targetModel) === bucket.Model &&
-        options.targetVolumeFactor === 1;
+        options.targetVolumeFactor === 1);
       let reason = "", ratio = identity ? 1 : null, tokenSource = null, tokenScenario = null;
       if (!number(bucket.ReportedCredits) || !number(bucket.ReportedUSD)) reason = "Missing/invalid reported Billing amount";
       else if (!identity) {
@@ -294,15 +289,15 @@
         DeltaUSD: reason ? null : bucket.ReportedUSD * (ratio - 1) };
     });
     const valid = rows.filter(row => !row.Reason), failed = rows.filter(row => row.Reason);
-    const targetUSD = complete && !failed.length ? sum(rows, "TargetUSD") : null;
-    const targetCredits = complete && !failed.length ? sum(rows, "TargetCredits") : null;
+    const targetUSD = !invalidMode && complete && !failed.length ? sum(rows, "TargetUSD") : null;
+    const targetCredits = !invalidMode && complete && !failed.length ? sum(rows, "TargetCredits") : null;
     const invalidTotals = !number(partialCredits) || !number(partialUSD) ||
       complete && !failed.length && (!number(targetUSD) || !number(targetCredits));
     const unprojected = rows.filter(row => row.CoverageReason);
     const unresolved = sum(failed, "ReportedCredits");
-    return { basis: "reported-billing", state: invalidTotals ? "invalid-totals" : !complete ? "partial-billing" : failed.length ? "partial" :
+    return { basis: "reported-billing", state: invalidMode ? "invalid-scenario" : invalidTotals ? "invalid-totals" : !complete ? "partial-billing" : failed.length ? "partial" :
       !context.fresh && rows.some(row => row.RequestedChange) ? "explicit-stale" : "ready",
-      error: invalidTotals ? "Reported or calibrated aggregate is missing or outside the finite numeric range; total is N/D." :
+      error: invalidMode ? optionError : invalidTotals ? "Reported or calibrated aggregate is missing or outside the finite numeric range; total is N/D." :
         !complete ? "Billing does not cover the full selection; total is N/D." :
         failed.length ? "Some requested buckets cannot be calibrated. Total estimate is N/D; partial values are not a forecast." : null,
       baselineUSD, baselineCredits, targetUSD, targetCredits,

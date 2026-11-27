@@ -23,8 +23,7 @@ function fixture(model = "Fixture A") {
 test("eight independent synthetic oracle cases match JS using delta-cost sign, not invoice savings", () => {
   for (const item of golden.cases) {
     const { c, data, pricing } = fixture(item.source);
-    if (item.promotionActive === false) pricing.catalog.fusion.effectiveTo = "2000-01-01";
-    if (item.mix) c.mixes["fusion-high"] = item.mix;
+    if (item.mix) c.mixes.recommended = item.mix;
     const result = P.simulate(data, c, pricing, item.options);
     near(result.baselineUSD, item.baselineUSD); near(result.targetUSD, item.scenarioUSD);
     near(result.deltaUSD, item.deltaCostUSD);
@@ -98,7 +97,7 @@ test("promo rates expire at exclusive boundaries; unknown successors are not inf
   pricing.catalog.rates.push({ ...r, EffectiveFrom: "2026-12-01", EffectiveTo: null, InputUSD: 20 });
   assert.equal(P.findRate(pricing.catalog, "Fixture A", "Default", "2026-12-01").InputUSD, 20);
 });
-test("eligible Fusion with missing/invalid published promotion terms is ND, never an assumed zero discount", () => {
+test("legacy Fusion controls cannot activate a retired scenario or affect target prices", () => {
   const { c, data, pricing } = fixture();
   c.mixes["fusion-high"] = { overhead: 1.2, weights: [{ model: "Fixture B", weight: 1 }] };
   for (const fusion of [{ discount: null, effectiveTo: "2027-01-01" },
@@ -106,7 +105,11 @@ test("eligible Fusion with missing/invalid published promotion terms is ND, neve
                         { discount: 2, effectiveTo: "2027-01-01" }]) {
     pricing.catalog.fusion = fusion;
     assert.equal(P.simulate(data, c, pricing, { mode: "fusion-high", fusionPromotionEligible: true }).baselineUSD, null);
-    assert.equal(P.simulate(data, c, pricing, { mode: "fusion-high", fusionPromotionEligible: true, replacement: 0 }).deltaUSD, 0);
+    assert.equal(P.simulate(data, c, pricing, { mode: "fusion-high", fusionPromotionEligible: true, replacement: 0 }).targetUSD, null);
+    const plain = P.simulate(data, c, pricing, { mode: "target", targetModel: "Fixture B" });
+    const legacy = P.simulate(data, c, pricing, { mode: "target", targetModel: "Fixture B",
+      fusionPromotionEligible: true, fusionExtraFactor: 10 });
+    assert.equal(legacy.targetUSD, plain.targetUSD);
   }
 });
 test("zero-weight unpriced destinations do not require tariffs; null weights/overhead remain invalid", () => {

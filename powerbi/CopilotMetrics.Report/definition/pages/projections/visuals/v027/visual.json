@@ -3,11 +3,11 @@
   "name": "v027",
   "position": {
     "x": 20,
-    "y": 1255,
+    "y": 1535,
     "z": 27,
     "tabOrder": 27,
-    "width": 690,
-    "height": 260
+    "width": 1400,
+    "height": 180
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,98 +20,56 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionBuckets"
+                      "Entity": "ProjectionPriceStatus"
                     }
                   },
-                  "Property": "CalibrationReason"
+                  "Property": "LastChecked"
                 }
               },
-              "queryRef": "ProjectionBuckets.CalibrationReason",
-              "nativeQueryRef": "CalibrationReason"
+              "queryRef": "ProjectionPriceStatus.LastChecked",
+              "nativeQueryRef": "LastChecked"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Info"
+                      "Entity": "ProjectionPriceStatus"
                     }
                   },
-                  "Property": "Projection Billing Bucket Rows"
+                  "Property": "ContentHash"
                 }
               },
-              "queryRef": "Info.Projection Billing Bucket Rows",
-              "nativeQueryRef": "Projection Billing Bucket Rows"
+              "queryRef": "ProjectionPriceStatus.ContentHash",
+              "nativeQueryRef": "ContentHash"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Info"
+                      "Entity": "ProjectionPriceStatus"
                     }
                   },
-                  "Property": "Projection Unresolved Change Rows"
+                  "Property": "SourceURLs"
                 }
               },
-              "queryRef": "Info.Projection Unresolved Change Rows",
-              "nativeQueryRef": "Projection Unresolved Change Rows"
+              "queryRef": "ProjectionPriceStatus.SourceURLs",
+              "nativeQueryRef": "SourceURLs"
             },
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Info"
+                      "Entity": "ProjectionPriceStatus"
                     }
                   },
-                  "Property": "Projection Unprojected Credits"
+                  "Property": "Error"
                 }
               },
-              "queryRef": "Info.Projection Unprojected Credits",
-              "nativeQueryRef": "Projection Unprojected Credits"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Unresolved Change Credits"
-                }
-              },
-              "queryRef": "Info.Projection Unresolved Change Credits",
-              "nativeQueryRef": "Projection Unresolved Change Credits"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Partial Scenario Credits"
-                }
-              },
-              "queryRef": "Info.Projection Partial Scenario Credits",
-              "nativeQueryRef": "Projection Partial Scenario Credits"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Partial Scenario USD"
-                }
-              },
-              "queryRef": "Info.Projection Partial Scenario USD",
-              "nativeQueryRef": "Projection Partial Scenario USD"
+              "queryRef": "ProjectionPriceStatus.Error",
+              "nativeQueryRef": "Error"
             }
           ]
         }
@@ -132,7 +90,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Partial estimates are NOT a complete forecast; requested unresolved buckets yield N/D total'"
+                  "Value": "'Pricing provenance (refreshed on Import Refresh; not pushed live)'"
                 }
               }
             },

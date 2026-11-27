@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v019",
   "position": {
-    "x": 20,
-    "y": 575,
+    "x": 375,
+    "y": 695,
     "z": 19,
     "tabOrder": 19,
-    "width": 1400,
-    "height": 105
+    "width": 335,
+    "height": 100
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Assumptions"
+                  "Property": "Projection Display Scenario Credits"
                 }
               },
-              "queryRef": "Info.Projection Assumptions",
-              "nativeQueryRef": "Projection Assumptions"
+              "queryRef": "Info.Projection Display Scenario Credits",
+              "nativeQueryRef": "Projection Display Scenario Credits"
             }
           ]
         }
@@ -48,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Projection Assumptions'"
+                  "Value": "'Estimated calibrated AI credits'"
                 }
               }
             },
@@ -112,7 +112,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "13D"
+                  "Value": "20D"
                 }
               }
             },

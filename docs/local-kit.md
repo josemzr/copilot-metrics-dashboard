@@ -33,9 +33,9 @@ These are single-line commands usable from Bash or PowerShell. Power BI refresh 
 
 **ProjectionMixFile can be blank:** that explicitly selects the example mixtures embedded in the model. Nothing needs to be pasted into a large JSON field.
 
-To customize them, use the included **`projections/mixes.json`**, which contains only the four example mixtures, not tariffs or the entire contract:
+To customize an explicit mixture, use the included **`projections/mixes.json`**, which contains the `recommended` example entry (shown as **Custom mixture EXAMPLE**), not tariffs or the entire contract:
 
-1. Open that file in a text editor and save your changes as **UTF-8 JSON**. Keep the `recommended`, `fusion-standard`, `fusion-high` and `fusion-max` example entries; each has `overhead` and a `weights` list of `model` / `weight` pairs.
+1. Open that file in a text editor and save your changes as **UTF-8 JSON**. The `recommended` entry has `overhead` and a `weights` list of `model` / `weight` pairs. These are your explicit assumptions, not inferred routing or a recommendation.
 2. From the unpacked kit folder, print its absolute **file path**:
 
 ```powershell
@@ -47,9 +47,11 @@ pwsh -NoProfile -Command "(Resolve-Path './projections/mixes.json').Path"
 
 **DataRootPath is a folder; ProjectionMixFile is a file.** `ProjectionMixJSON` is now an internal query, not a parameter you fill in. This file option is for Desktop; the separate cloud model generator keeps embedded mixtures and does not read a laptop file.
 
-Only a blank parameter selects embedded defaults. A missing file, an empty file or invalid JSON produces an explicit Refresh error, **not** a fallback to defaults. Weights must be non-negative and sum to one; overhead must be between 0 and 10. These mixtures are editable examples, not recommendations or measured Fusion routing.
+Only a blank parameter selects embedded defaults. A missing file, an empty file or invalid JSON produces an explicit Refresh error, **not** a fallback to defaults. Weights must be non-negative and sum to one; overhead must be between 0 and 10.
 
-For a clean check after upgrading to **1.2.2**, unpack it into a **new folder** and open its PBIP with **DataMode = SAMPLE**, the default **DataRootPath**, and **ProjectionMixFile blank**. After a successful **Close & Apply → Refresh**, repeat REAL steps 4–5 with your existing private data folder; optionally point ProjectionMixFile at your saved custom mixture file. Keep private JSON and customized files; do not overwrite your old kit or data folder. Kits **1.2.0 and earlier** use the JSON-text parameter and do not support this blank/file-path option.
+**Fusion Standard/High/Max projections have been removed.** Their unknown routing cannot be estimated reliably. Old valid mixture files can still be used: their `fusion-*` entries are ignored and cannot enable a scenario, even if those retired entries have malformed weights. A valid `recommended` entry continues to work. If the file contains only retired entries, the custom-mixture scenario is unavailable/N/D; **No changes** and **Target model** remain available. Invalid JSON still fails explicitly. You do not need to redownload or edit your business `dataset.json`; reported Fusion billing and official model tariffs are retained.
+
+For a clean check after upgrading to **1.2.3**, unpack it into a **new folder** and open its PBIP with **DataMode = SAMPLE**, the default **DataRootPath**, and **ProjectionMixFile blank**. After a successful **Close & Apply → Refresh**, repeat REAL steps 4–5 with your existing private data folder; optionally point ProjectionMixFile at your saved custom mixture file. Keep private JSON and customized files; do not overwrite your old kit or data folder. Kits **1.2.0 and earlier** use the JSON-text parameter and do not support this blank/file-path option.
 
 Version 1.2.2 explicitly types every Projections query output in Power Query, so Desktop keeps reported credits, USD and token counters numeric after Apply/Refresh. Missing values remain N/D and pricing timestamps retain their time of day. If an older kit reports that **SUM does not support String**, use the new folder rather than converting amounts to text or changing the DAX formulas. Your existing private `dataset.json`, dates and mixture file do not need to be redownloaded or replaced.
 

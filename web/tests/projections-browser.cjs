@@ -61,8 +61,14 @@ const pricing = () => ({ state: failed ? "stale" : "ready", lastChecked: new Dat
       replacement: .5, cacheRead: .6, cacheWrite: .2 }, { user: "demo-user-01" });
     assert.equal(await page.locator(".kpi").filter({ hasText: "Estimated calibrated AI credits" }).locator(".kpi-number").textContent(), fmt(selected.targetCredits));
     const actualBeforeFailure = await page.locator(".kpi").filter({ hasText: "Reported baseline AI credits" }).locator(".kpi-number").textContent();
+    assert.equal(await page.locator('#p-mode option[value^="fusion-"]').count(), 0);
+    assert.equal(await page.locator("#p-promo, #p-extra").count(), 0);
+    await page.locator("#p-mode").evaluate(select => select.add(new Option("Retired fixture", "fusion-high")));
     await page.locator("#p-mode").selectOption("fusion-high");
-    await page.locator("#p-promo").check();
+    await page.locator("#calibration-state").filter({ hasText: "Fusion projections have been removed" }).waitFor();
+    assert.equal(await page.locator(".kpi").filter({ hasText: "Estimated calibrated AI credits" }).locator(".kpi-number").textContent(), "N/D");
+    assert.equal(await page.locator(".kpi").filter({ hasText: "Reported baseline AI credits" }).locator(".kpi-number").textContent(), actualBeforeFailure);
+    await page.locator("#p-mode").selectOption("target");
     assert.equal(calls, 1);
     failed = true;
     await page.locator("#pricing-refresh").click();

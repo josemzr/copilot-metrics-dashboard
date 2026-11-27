@@ -223,12 +223,10 @@
       ${input("p-read", "Cached read % of total input", o.cacheRead * 100)}
       ${input("p-write", "Cache write % of total input", o.cacheWrite * 100)}
       ${input("p-volume", "Migrated token volume multiplier", o.targetVolumeFactor, 10)}
-      ${input("p-extra", "Fusion extra multiplier", o.fusionExtraFactor, 10)}
-      <label><input id="p-promo" type="checkbox"${o.fusionPromotionEligible ? " checked" : ""}> Paid-plan eligible: apply published Fusion promo within its dates</label>
       </div>
       <p class="caption">Primary baseline is reported Billing grossQuantity / grossAmount under the same filters, independently summed. No changes, 0% replacement and a same-model identity keep actual consumption, even without prices. For each requested bucket, the scenario/source token-price ratio multiplies that bucket's actual credits and USD separately; money is never divided among requests or token rows. Every token row in the complete bucket must be usable.</p>
       <p class="caption">Input is split into disjoint uncached / cached-read / cache-write buckets; N/A write is charged as ordinary input. Tier/cache split/volume are assumptions, not inferred request sizes. Missing aliases, tokens or trustworthy center evidence stay in the actual baseline; requested changes to them yield N/D total, with partial estimates clearly separated. No task-quality, equivalence or ROI claim.</p>
-      <p class="caption">${data.Info[0].Mode === "SAMPLE" ? "SAMPLE volumes and model aliases are fictional demonstration mappings. " : ""}Fusion modes use editable EXAMPLE mixtures and token overhead, not a deterministic router. SelectionMode=auto never implies Fusion. Promotion requires explicit eligibility; after its published end no discount is applied.</p>
+      <p class="caption">${data.Info[0].Mode === "SAMPLE" ? "SAMPLE volumes and model aliases are fictional demonstration mappings. " : ""}Fusion projections are not offered because its routing algorithm is unknown. Reported Fusion billing is retained; no hypothetical routing or promotional savings are estimated.</p>
       <details class="data-section"><summary>Edit example mixes / weights / overhead (not recommendations)</summary><textarea id="p-mixes" rows="10" aria-label="Example mixes JSON">${esc(JSON.stringify(selectedMix, null, 2))}</textarea></details>
       <div class="kpi-grid four data-section">${kpi("Reported baseline AI credits", pfmt(result.baselineCredits))}${kpi("Estimated calibrated AI credits", pfmt(result.targetCredits))}${kpi("Delta AI credits", pfmt(result.deltaCredits), "Estimate - reported; not net invoice savings")}${kpi("Delta credits %", pct(result.deltaPct), "Zero reported denominator = N/D")}</div>
       <div class="kpi-grid four data-section">${kpi("Reported baseline gross USD", pfmt(result.baselineUSD))}${kpi("Estimated calibrated gross USD", pfmt(result.targetUSD))}${kpi("Unprojected reported AI credits", pfmt(result.unprojectedCredits), "Included if untouched; not silently dropped")}${kpi("Unresolved requested AI credits", pfmt(result.unresolvedChangeCredits), "If nonzero, full estimate is N/D")}</div>
@@ -402,8 +400,7 @@
       replacement: numeric("p-replacement") / 100, cacheRead: numeric("p-read") / 100,
       cacheWrite: numeric("p-write") / 100, tier: $("p-tier").value,
       valuationDay: $("p-day").value,
-      targetVolumeFactor: numeric("p-volume"), fusionExtraFactor: numeric("p-extra"),
-      fusionPromotionEligible: $("p-promo").checked, allowStale: $("p-stale").checked });
+      targetVolumeFactor: numeric("p-volume"), allowStale: $("p-stale").checked });
     try { projectionOptions.mixes = JSON.parse($("p-mixes").value); mixError = ""; }
     catch { mixError = "Invalid example-mix JSON: projections are N/D."; }
     panel();

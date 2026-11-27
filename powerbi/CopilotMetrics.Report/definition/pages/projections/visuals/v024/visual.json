@@ -3,36 +3,17 @@
   "name": "v024",
   "position": {
     "x": 20,
-    "y": 815,
+    "y": 1135,
     "z": 24,
     "tabOrder": 24,
-    "width": 690,
-    "height": 300
+    "width": 1400,
+    "height": 100
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ProjectionSide"
-                    }
-                  },
-                  "Property": "Side"
-                }
-              },
-              "queryRef": "ProjectionSide.Side",
-              "nativeQueryRef": "Side",
-              "active": true
-            }
-          ]
-        },
-        "Y": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -42,32 +23,14 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Chart USD"
+                  "Property": "Projection Coverage Note"
                 }
               },
-              "queryRef": "Info.Projection Chart USD",
-              "nativeQueryRef": "Projection Chart USD"
+              "queryRef": "Info.Projection Coverage Note",
+              "nativeQueryRef": "Projection Coverage Note"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "ProjectionSide"
-                  }
-                },
-                "Property": "Side"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ],
-        "isDefaultSort": true
       }
     },
     "drillFilterOtherVisuals": true,
@@ -85,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Reported gross USD / calibrated estimate - NOT a net invoice forecast'"
+                  "Value": "'Projection Coverage Note'"
                 }
               }
             },
@@ -135,6 +98,41 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

@@ -16,6 +16,8 @@ Open **http://localhost:8080**. **SAMPLE** usage is fictional. The original view
 
 Filter by region, cost center, model and dates. Explore **Overview, Users, Daily, Models and Data quality**. Export filtered CSV tables or SVG/PNG charts. **Import JSON** opens a file locally without uploading it. **Projections** starts with reported Billing: no changes equals actual gross consumption. Alternatives are approximate, Billing-calibrated scenarios using current official tariffs, not promised invoice savings. Only those tariff checks need internet.
 
+**No Fusion routing projections are offered:** its algorithm is unknown. Reported Fusion consumption remains visible, but the retired Standard/High/Max scenarios and promotional controls cannot produce an estimate.
+
 **Region / cost-center labels** always use the client's exact non-virtual center names, not a country value, fixed country list or separate map file. Existing JSON is displayed this way without modifying the file; virtual centers keep **No region**.
 
 ## Your own data

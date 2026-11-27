@@ -1,22 +1,7 @@
 {
   "recommended": {
-    "label": "Recommended-set EXAMPLE (editable, not advice)",
+    "label": "Custom mixture EXAMPLE (editable, not advice)",
     "overhead": 1,
     "weights": [{"model": "GPT-6 Luna", "weight": 0.5}, {"model": "Claude Sonnet 5.5", "weight": 0.5}]
-  },
-  "fusion-standard": {
-    "label": "Fusion Standard HYPOTHESIS",
-    "overhead": 1,
-    "weights": [{"model": "GPT-6 Luna", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
-  },
-  "fusion-high": {
-    "label": "Fusion High HYPOTHESIS",
-    "overhead": 1.25,
-    "weights": [{"model": "Claude Sonnet 5.5", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
-  },
-  "fusion-max": {
-    "label": "Fusion Max HYPOTHESIS",
-    "overhead": 1.5,
-    "weights": [{"model": "Claude Opus 5.5", "weight": 0.5}, {"model": "GPT-6.2 Sol", "weight": 0.5}]
   }
 }

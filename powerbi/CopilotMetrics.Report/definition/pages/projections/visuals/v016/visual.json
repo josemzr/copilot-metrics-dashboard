@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionValuation"
+                      "Entity": "ProjectionReplaceSource"
                     }
                   },
-                  "Property": "Day"
+                  "Property": "Model"
                 }
               },
-              "queryRef": "ProjectionValuation.Day",
-              "nativeQueryRef": "Day",
+              "queryRef": "ProjectionReplaceSource.Model",
+              "nativeQueryRef": "Model",
               "active": true
             }
           ]
@@ -49,7 +49,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Assumed rate valuation day'"
+                  "Value": "'Models to replace (empty = All)'"
                 }
               }
             },

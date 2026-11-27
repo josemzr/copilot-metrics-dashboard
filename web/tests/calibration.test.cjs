@@ -9,7 +9,7 @@ const near = (a, b) => assert.ok(typeof a === "number" && Math.abs(a - b) < 1e-8
 function fixture() {
   const contract = structuredClone(base);
   contract.models.push(...theoretical.rates.map(row => ({ model: row.Model, aliases: [] })));
-  contract.mixes["fusion-high"] = structuredClone(oracle.mix);
+  contract.mixes.recommended = structuredClone(oracle.mix);
   return { contract, data: structuredClone(oracle.data),
     pricing: { state: "ready", catalog: { version: contract.version, creditsPerUSD: 100,
       asOf: new Date(Date.now() - 1000).toISOString(), rates: structuredClone(theoretical.rates),
@@ -132,6 +132,24 @@ test("blank replacement is invalid for a requested change, while numeric zero an
   near(zero.targetCredits, 140); near(zero.targetUSD, 1.4);
   const unchanged = P.calibrate(data, contract, null, { ...options, mode: "unchanged" });
   near(unchanged.targetCredits, 140); near(unchanged.targetUSD, 1.4);
+});
+test("retired Fusion scenarios cannot estimate through legacy mixes, zero replacement or empty scope", () => {
+  for (const mode of ["fusion-standard", "fusion-high", "fusion-max", "Fusion-High"]) {
+    for (const replacement of [0, .5, 1]) {
+      const { contract, data, pricing } = fixture();
+      contract.mixes[mode] = structuredClone(oracle.mix);
+      const options = { mode, replacement, fusionPromotionEligible: true, fusionExtraFactor: 2,
+        replaceSourceModel: "Not selected" };
+      const result = P.calibrate(data, contract, pricing, options);
+      near(result.baselineCredits, 140); near(result.baselineUSD, 1.4);
+      assert.equal(result.targetCredits, null); assert.equal(result.targetUSD, null);
+      assert.equal(result.deltaCredits, null); assert.equal(result.deltaUSD, null);
+      assert.match(result.error, /Fusion.*removed/i);
+      const empty = P.calibrate(data, contract, pricing, options, { model: "No matching model" });
+      assert.equal(empty.targetCredits, null);
+      assert.equal(P.simulate(data, contract, pricing, options).state, "invalid");
+    }
+  }
 });
 test("zero reported consumption cannot calibrate a free source to a positive-price target; non-finite ratios are explicit failures", () => {
   const { contract, data, pricing } = fixture();

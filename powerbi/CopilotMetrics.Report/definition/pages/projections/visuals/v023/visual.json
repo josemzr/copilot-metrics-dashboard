@@ -2,19 +2,33 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v023",
   "position": {
-    "x": 1085,
-    "y": 695,
+    "x": 730,
+    "y": 815,
     "z": 23,
     "tabOrder": 23,
-    "width": 335,
-    "height": 100
+    "width": 690,
+    "height": 300
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "tableEx",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionSource"
+                    }
+                  },
+                  "Property": "Model"
+                }
+              },
+              "queryRef": "ProjectionSource.Model",
+              "nativeQueryRef": "Model"
+            },
             {
               "field": {
                 "Measure": {
@@ -23,11 +37,81 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Display Delta Credits Pct"
+                  "Property": "Projection Baseline Credits"
                 }
               },
-              "queryRef": "Info.Projection Display Delta Credits Pct",
-              "nativeQueryRef": "Projection Display Delta Credits Pct"
+              "queryRef": "Info.Projection Baseline Credits",
+              "nativeQueryRef": "Projection Baseline Credits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Scenario Credits"
+                }
+              },
+              "queryRef": "Info.Projection Scenario Credits",
+              "nativeQueryRef": "Projection Scenario Credits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Baseline USD"
+                }
+              },
+              "queryRef": "Info.Projection Baseline USD",
+              "nativeQueryRef": "Projection Baseline USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Scenario USD"
+                }
+              },
+              "queryRef": "Info.Projection Scenario USD",
+              "nativeQueryRef": "Projection Scenario USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Unprojected Credits"
+                }
+              },
+              "queryRef": "Info.Projection Unprojected Credits",
+              "nativeQueryRef": "Projection Unprojected Credits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Unresolved Change Credits"
+                }
+              },
+              "queryRef": "Info.Projection Unresolved Change Credits",
+              "nativeQueryRef": "Projection Unresolved Change Credits"
             }
           ]
         }
@@ -48,7 +132,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Delta AI credits % (zero denominator = N/D)'"
+                  "Value": "'Reported baseline and calibrated estimate: unprojected amounts are not dropped'"
                 }
               }
             },
@@ -98,41 +182,6 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "objects": {
-      "labels": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "20D"
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryLabels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
                 }
               }
             }

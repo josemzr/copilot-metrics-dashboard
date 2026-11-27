@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v028",
   "position": {
-    "x": 730,
-    "y": 1255,
+    "x": 20,
+    "y": 1735,
     "z": 28,
     "tabOrder": 28,
-    "width": 690,
-    "height": 260
+    "width": 1400,
+    "height": 190
   },
   "visual": {
     "visualType": "tableEx",
@@ -17,17 +17,17 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionSource"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Model"
+                  "Property": "Projection Token Diagnostic Baseline USD"
                 }
               },
-              "queryRef": "ProjectionSource.Model",
-              "nativeQueryRef": "Model"
+              "queryRef": "Info.Projection Token Diagnostic Baseline USD",
+              "nativeQueryRef": "Projection Token Diagnostic Baseline USD"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Actual Gross USD"
+                  "Property": "Projection Token Diagnostic Scenario USD"
                 }
               },
-              "queryRef": "Info.Projection Actual Gross USD",
-              "nativeQueryRef": "Projection Actual Gross USD"
+              "queryRef": "Info.Projection Token Diagnostic Scenario USD",
+              "nativeQueryRef": "Projection Token Diagnostic Scenario USD"
             },
             {
               "field": {
@@ -51,11 +51,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Actual Discount USD"
+                  "Property": "Projection Known Input Tokens"
                 }
               },
-              "queryRef": "Info.Projection Actual Discount USD",
-              "nativeQueryRef": "Projection Actual Discount USD"
+              "queryRef": "Info.Projection Known Input Tokens",
+              "nativeQueryRef": "Projection Known Input Tokens"
             },
             {
               "field": {
@@ -65,11 +65,67 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Actual Net USD"
+                  "Property": "Projection Known Output Tokens"
                 }
               },
-              "queryRef": "Info.Projection Actual Net USD",
-              "nativeQueryRef": "Projection Actual Net USD"
+              "queryRef": "Info.Projection Known Output Tokens",
+              "nativeQueryRef": "Projection Known Output Tokens"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Known Requests"
+                }
+              },
+              "queryRef": "Info.Projection Known Requests",
+              "nativeQueryRef": "Projection Known Requests"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Unknown Model Rows"
+                }
+              },
+              "queryRef": "Info.Projection Unknown Model Rows",
+              "nativeQueryRef": "Projection Unknown Model Rows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Unverified Center Rows"
+                }
+              },
+              "queryRef": "Info.Projection Unverified Center Rows",
+              "nativeQueryRef": "Projection Unverified Center Rows"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Tariff Excluded Rows"
+                }
+              },
+              "queryRef": "Info.Projection Tariff Excluded Rows",
+              "nativeQueryRef": "Projection Tariff Excluded Rows"
             }
           ]
         }
@@ -90,7 +146,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'REPORTED Billing gross / discounts / net: discounts and net are not scenario-scaled'"
+                  "Value": "'SECONDARY token-only diagnostics, not reported spend; no request-based allocation'"
                 }
               }
             },

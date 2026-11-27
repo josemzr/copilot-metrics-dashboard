@@ -23,9 +23,9 @@
     {"name":"Half A to B","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A","replacement":0.5},"baselineCredits":140,"scenarioCredits":100,"baselineUSD":1.4,"scenarioUSD":1},
     {"name":"A source scope only","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A"},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":20,"baselineUSD":1,"scenarioUSD":0.2},
     {"name":"Disjoint cache buckets A to B","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A","cacheRead":0.6,"cacheWrite":0.2},"baselineCredits":140,"scenarioCredits":60,"baselineUSD":1.4,"scenarioUSD":0.6},
-    {"name":"Fusion hypothesis eligible A only scope","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A","fusionPromotionEligible":true},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":36.96,"baselineUSD":1,"scenarioUSD":0.3696},
-    {"name":"Fusion hypothesis no promo A only scope","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A"},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":52.8,"baselineUSD":1,"scenarioUSD":0.528},
-    {"name":"Fusion hypothesis eligible with B untouched","options":{"mode":"fusion-high","replaceSourceModel":"Fixture A","fusionPromotionEligible":true},"baselineCredits":140,"scenarioCredits":76.96,"baselineUSD":1.4,"scenarioUSD":0.7696},
+    {"name":"Custom mixture A only scope","options":{"mode":"recommended","replaceSourceModel":"Fixture A"},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":52.8,"baselineUSD":1,"scenarioUSD":0.528},
+    {"name":"Half custom mixture A only scope","options":{"mode":"recommended","replaceSourceModel":"Fixture A","replacement":0.5},"filters":{"model":"Fixture A"},"baselineCredits":100,"scenarioCredits":76.4,"baselineUSD":1,"scenarioUSD":0.764},
+    {"name":"Custom mixture with B untouched","options":{"mode":"recommended","replaceSourceModel":"Fixture A"},"baselineCredits":140,"scenarioCredits":92.8,"baselineUSD":1.4,"scenarioUSD":0.928},
     {"name":"USD anchor not derived from credits","options":{"mode":"target","targetModel":"Fixture B","replaceSourceModel":"Fixture A"},"sourceUSDOverride":1.3,"baselineCredits":140,"scenarioCredits":60,"baselineUSD":1.7,"scenarioUSD":0.66}
   ]
 }

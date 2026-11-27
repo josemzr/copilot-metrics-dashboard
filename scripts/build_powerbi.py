@@ -285,6 +285,11 @@ def build_report():
         counter = 0
         folder = REPORT / "definition/pages" / identifier
         (folder / "visuals").mkdir(parents=True, exist_ok=True)
+        if identifier == "projections":
+            for old in (folder / "visuals").glob("v[0-9][0-9][0-9]/visual.json"):
+                old.unlink()
+                if not any(old.parent.iterdir()):
+                    old.parent.rmdir()
         write_json(folder / "page.json", {
             "$schema": SCHEMA + "report/definition/page/2.1.0/schema.json",
             "name": identifier, "displayName": title,

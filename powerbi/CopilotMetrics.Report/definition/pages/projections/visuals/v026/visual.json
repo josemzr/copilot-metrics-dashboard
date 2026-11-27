@@ -2,19 +2,33 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v026",
   "position": {
-    "x": 20,
-    "y": 1135,
+    "x": 730,
+    "y": 1255,
     "z": 26,
     "tabOrder": 26,
-    "width": 1400,
-    "height": 100
+    "width": 690,
+    "height": 260
   },
   "visual": {
-    "visualType": "card",
+    "visualType": "tableEx",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ProjectionSource"
+                    }
+                  },
+                  "Property": "Model"
+                }
+              },
+              "queryRef": "ProjectionSource.Model",
+              "nativeQueryRef": "Model"
+            },
             {
               "field": {
                 "Measure": {
@@ -23,11 +37,39 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Coverage Note"
+                  "Property": "Projection Actual Gross USD"
                 }
               },
-              "queryRef": "Info.Projection Coverage Note",
-              "nativeQueryRef": "Projection Coverage Note"
+              "queryRef": "Info.Projection Actual Gross USD",
+              "nativeQueryRef": "Projection Actual Gross USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Actual Discount USD"
+                }
+              },
+              "queryRef": "Info.Projection Actual Discount USD",
+              "nativeQueryRef": "Projection Actual Discount USD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Actual Net USD"
+                }
+              },
+              "queryRef": "Info.Projection Actual Net USD",
+              "nativeQueryRef": "Projection Actual Net USD"
             }
           ]
         }
@@ -48,7 +90,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Projection Coverage Note'"
+                  "Value": "'REPORTED Billing gross / discounts / net: discounts and net are not scenario-scaled'"
                 }
               }
             },
@@ -98,41 +140,6 @@
               "expr": {
                 "Literal": {
                   "Value": "0D"
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    "objects": {
-      "labels": [
-        {
-          "properties": {
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "13D"
-                }
-              }
-            },
-            "labelDisplayUnits": {
-              "expr": {
-                "Literal": {
-                  "Value": "1D"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "categoryLabels": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
                 }
               }
             }

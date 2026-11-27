@@ -2,33 +2,32 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v017",
   "position": {
-    "x": 730,
-    "y": 470,
+    "x": 20,
+    "y": 575,
     "z": 17,
     "tabOrder": 17,
-    "width": 335,
-    "height": 80
+    "width": 1400,
+    "height": 105
   },
   "visual": {
-    "visualType": "slicer",
+    "visualType": "card",
     "query": {
       "queryState": {
         "Values": {
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Centers"
+                      "Entity": "Info"
                     }
                   },
-                  "Property": "Country"
+                  "Property": "Projection Assumptions"
                 }
               },
-              "queryRef": "Centers.Country",
-              "nativeQueryRef": "Country",
-              "active": true
+              "queryRef": "Info.Projection Assumptions",
+              "nativeQueryRef": "Projection Assumptions"
             }
           ]
         }
@@ -49,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Region / cost-center label'"
+                  "Value": "'Projection Assumptions'"
                 }
               }
             },
@@ -107,23 +106,30 @@
       ]
     },
     "objects": {
-      "data": [
+      "labels": [
         {
           "properties": {
-            "mode": {
+            "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dropdown'"
+                  "Value": "13D"
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
                 }
               }
             }
           }
         }
       ],
-      "selection": [
+      "categoryLabels": [
         {
           "properties": {
-            "singleSelect": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "false"

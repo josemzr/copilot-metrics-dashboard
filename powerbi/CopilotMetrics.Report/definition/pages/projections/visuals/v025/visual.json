@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "v025",
   "position": {
-    "x": 730,
-    "y": 815,
+    "x": 20,
+    "y": 1255,
     "z": 25,
     "tabOrder": 25,
     "width": 690,
-    "height": 300
+    "height": 260
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "ProjectionSource"
+                      "Entity": "ProjectionBuckets"
                     }
                   },
-                  "Property": "Model"
+                  "Property": "CalibrationReason"
                 }
               },
-              "queryRef": "ProjectionSource.Model",
-              "nativeQueryRef": "Model"
+              "queryRef": "ProjectionBuckets.CalibrationReason",
+              "nativeQueryRef": "CalibrationReason"
             },
             {
               "field": {
@@ -37,11 +37,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Baseline Credits"
+                  "Property": "Projection Billing Bucket Rows"
                 }
               },
-              "queryRef": "Info.Projection Baseline Credits",
-              "nativeQueryRef": "Projection Baseline Credits"
+              "queryRef": "Info.Projection Billing Bucket Rows",
+              "nativeQueryRef": "Projection Billing Bucket Rows"
             },
             {
               "field": {
@@ -51,39 +51,11 @@
                       "Entity": "Info"
                     }
                   },
-                  "Property": "Projection Scenario Credits"
+                  "Property": "Projection Unresolved Change Rows"
                 }
               },
-              "queryRef": "Info.Projection Scenario Credits",
-              "nativeQueryRef": "Projection Scenario Credits"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Baseline USD"
-                }
-              },
-              "queryRef": "Info.Projection Baseline USD",
-              "nativeQueryRef": "Projection Baseline USD"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Info"
-                    }
-                  },
-                  "Property": "Projection Scenario USD"
-                }
-              },
-              "queryRef": "Info.Projection Scenario USD",
-              "nativeQueryRef": "Projection Scenario USD"
+              "queryRef": "Info.Projection Unresolved Change Rows",
+              "nativeQueryRef": "Projection Unresolved Change Rows"
             },
             {
               "field": {
@@ -112,6 +84,34 @@
               },
               "queryRef": "Info.Projection Unresolved Change Credits",
               "nativeQueryRef": "Projection Unresolved Change Credits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Partial Scenario Credits"
+                }
+              },
+              "queryRef": "Info.Projection Partial Scenario Credits",
+              "nativeQueryRef": "Projection Partial Scenario Credits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Info"
+                    }
+                  },
+                  "Property": "Projection Partial Scenario USD"
+                }
+              },
+              "queryRef": "Info.Projection Partial Scenario USD",
+              "nativeQueryRef": "Projection Partial Scenario USD"
             }
           ]
         }
@@ -132,7 +132,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Reported baseline and calibrated estimate: unprojected amounts are not dropped'"
+                  "Value": "'Partial estimates are NOT a complete forecast; requested unresolved buckets yield N/D total'"
                 }
               }
             },

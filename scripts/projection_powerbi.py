@@ -5,6 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = json.loads((ROOT / "projections/contract.json").read_text())
+SCENARIO_MODES = ["unchanged", "target", *[mode for mode in CONTRACT["mixes"] if not mode.startswith("fusion-")]]
+SUPPORTED_MODE = "Mode IN {" + ",".join(json.dumps(mode) for mode in SCENARIO_MODES) + "}"
 
 
 def selection(table, column, default):
@@ -19,8 +21,6 @@ OPTIONS = {
     "R": selection("ProjectionCacheRead", "Value", 0),
     "W": selection("ProjectionCacheWrite", "Value", 0),
     "Volume": selection("ProjectionVolume", "Value", 1),
-    "Extra": selection("ProjectionFusionExtra", "Value", 1),
-    "Promo": selection("ProjectionPromotion", "Value", 0),
     "Target": selection("ProjectionTarget", "Model", "GPT-6 Luna"),
 }
 OPTION_VARS = " ".join(f"VAR {key} = {value}" for key, value in OPTIONS.items())
@@ -58,25 +58,19 @@ def token_cost(rates):
 
 def row_expression(scenario, table="ProjectionUsage", reason="Reason"):
     result = ("IF(Identity,SourceCost,SourceCost*(1-P)+SUMX(Destination,[_Cost]*[_Weight]*[_Overhead])"
-              "*P*Volume*IF(Fusion,Extra,1)*(1-Discount))" if scenario else "SourceCost")
+              "*P*Volume)" if scenario else "SourceCost")
     expression = (
         OPTION_VARS + " " + TARGETS +
         "VAR PriceDay=IF(NOT ISFILTERED(ProjectionValuation[Day]),MAX(ProjectionPriceStatus[ValuationDay]),SELECTEDVALUE(ProjectionValuation[Day])) "
         "VAR I=SELECTEDVALUE(ProjectionUsage[PromptTokens]) VAR O=SELECTEDVALUE(ProjectionUsage[OutputTokens]) "
         "VAR SourceModel=SELECTEDVALUE(ProjectionUsage[Model]) "
         'VAR Identity=Mode="unchanged" || P=0 '
-        'VAR Fusion=LEFT(Mode,7)="fusion-" '
         f"VAR SourceRates={rate_filter('SourceModel')} "
         f"VAR SourceCost={token_cost('SourceRates')} "
         'VAR Destination=ADDCOLUMNS(FILTER(Targets,[_Weight]>0),"_Cost",'
         f"VAR TM=[_Model] VAR Rates={rate_filter('TM')} RETURN {token_cost('Rates')}) "
-        "VAR Discount=IF(Fusion && Promo=1 && PriceDay<MAX(ProjectionPriceStatus[FusionUntil]),"
-        "MAX(ProjectionPriceStatus[FusionDiscount]),0) "
-        "VAR PromotionOK=Identity || NOT(Fusion && Promo=1) || "
-        "(NOT ISBLANK(MAX(ProjectionPriceStatus[FusionUntil])) && NOT ISBLANK(MAX(ProjectionPriceStatus[FusionDiscount])) "
-        "&& MAX(ProjectionPriceStatus[FusionDiscount])>=0 && MAX(ProjectionPriceStatus[FusionDiscount])<=1) "
         'VAR Valid=[Projection Ready]=1 && SELECTEDVALUE(ProjectionUsage[Reason])="" '
-        "&& NOT ISBLANK(SourceCost) && PromotionOK && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) "
+        "&& NOT ISBLANK(SourceCost) && (Identity || COUNTX(Destination,[_Cost])=COUNTROWS(Destination)) "
         f"RETURN IF(Valid,{result})"
     )
     if table != "ProjectionUsage":
@@ -92,9 +86,9 @@ MEASURES = {
         'VAR Identity=Mode="unchanged" || P=0 '
         'VAR InvalidTargets=COUNTROWS(FILTER(Targets,ISBLANK([_Weight]) || ISBLANK([_Overhead]) '
         '|| [_Weight]<0 || [_Weight]>1 || [_Overhead]<0 || [_Overhead]>10))>0 '
-        'RETURN IF(ISBLANK(Mode) || ISBLANK(Tier) || ISBLANK(P) || ISBLANK(R) || ISBLANK(W) '
-        "|| ISBLANK(Volume) || ISBLANK(Extra) || ISBLANK(Promo) || P<0 || P>1 || R<0 || W<0 || R+W>1 "
-        '|| Volume<0 || Volume>10 || Extra<0 || Extra>10 '
+        f'RETURN IF(NOT({SUPPORTED_MODE}) || ISBLANK(Tier) || ISBLANK(P) || ISBLANK(R) || ISBLANK(W) '
+        "|| ISBLANK(Volume) || P<0 || P>1 || R<0 || W<0 || R+W>1 "
+        '|| Volume<0 || Volume>10 '
         '|| (ISFILTERED(ProjectionValuation[Day]) && NOT HASONEVALUE(ProjectionValuation[Day])), "Invalid/multiple scenario assumptions",'
         'IF(NOT Identity && (COUNTROWS(Targets)=0 || InvalidTargets || ABS(SUMX(Targets,[_Weight])-1)>0.000000001 '
         '|| MINX(Targets,[_Weight])<0 || MINX(Targets,[_Overhead])<0 || MAXX(Targets,[_Overhead])>10),'
@@ -163,7 +157,7 @@ MEASURES = {
         OPTION_VARS +
         ' RETURN "HYPOTHETICAL. "&Mode&" | replace "&FORMAT(P,"0%")&" | cache read/write "&FORMAT(R,"0%")&'
         '"/"&FORMAT(W,"0%")&" (disjoint input) | tier "&Tier&" selected, not inferred | target volume x"&'
-        'FORMAT(Volume,"0.##")&" | Fusion extra x"&FORMAT(Extra,"0.##")&" | promo eligible "&FORMAT(Promo,"0")&'
+        'FORMAT(Volume,"0.##")&'
         '" | Mix/overhead EXAMPLES, not actual routing or advice. Delta=Scenario-Baseline; not invoice savings."', None),
     "Projection Coverage Note": (
         '"Same priced rows on both modeled sides: "&FORMAT([Projection Eligible Rows],"0")&"/"&'
@@ -181,8 +175,8 @@ MEASURES.update({
     "Projection Bucket Change Requested": (
         OPTION_VARS + f" VAR ReplaceSource={REPLACE_SOURCE} "
         "VAR Source=SELECTEDVALUE(ProjectionBuckets[Model]) VAR Label=SELECTEDVALUE(ProjectionBuckets[SourceKey]) "
-        'VAR Identity=Mode="unchanged" || P==0 || (ReplaceSource<>"" && ReplaceSource<>Label) '
-        '|| (Mode="target" && NOT ISBLANK(Source) && Target=Source && Volume=1 && [Projection Option Error]="") '
+        f'VAR Identity=({SUPPORTED_MODE}) && (Mode="unchanged" || P==0 || (ReplaceSource<>"" && ReplaceSource<>Label) '
+        '|| (Mode="target" && NOT ISBLANK(Source) && Target=Source && Volume=1 && [Projection Option Error]="")) '
         "RETURN IF(Identity,0,1)", "0"),
     "Projection Bucket Token Source USD": (f"IFERROR(({row_expression(False, 'ProjectionBuckets', 'CalibrationReason')}),BLANK())", '"$"#,0.0000'),
     "Projection Bucket Token Scenario USD": (f"IFERROR(({row_expression(True, 'ProjectionBuckets', 'CalibrationReason')}),BLANK())", '"$"#,0.0000'),
@@ -249,17 +243,19 @@ MEASURES.update({
         "&& [Projection Missing Billing Bucket Rows]=0 && ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),"
         "COALESCE(Amount,0))", '"$"#,0.0000'),
     "Projection No Changes": (
-        f"VAR Mode={OPTIONS['Mode']} VAR P={OPTIONS['P']} RETURN IF(Mode=\"unchanged\" || P==0,1,0)", "0"),
+        f"VAR Mode={OPTIONS['Mode']} VAR P={OPTIONS['P']} RETURN IF(({SUPPORTED_MODE}) && (Mode=\"unchanged\" || P==0),1,0)", "0"),
     "Projection Scenario Credits": (
+        f"VAR Mode={OPTIONS['Mode']} RETURN IF({SUPPORTED_MODE},"
         "IF([Projection No Changes]=1,[Projection Baseline Credits],"
         "VAR Amount=[Projection Partial Scenario Credits] RETURN "
         "IF([Projection Complete Billing Coverage]=1 && [Projection Unresolved Change Rows]=0 "
-        "&& ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0)))", "#,0.00"),
+        "&& ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0))))", "#,0.00"),
     "Projection Scenario USD": (
+        f"VAR Mode={OPTIONS['Mode']} RETURN IF({SUPPORTED_MODE},"
         "IF([Projection No Changes]=1,[Projection Baseline USD],"
         "VAR Amount=[Projection Partial Scenario USD] RETURN "
         "IF([Projection Complete Billing Coverage]=1 && [Projection Unresolved Change Rows]=0 "
-        "&& ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0)))", '"$"#,0.0000'),
+        "&& ([Projection Billing Bucket Rows]=0 || NOT ISBLANK(Amount)),COALESCE(Amount,0))))", '"$"#,0.0000'),
     "Projection Delta Credits": (
         "VAR Baseline=[Projection Baseline Credits] VAR Scenario=[Projection Scenario Credits] "
         "RETURN IF(NOT ISBLANK(Baseline) && NOT ISBLANK(Scenario),Scenario-Baseline)", "#,0.00"),
@@ -269,12 +265,13 @@ MEASURES.update({
     "Projection Delta Cost Pct": ("DIVIDE([Projection Delta Cost USD],[Projection Baseline USD])", "0.0%"),
     "Projection Delta Credits Pct": ("DIVIDE([Projection Delta Credits],[Projection Baseline Credits])", "0.0%"),
     "Projection Calibration State": (
+        f'VAR Mode={OPTIONS["Mode"]} RETURN IF(NOT({SUPPORTED_MODE}),"N/D: Unsupported scenario. Fusion projections have been removed.",'
         'IF([Projection Numeric Total Error]<>"","N/D: "&[Projection Numeric Total Error],'
         'IF([Projection Complete Billing Coverage]<>1,"N/D: incomplete Billing coverage; partial amounts shown separately.",'
         'IF([Projection Missing Billing Bucket Rows]>0,"N/D: incomplete reported amount pair; partial amounts shown separately.",'
         'IF([Projection No Changes]=1,"Billing-anchored no changes: reported consumption unchanged; pricing not required.",'
         'IF([Projection Unresolved Change Rows]>0,"PARTIAL/N-D: requested buckets lack a complete reliable ratio. No silent carry-forward.",'
-        '"Billing-anchored: alternatives are calibrated estimates, not invoice savings.")))))', None),
+        '"Billing-anchored: alternatives are calibrated estimates, not invoice savings."))))))', None),
     "Projection Coverage Note": (
         '"Reported Billing stays in the baseline even without tokens/prices/aliases. Unprojected credits: "&'
         'FORMAT([Projection Unprojected Credits],"#,0.00")&" | Unresolved requested change credits: "&'
@@ -297,7 +294,8 @@ for name, column in (("Projection Actual Gross USD", "grossAmount"),
         'ProjectionBilling[Product]="Copilot")', '"$"#,0.00')
 MEASURES["Projection Option Error"] = (
     MEASURES["Projection Option Error"][0].replace(
-        "ISBLANK(Mode) ||", '(ISCROSSFILTERED(ProjectionReplaceSource[Key]) && NOT HASONEVALUE(ProjectionReplaceSource[Key])) || ISBLANK(Mode) ||'),
+        f"NOT({SUPPORTED_MODE}) ||",
+        f'(ISCROSSFILTERED(ProjectionReplaceSource[Key]) && NOT HASONEVALUE(ProjectionReplaceSource[Key])) || NOT({SUPPORTED_MODE}) ||'),
     None)
 for name in ("Projection Baseline USD", "Projection Scenario USD", "Projection Delta Cost USD", "Projection Delta Cost Pct"):
     fmt = MEASURES[name][1].replace('"', '""')
@@ -367,18 +365,17 @@ def augment_model(database, *, mix_file_parameter=False):
         "ProjectionTarget": ("Model:s", 'Table.FromRecords(List.Transform(ProjectionsContract[models],each [Model=[model]]),type table[Model=text])'),
         "ProjectionTier": ("Tier:s", literal_table("ProjectionTier", "Tier", ["Default", "Long context"])),
         "ProjectionValuation": ("Day:d", 'Table.FromColumns({List.Dates(Date.From(DateTimeZone.FixedUtcNow()),366,#duration(1,0,0,0))},{"Day"})'),
-        "ProjectionScenario": ("Mode:s", literal_table("ProjectionScenario", "Mode", ["unchanged", "target", *CONTRACT["mixes"]])),
+        "ProjectionScenario": ("Mode:s", literal_table("ProjectionScenario", "Mode", SCENARIO_MODES)),
         "ProjectionMigration": ("Value:n", literal_table("ProjectionMigration", "Value", [0, .25, .5, .75, 1])),
         "ProjectionCacheRead": ("Value:n", literal_table("ProjectionCacheRead", "Value", [0, .25, .5, .6, .75, 1])),
         "ProjectionCacheWrite": ("Value:n", literal_table("ProjectionCacheWrite", "Value", [0, .1, .2, .25, .5, 1])),
         "ProjectionVolume": ("Value:n", literal_table("ProjectionVolume", "Value", [0, .5, 1, 1.25, 1.5, 2])),
-        "ProjectionFusionExtra": ("Value:n", literal_table("ProjectionFusionExtra", "Value", [1, 1.2, 1.25, 1.5, 2, 3])),
-        "ProjectionPromotion": ("Value:n", literal_table("ProjectionPromotion", "Value", [0, 1])),
         "ProjectionSide": ("Side:s", literal_table("ProjectionSide", "Side", ["Reported baseline", "Calibrated estimate"])),
         "ProjectionMix": (
             "Mode:s Model:s Weight:n Overhead:n",
             'let C=Json.Document(Text.ToBinary(ProjectionMixJSON)), '
-            'Rows=List.Combine(List.Transform(Record.FieldNames(C),(mode)=>'
+            'Modes=List.Select(Record.FieldNames(C),each List.Contains(Record.FieldNames(ProjectionsContract[mixes]),_)), '
+            'Rows=List.Combine(List.Transform(Modes,(mode)=>'
             'List.Transform(Record.Field(C,mode)[weights],(r)=>[Mode=mode,Model=r[model],Weight=r[weight],Overhead=Record.Field(C,mode)[overhead]]))) '
             'in Table.FromRecords(Rows,type table[Mode=text,Model=text,Weight=number,Overhead=number])'),
     }
@@ -418,7 +415,7 @@ def build_projection_page(page, slicer, card, chart, table):
         ("Dates", "Day", "Period"), ("Users", "User", "User"), ("Centers", "Center", "Cost center"), ("ProjectionSource", "Model", "Source model (scope filter)"),
         ("ProjectionScenario", "Mode", "Hypothetical scenario"), ("ProjectionTarget", "Model", "Target model"), ("ProjectionMigration", "Value", "Replacement fraction"),
         ("ProjectionTier", "Tier", "Assumed context tier"), ("ProjectionCacheRead", "Value", "Cache read fraction"), ("ProjectionCacheWrite", "Value", "Cache write fraction"),
-        ("ProjectionVolume", "Value", "Target volume multiplier"), ("ProjectionFusionExtra", "Value", "Fusion extra multiplier"), ("ProjectionPromotion", "Value", "Eligible Fusion promo: 0=no / 1=yes"),
+        ("ProjectionVolume", "Value", "Target volume multiplier"),
         ("ProjectionValuation", "Day", "Assumed rate valuation day"), ("Centers", "Country", "Region / cost-center label"),
         ("ProjectionReplaceSource", "Model", "Models to replace (empty = All)"),
     )):

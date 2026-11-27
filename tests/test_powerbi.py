@@ -1,4 +1,5 @@
 import json
+import base64
 from pathlib import Path
 import re
 import subprocess
@@ -112,6 +113,8 @@ class PowerBIReportTests(unittest.TestCase):
             ["git", "show", "HEAD:powerbi/CopilotMetrics.SemanticModel/model.bim"], cwd=root))
         for table in original["model"]["tables"]:
             for measure in table.get("measures", []):
+                if measure["name"].startswith("Projection "):
+                    continue
                 with self.subTest(measure=measure["name"]):
                     expected = dict(measure)
                     if expected["expression"].startswith("VAR Value = "):
@@ -162,6 +165,36 @@ class PowerBIReportTests(unittest.TestCase):
         self.assertIn('{"none","unattributed-history","unattributed-snapshot"}', query)
         self.assertIn("Table.TransformColumnTypes(Labeled", query)
         self.assertNotIn('Text.Replace([Center]', query)
+
+    def test_fusion_modes_controls_and_cost_branches_are_removed_and_legacy_mix_keys_are_filtered(self):
+        tables = {t["name"]: t for t in self.database["tables"]}
+        self.assertNotIn("ProjectionFusionExtra", tables)
+        self.assertNotIn("ProjectionPromotion", tables)
+        query = "\n".join(tables["ProjectionScenario"]["partitions"][0]["source"]["expression"])
+        encoded = re.search(r'Binary.FromText\("([^"]+)"', query).group(1)
+        self.assertEqual([r["Mode"] for r in json.loads(base64.b64decode(encoded))],
+                         ["unchanged", "target", "recommended"])
+        mix = "\n".join(tables["ProjectionMix"]["partitions"][0]["source"]["expression"])
+        self.assertIn("List.Transform(Modes,", mix)
+        self.assertIn("Record.FieldNames(ProjectionsContract[mixes])", mix)
+        for name in ("Projection No Changes", "Projection Bucket Change Requested",
+                     "Projection Scenario Credits", "Projection Scenario USD"):
+            self.assertIn('Mode IN {"unchanged","target","recommended"}', self.measures[name]["expression"])
+        for name in ("Projection Row Scenario USD", "Projection Bucket Token Scenario USD"):
+            text = self.measures[name]["expression"]
+            self.assertNotIn("Fusion", text)
+            self.assertNotIn("Discount", text)
+            self.assertNotIn("Promo", text)
+        self.assertIn("ISCROSSFILTERED(ProjectionReplaceSource[Key])",
+                      self.measures["Projection Option Error"]["expression"])
+
+    def test_regenerating_projections_removes_stale_generated_controls(self):
+        stale = self.report / "definition/pages/projections/visuals/v999/visual.json"
+        stale.parent.mkdir()
+        stale.write_text('{"visual":{"visualType":"slicer"}}')
+        with patch.object(pbi, "REPORT", self.report):
+            pbi.build_report()
+        self.assertFalse(stale.exists())
 
     def test_overview_financial_cards_remain_numeric_for_classic_dashboard_alerts(self):
         cards = [visual for visual in self.visuals("overview") if visual["visualType"] == "card"]
